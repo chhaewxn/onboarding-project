@@ -1,0 +1,4 @@
+# 발표용 목업입니다. 검색 색인 대상이 아닙니다.
+# index.html 자체에도 <meta name="robots" content="noindex,nofollow">가 있습니다.
+User-agent: *
+Disallow: /

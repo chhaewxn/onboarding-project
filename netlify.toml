@@ -1,0 +1,8 @@
+# 배포 대상은 index.html 한 개뿐입니다.
+# myconnect_mockup.html(발표/리뷰용 셸 — 사내 기획·법률 리스크 검토 내용 포함)과
+# README.md는 dist/로 복사하지 않으므로 배포물에 아예 존재하지 않습니다.
+# 리다이렉트로 가리는 방식이 아니라 물리적 제외입니다.
+
+[build]
+  command = "mkdir -p dist && cp index.html robots.txt dist/"
+  publish = "dist"
