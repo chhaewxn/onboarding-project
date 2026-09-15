@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
-<meta name="theme-color" content="#FAF8F3">
+<meta name="theme-color" content="#F2F4F6">
 <meta name="robots" content="noindex,nofollow">
 <meta name="description" content="마이커넥트 — 삼성화재가 운영하는 외국인 근로자 커뮤니티 앱 목업 (사용자 화면 10종 · 인터랙티브)">
 <meta property="og:title" content="마이커넥트 목업 — 커뮤니티가 첫 화면인 이유">
@@ -48,20 +48,16 @@ img{max-width:100%}
   --sky-ink:#2A9CC5;
   --sky-soft:#E8F6FC;
 
-  /* 딥 네이비 — 삼성화재 존재감이 강해야 하는 요소 전용 */
-  --nav-ink:#0A1440;
-  --nav-on:#FFFFFF;
-
-  /* 뉴트럴 — 웜 오프화이트 */
-  --bg:#FAF8F3;
-  --bg-2:#F0EDE6;
+  /* 뉴트럴 */
+  --bg:#F2F4F6;
+  --bg-2:#E8EBEE;
   --surface:#FFFFFF;
-  --surface-2:#F6F3EC;
-  --ink:#14171B;
-  --ink-2:#4E5661;
+  --surface-2:#F7F8FA;
+  --ink:#191F28;
+  --ink-2:#4E5968;
   --ink-3:#8B95A1;
-  --line:#E4DFD3;
-  --line-soft:#EEEAE0;
+  --line:#E5E8EB;
+  --line-soft:#F0F2F4;
 
   /* 세만틱 — 상태 표시 전용 */
   --ok:#0E8A5F;   --ok-soft:#E6F5EF;
@@ -71,15 +67,15 @@ img{max-width:100%}
   /* 스페이싱 — 4px 그리드 */
   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:20px; --s6:24px; --s8:32px;
 
-  /* 라운드 — 한 단계 큼직 */
-  --r-lg:24px; --r:20px; --r-sm:14px; --r-pill:999px;
+  /* 라운드 */
+  --r-lg:20px; --r:16px; --r-sm:12px; --r-pill:999px;
 
   /* 엘리베이션 */
-  --sh:0 1px 2px rgba(20,23,27,.04);
-  --sh-pop:0 2px 8px -2px rgba(20,23,27,.18);
+  --sh:0 1px 2px rgba(25,31,40,.04);
+  --sh-pop:0 2px 8px -2px rgba(25,31,40,.18);
 
-  /* 모션 — 프리미엄 감속 */
-  --ease:cubic-bezier(.22,1,.36,1);
+  /* 모션 */
+  --ease:cubic-bezier(.32,.72,0,1);
 
   color-scheme:light;
 }
@@ -136,13 +132,13 @@ html,body{height:100%}
 }
 @media (min-width:481px){
   body{background:var(--bg-2)}
-  .app{box-shadow:0 0 0 1px rgba(20,23,27,.06),0 28px 64px -32px rgba(20,23,27,.35)}
+  .app{box-shadow:0 0 0 1px rgba(25,31,40,.06),0 28px 64px -32px rgba(25,31,40,.4)}
 }
 .screens{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain}
 .screens::-webkit-scrollbar{width:0}
 .screen[hidden]{display:none}
 @keyframes enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.screen.enter{animation:enter .28s var(--ease) both}
+.screen.enter{animation:enter .22s var(--ease) both}
 .tail{height:var(--s8)}
 
 /* ══════════ layout primitives ══════════ */
@@ -184,12 +180,12 @@ html,body{height:100%}
 .appbar .link{margin-left:auto}
 
 /* ══════════ surfaces ══════════ */
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:var(--s5);box-shadow:none}
+.card{background:var(--surface);border:0;border-radius:var(--r);padding:var(--s5);box-shadow:var(--sh)}
 .card.tight{padding:var(--s4)}
-.card--accent{border-color:var(--action);box-shadow:inset 0 0 0 .5px var(--action)}
-.card--gold{border-color:var(--gold);box-shadow:inset 0 0 0 .5px var(--gold)}
-.card--quiet{background:var(--surface-2);border-color:transparent;box-shadow:none}
-.card--accent-fill{background:var(--action-soft);border-color:transparent;box-shadow:none}
+.card--accent{box-shadow:inset 0 0 0 1.5px var(--action),var(--sh)}
+.card--gold{box-shadow:inset 0 0 0 1.5px var(--gold),var(--sh)}
+.card--quiet{background:var(--surface-2);box-shadow:none}
+.card--accent-fill{background:var(--action-soft);box-shadow:none}
 .card--btn{
   display:block;width:100%;text-align:left;cursor:pointer;
   font:inherit;letter-spacing:inherit;color:inherit;
@@ -201,7 +197,7 @@ html,body{height:100%}
 /* ══════════ tag ══════════ */
 .tag{
   display:inline-flex;align-items:center;gap:4px;
-  height:26px;padding:0 12px;border:0;border-radius:var(--r-pill);
+  height:24px;padding:0 10px;border:0;border-radius:var(--r-pill);
   font-size:12px;font-weight:600;letter-spacing:-.01em;line-height:1;
   background:var(--line-soft);color:var(--ink-2);white-space:nowrap;
 }
@@ -255,7 +251,7 @@ button.tag{cursor:pointer}
 .cta{
   position:sticky;bottom:0;z-index:4;margin-top:var(--s5);
   padding:var(--s4) var(--s5) calc(var(--s5) + env(safe-area-inset-bottom));
-  background:linear-gradient(to bottom,rgba(250,248,243,0) 0,var(--bg) 24%);
+  background:linear-gradient(to bottom,rgba(242,244,246,0) 0,var(--bg) 24%);
   display:flex;flex-direction:column;gap:var(--s3);
 }
 
@@ -267,7 +263,7 @@ button.tag{cursor:pointer}
   all:unset;box-sizing:border-box;cursor:pointer;display:block;text-align:left;
   width:calc(100% - var(--s5) * 2);margin:0 var(--s5);
   padding:var(--s5);border-radius:var(--r-lg);
-  background:var(--surface);border:1px solid var(--line);box-shadow:none;
+  background:var(--surface);box-shadow:var(--sh);
   transition:transform .12s var(--ease);
 }
 .visa:active{transform:scale(.99)}
@@ -323,11 +319,11 @@ button.tag{cursor:pointer}
 /* ══════════ onboarding ══════════ */
 .pick{
   all:unset;box-sizing:border-box;cursor:pointer;display:block;width:100%;text-align:left;
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:var(--s5);box-shadow:none;
-  transition:transform .12s var(--ease),background-color .12s linear,border-color .12s linear;
+  background:var(--surface);border-radius:var(--r);padding:var(--s5);box-shadow:var(--sh);
+  transition:transform .12s var(--ease),background-color .12s linear,box-shadow .12s linear;
 }
 .pick:active{transform:scale(.99)}
-.pick[aria-pressed="true"]{background:var(--action-soft);border-color:var(--action);box-shadow:inset 0 0 0 .5px var(--action)}
+.pick[aria-pressed="true"]{background:var(--action-soft);box-shadow:inset 0 0 0 1.5px var(--action)}
 .pick[aria-pressed="true"] .ttl{color:var(--action-ink)}
 .pick[aria-pressed="true"] .sub{color:var(--action-ink);opacity:.72}
 .hero{padding:var(--s8) var(--s5) var(--s5)}
@@ -335,10 +331,10 @@ button.tag{cursor:pointer}
 .logo em{font-style:normal;color:var(--action)}
 .sig{display:inline-flex;align-items:center;gap:6px;margin-top:var(--s4);color:var(--sf-blue)}
 .sig img{display:block;height:18px;width:auto}
-.notice{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:var(--s5);box-shadow:none;font-size:14px;line-height:1.7;color:var(--ink-2)}
+.notice{background:var(--surface);border-radius:var(--r);padding:var(--s5);box-shadow:var(--sh);font-size:14px;line-height:1.7;color:var(--ink-2)}
 .notice b{color:var(--ink);font-weight:600}
-.notice--sf{background:var(--nav-ink);border:0;box-shadow:none;border-radius:var(--r);color:rgba(255,255,255,.82);padding:var(--s5) var(--s5) calc(var(--s5) + 2px)}
-.notice--sf b{color:var(--nav-on);font-weight:700}
+.notice--sf{background:var(--sf-blue-soft);box-shadow:none;border-left:3px solid var(--sf-blue);border-radius:var(--s1) var(--r) var(--r) var(--s1)}
+.notice--sf b{color:var(--sf-blue-ink)}
 .agree{display:flex;gap:var(--s3);align-items:flex-start;padding:var(--s2) 0;cursor:pointer;font-size:14px;line-height:1.55;color:var(--ink-2)}
 .agree input{position:absolute;opacity:0;width:0;height:0}
 .agree .box{
@@ -524,7 +520,7 @@ button.tag{cursor:pointer}
             <div class="row rule">
               <div class="avatar sm g">H</div>
               <div class="grow">
-                <div class="lbl">버디 Tran Thi Hoa</div>
+                <div class="lbl">호스트 Tran Thi Hoa</div>
                 <div class="sub">한국 9년차 · 베트남어/한국어</div>
               </div>
               <button class="btn sm" data-go="s-group">보기</button>
@@ -535,7 +531,7 @@ button.tag{cursor:pointer}
               <div class="avatar o emoji" aria-hidden="true">🏠</div>
               <div class="grow">
                 <div class="ttl">집 구하기 품앗이</div>
-                <div class="sub">격주 일 14:00 · 안산 · 7/8명 · 버디 Jamila K.</div>
+                <div class="sub">격주 일 14:00 · 안산 · 7/8명 · 호스트 Jamila K.</div>
               </div>
               <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
             </div>
@@ -545,7 +541,7 @@ button.tag{cursor:pointer}
               <div class="avatar emoji" aria-hidden="true">📖</div>
               <div class="grow">
                 <div class="ttl">한국어 스터디 — TOPIK 3급반</div>
-                <div class="sub">수·토 20:00 · 안산 · 8/10명 · 버디 Le Van Thanh</div>
+                <div class="sub">수·토 20:00 · 안산 · 8/10명 · 호스트 Le Van Thanh</div>
               </div>
               <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
             </div>
@@ -555,7 +551,7 @@ button.tag{cursor:pointer}
               <div class="avatar g emoji" aria-hidden="true">🚲</div>
               <div class="grow">
                 <div class="ttl">주말 자전거 라이딩</div>
-                <div class="sub">일 08:00 · 시화호 · 5/8명 · 버디 Bakhtiyor R.</div>
+                <div class="sub">일 08:00 · 시화호 · 5/8명 · 호스트 Bakhtiyor R.</div>
               </div>
               <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
             </div>
@@ -576,7 +572,7 @@ button.tag{cursor:pointer}
           <p class="body">기초 코드부터 시작해서 3개월 뒤 수료식에서 한 곡을 함께 연주합니다. 악기 없어도 됩니다.</p>
         </div>
         <div class="pad">
-          <div class="sect-h"><h3>버디</h3><span>모임을 여는 사람</span></div>
+          <div class="sect-h"><h3>호스트</h3><span>모임을 여는 사람</span></div>
           <div class="card">
             <div class="row">
               <div class="avatar g">H</div>
@@ -585,20 +581,20 @@ button.tag{cursor:pointer}
                 <div class="sub">한국 9년차 · 안산 거주 · 베트남어/한국어</div>
               </div>
             </div>
-            <div class="tags mt4"><span class="tag">커뮤니티 버디</span><span class="tag">모임 운영 2기</span><span class="tag ok">출석률 92%</span></div>
+            <div class="tags mt4"><span class="tag">일반 호스트</span><span class="tag">모임 운영 2기</span><span class="tag ok">출석률 92%</span></div>
             <p class="body mt4">기타를 8년 쳤고, 안산에서 같이 칠 사람을 모으려고 모임을 열었습니다.</p>
             <div class="split">
-              <div><span class="hd ok">버디가 하는 일</span>모임 날짜 정하기 · 장소 예약 · 연습 진행 · 단톡방 관리</div>
-              <div><span class="hd">버디가 하지 않는 일</span>병원 동행 · 계약서 검토 · 서류 대행 · 보험 상담</div>
+              <div><span class="hd ok">호스트가 하는 일</span>모임 날짜 정하기 · 장소 예약 · 연습 진행 · 단톡방 관리</div>
+              <div><span class="hd">호스트가 하지 않는 일</span>병원 동행 · 계약서 검토 · 서류 대행 · 보험 상담</div>
             </div>
           </div>
           <div class="card tight card--quiet mt3">
             <div class="row">
               <div class="avatar sm o emoji" aria-hidden="true">💬</div>
-              <div class="grow body body--sm">병원·서류처럼 막히는 일은 커뮤니티 버디가 아니라 <b class="ink">앱 도움 창구</b>가 받습니다. <button class="link" data-go="s-info">도움 창구 보기</button></div>
+              <div class="grow body body--sm">병원·서류처럼 막히는 일은 호스트가 아니라 <b class="ink">앱 도움 창구</b>가 받습니다. <button class="link" data-go="s-info">도움 창구 보기</button></div>
             </div>
           </div>
-          <div class="sect-h"><h3>앞으로 3개월</h3><span>수료 시 버디 지원 가능</span></div>
+          <div class="sect-h"><h3>앞으로 3개월</h3><span>수료 시 호스트 지원 가능</span></div>
           <ol class="steps">
             <li>매주 토요일 저녁 90분 연습 (안산 다문화센터)</li>
             <li>정착 체크리스트 6개 — 앱이 제공, 혼자 또는 모임에서 함께</li>
@@ -607,7 +603,7 @@ button.tag{cursor:pointer}
         </div>
         <div class="cta">
           <button class="btn" id="joinBtn">이 모임 가입하기</button>
-          <p class="sub center">가입하면 커뮤니티 버디와 멤버에게 <b class="ink">이름·사용 언어</b>만 공개됩니다.</p>
+          <p class="sub center">가입하면 호스트와 멤버에게 <b class="ink">이름·사용 언어</b>만 공개됩니다.</p>
         </div>
       </section>
 
@@ -639,7 +635,7 @@ button.tag{cursor:pointer}
             <div class="card card--accent">
               <div class="row">
                 <div class="avatar emoji" aria-hidden="true">🎸</div>
-                <div class="grow"><div class="ttl">기타 한 곡 완주반</div><div class="sub">버디 Hoa · 멤버 7명</div></div>
+                <div class="grow"><div class="ttl">기타 한 곡 완주반</div><div class="sub">호스트 Hoa · 멤버 7명</div></div>
                 <span class="tag brand">D-2</span>
               </div>
               <div class="card tight card--accent-fill mt4">
@@ -653,14 +649,14 @@ button.tag{cursor:pointer}
               </div>
               <div class="row rowtop mt4">
                 <div class="avatar sm g">H</div>
-                <div class="grow body body--sm">버디 Hoa · <span class="dim">2시간 전</span><br>“Minh, 지난주 코드 잘 잡았어요. 이번엔 F 갈게요 💪”</div>
+                <div class="grow body body--sm">Hoa 호스트 · <span class="dim">2시간 전</span><br>“Minh, 지난주 코드 잘 잡았어요. 이번엔 F 갈게요 💪”</div>
               </div>
             </div>
             <div class="card">
               <div class="row">
                 <div class="avatar o emoji" aria-hidden="true">🏠</div>
                 <div class="grow">
-                  <div class="ttl">집 구하기 품앗이</div><div class="sub">버디 Jamila K. · 다음 모임 10/12(일)</div>
+                  <div class="ttl">집 구하기 품앗이</div><div class="sub">호스트 Jamila K. · 다음 모임 10/12(일)</div>
                 </div>
                 <span class="tag">새 글 3</span>
               </div>
@@ -676,7 +672,7 @@ button.tag{cursor:pointer}
             <div class="bar g mt4"><i style="width:67%"></i></div>
           </button>
 
-          <div class="sect-h"><h3>막히는 일 있어요?</h3><span>커뮤니티 버디 말고 여기로</span></div>
+          <div class="sect-h"><h3>막히는 일 있어요?</h3><span>호스트 말고 여기로</span></div>
           <button class="card card--btn" data-go="s-info">
             <div class="row">
               <div class="avatar o emoji" aria-hidden="true">💬</div>
@@ -784,10 +780,10 @@ button.tag{cursor:pointer}
             <div class="tags mt3"><span class="tag">안산 문화센터</span><span class="tag">10/18(토) 12:00</span><span class="tag gold">점심 제공</span></div>
             <div class="agenda mt4">
               <div class="part">1부</div><div class="desc"><div class="hd">수료 축하 &amp; 소모임 발표</div><div class="sub">60분 · 기타반 한 곡 연주</div></div>
-              <div class="part sf">2부</div><div class="desc"><div class="hd sfink">삼성화재 버디와의 Q&amp;A</div><div class="sub">40분 · 외국인이 자주 놓치는 보장 3가지 / 산재·실손 처리 절차 / 외국인 RC 커리어 안내</div></div>
+              <div class="part sf">2부</div><div class="desc"><div class="hd sfink">삼성화재 상담사와의 Q&amp;A</div><div class="sub">40분 · 외국인이 자주 놓치는 보장 3가지 / 산재·실손 처리 절차 / 외국인 RC 커리어 안내</div></div>
               <div class="part">3부</div><div class="desc"><div class="hd">자유 네트워킹</div><div class="sub">40분</div></div>
             </div>
-            <div class="opt mt4">2부는 삼성화재 버디가 진행합니다. <b>참여는 선택</b>이며 1부만 참석하고 가셔도 됩니다. 커뮤니티 버디는 2부에 관여하지 않습니다.</div>
+            <div class="opt mt4">2부는 삼성화재 소속 상담사가 진행합니다. <b>참여는 선택</b>이며 1부만 참석하고 가셔도 됩니다. 모임 호스트는 2부에 관여하지 않습니다.</div>
           </div>
         </div>
         <div class="stack mt4">
@@ -851,13 +847,13 @@ button.tag{cursor:pointer}
             <div class="mt4">
               <div class="kv"><b>예약 요청</b><span>앱에서 3단계 · 평일 09–18시</span></div>
               <div class="kv"><b>의료 통역</b><span>1345 · BBB 전화통역 연결</span></div>
-              <div class="kv"><b>보험금 청구가 막힐 때</b><span class="sf">삼성화재 버디 도움 신청</span></div>
+              <div class="kv"><b>보험금 청구가 막힐 때</b><span class="sf">삼성화재 서포터 도움 신청</span></div>
             </div>
           </div>
           <div class="card tight card--quiet mt3">
             <div class="row rowtop">
               <div class="avatar sm sf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5.4c0 4.3-2.9 8.3-7 9.6-4.1-1.3-7-5.3-7-9.6V6z"/><path d="M9.2 12.2l2 2 3.6-3.9"/></svg></div>
-              <div class="grow body body--sm"><b class="sfink">삼성화재 버디</b>는 보험금 청구·산재 절차처럼 회사가 잘 아는 것만 도와드립니다. 신청하지 않으면 연락하지 않습니다.</div>
+              <div class="grow body body--sm"><b class="sfink">삼성화재 서포터</b>는 보험금 청구·산재 절차처럼 회사가 잘 아는 것만 도와드립니다. 신청하지 않으면 연락하지 않습니다.</div>
             </div>
           </div>
 
@@ -896,13 +892,13 @@ button.tag{cursor:pointer}
               <span class="tag ok">2개월차</span>
             </div>
             <div class="bar mt4"><i style="width:70%"></i></div>
-            <p class="body mt4">수료하면 <b class="ink">직접 모임을 여는 버디</b>로 지원할 수 있습니다. 버디는 모임 운영만 하고, 보험 상담은 하지 않습니다. RC 커리어는 별개의 선택 안내입니다.</p>
+            <p class="body mt4">수료하면 <b class="ink">직접 모임을 여는 호스트</b>로 지원할 수 있습니다. 호스트는 모임 운영만 하고, 보험 상담은 하지 않습니다. RC 커리어는 별개의 선택 안내입니다.</p>
           </div>
 
           <div class="sect-h"><h3>내 정보</h3></div>
           <div>
-            <div class="flat"><div class="row"><div class="grow"><div class="lbl">커뮤니티 버디·멤버에게 공개하는 항목</div><div class="sub">이름 · 사용 언어 · 사는 구 (직장·소득은 비공개)</div></div><span class="tag">변경</span></div></div>
-            <div class="flat"><div class="row"><div class="grow"><div class="lbl"><span class="sf-dot"></span>삼성화재 버디 연결</div><div class="sub">연결 안 됨 — 도움을 신청하면 그때 배정됩니다</div></div><span class="tag">off</span></div></div>
+            <div class="flat"><div class="row"><div class="grow"><div class="lbl">호스트·멤버에게 공개하는 항목</div><div class="sub">이름 · 사용 언어 · 사는 구 (직장·소득은 비공개)</div></div><span class="tag">변경</span></div></div>
+            <div class="flat"><div class="row"><div class="grow"><div class="lbl"><span class="sf-dot"></span>삼성화재 서포터 연결</div><div class="sub">연결 안 됨 — 도움을 신청하면 그때 배정됩니다</div></div><span class="tag">off</span></div></div>
             <div class="flat"><div class="row"><div class="grow"><div class="lbl"><span class="sf-dot"></span>보험·커리어 안내 수신</div><div class="sub">현재 꺼져 있음 — 켜지 않아도 활동에 영향 없음</div></div><span class="tag">off</span></div></div>
             <div class="flat"><div class="row"><div class="grow"><div class="lbl">체크리스트에 입력한 내용 관리</div><div class="sub">항목별로 삭제 가능 · 삭제해도 포인트는 유지</div></div><span class="tag warn">삭제</span></div></div>
             <div class="flat"><div class="row"><div class="grow"><div class="lbl">언어</div><div class="sub">Tiếng Việt</div></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></div></div>
