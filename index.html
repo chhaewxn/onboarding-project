@@ -1,282 +1,401 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#F2F4F6">
 <meta name="robots" content="noindex,nofollow">
 <meta name="description" content="마이커넥트 — 삼성화재가 운영하는 외국인 근로자 커뮤니티 앱 목업 (사용자 화면 10종 · 인터랙티브)">
 <meta property="og:title" content="마이커넥트 목업 — 커뮤니티가 첫 화면인 이유">
 <meta property="og:description" content="'26 下 신입사원 온보딩 · 4팀 인터랙티브 목업. 10개 화면을 순서대로 클릭해서 확인하세요.">
 <meta property="og:type" content="website">
+<title>마이커넥트 목업</title>
 <style>
 html{-webkit-text-size-adjust:100%}
 body{margin:0}
 img{max-width:100%}
 [hidden]{display:none!important}
 </style>
-<title>마이커넥트 목업</title>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700;800&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <style>
+/* ══════════ font — Pretendard 단일 (오프라인 폴백) ══════════ */
+@font-face{
+  font-family:'Pretendard Variable';
+  font-weight:45 920;
+  font-style:normal;
+  font-display:swap;
+  src:local('Pretendard Variable'), local('Pretendard'),
+      url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/woff2/PretendardVariable.woff2') format('woff2-variations');
+}
+
+/* ══════════ design tokens ══════════ */
 :root{
-  --ground:#E7EAF1;
-  --ground-2:#DDE1EB;
-  --panel:#FFFFFF;
-  --panel-2:#F5F6FA;
-  --ink:#0D1425;
-  --ink-2:#48526A;
-  --ink-3:#6B7488;
-  --line:#DBE0EA;
-  --line-2:#EDEFF5;
-  --brand:#1F46D6;
-  --brand-ink:#16359F;
-  --brand-soft:#E9EDFF;
-  --warn:#BE4028;
-  --warn-soft:#FBEBE7;
-  --gold:#96690C;
-  --gold-soft:#FAF0D9;
-  --ok:#0E7A56;
-  --ok-soft:#E2F3EC;
-  --shadow:0 1px 2px rgba(13,20,37,.06), 0 12px 28px -14px rgba(13,20,37,.28);
-  --shadow-sm:0 1px 2px rgba(13,20,37,.07);
-  --r:14px;
+  /* 삼성화재 아이덴티티 — 삼성화재 관여 요소 전용 */
+  --sf-blue:#1428A0;
+  --sf-blue-ink:#0E1C6E;
+  --sf-blue-soft:#EAEDFA;
+
+  /* 액션 — UI 인터랙션 전용 */
+  --action:#2B65F0;
+  --action-ink:#1A4FD6;
+  --action-soft:#EBF1FE;
+  --on-brand:#FFFFFF;
+
+  /* 뉴트럴 */
+  --bg:#F2F4F6;
+  --bg-2:#E8EBEE;
+  --surface:#FFFFFF;
+  --surface-2:#F7F8FA;
+  --ink:#191F28;
+  --ink-2:#4E5968;
+  --ink-3:#8B95A1;
+  --line:#E5E8EB;
+  --line-soft:#F0F2F4;
+
+  /* 세만틱 — 상태 표시 전용 */
+  --ok:#0E8A5F;   --ok-soft:#E6F5EF;
+  --warn:#D14343; --warn-soft:#FDEDED;
+  --gold:#A8760A; --gold-soft:#FBF3E0;
+
+  /* 스페이싱 — 4px 그리드 */
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:20px; --s6:24px; --s8:32px;
+
+  /* 라운드 */
+  --r-lg:20px; --r:16px; --r-sm:12px; --r-pill:999px;
+
+  /* 엘리베이션 */
+  --sh:0 1px 2px rgba(25,31,40,.04);
+  --sh-pop:0 2px 8px -2px rgba(25,31,40,.18);
+
+  /* 모션 */
+  --ease:cubic-bezier(.32,.72,0,1);
+
   color-scheme:light;
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --ground:#0A0D14;
-    --ground-2:#11151F;
-    --panel:#161B26;
-    --panel-2:#1D2331;
-    --ink:#E9ECF4;
-    --ink-2:#A3ACBF;
-    --ink-3:#78829A;
-    --line:#2A3143;
-    --line-2:#222836;
-    --brand:#7E9BFF;
-    --brand-ink:#A9BEFF;
-    --brand-soft:#1B2444;
-    --warn:#FF9179;
-    --warn-soft:#37201C;
-    --gold:#E4B457;
-    --gold-soft:#33290F;
-    --ok:#4FCF9F;
-    --ok-soft:#122E25;
-    --shadow:0 1px 2px rgba(0,0,0,.5), 0 16px 32px -16px rgba(0,0,0,.7);
-    --shadow-sm:0 1px 2px rgba(0,0,0,.45);
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --ground:#0A0D14;
-  --ground-2:#11151F;
-  --panel:#161B26;
-  --panel-2:#1D2331;
-  --ink:#E9ECF4;
-  --ink-2:#A3ACBF;
-  --ink-3:#78829A;
-  --line:#2A3143;
-  --line-2:#222836;
-  --brand:#7E9BFF;
-  --brand-ink:#A9BEFF;
-  --brand-soft:#1B2444;
-  --warn:#FF9179;
-  --warn-soft:#37201C;
-  --gold:#E4B457;
-  --gold-soft:#33290F;
-  --ok:#4FCF9F;
-  --ok-soft:#122E25;
-  --shadow:0 1px 2px rgba(0,0,0,.5), 0 16px 32px -16px rgba(0,0,0,.7);
-  --shadow-sm:0 1px 2px rgba(0,0,0,.45);
-  color-scheme:dark;
-}
+
+/* ══════════ base ══════════ */
 *{box-sizing:border-box}
 body{
   margin:0;
-  background:var(--ground);
+  background:var(--bg);
   color:var(--ink);
-  font-family:"IBM Plex Sans KR","Malgun Gothic",system-ui,sans-serif;
+  font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,system-ui,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
+  font-size:15px;
   font-weight:400;
+  line-height:1.6;
+  letter-spacing:-.01em;
+  font-variant-numeric:tabular-nums;
   -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
-h1,h2,h3,h4{font-family:"Gothic A1","Malgun Gothic",system-ui,sans-serif;text-wrap:balance;margin:0}
-.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:-.025em;text-wrap:balance}
+p{margin:0}
+ol,ul{margin:0;padding:0}
+button{font:inherit;letter-spacing:inherit}
+svg{display:block}
 
-/* ---------- webapp shell ---------- */
+/* ══════════ type scale ══════════ */
+.t-display{font-size:28px;font-weight:700;line-height:1.35;letter-spacing:-.032em}
+.t-title{font-size:20px;font-weight:700;line-height:1.4;letter-spacing:-.025em}
+.ttl{font-size:17px;font-weight:600;line-height:1.45;letter-spacing:-.02em;color:var(--ink)}
+.body{font-size:15px;font-weight:400;line-height:1.6;color:var(--ink-2)}
+.sub{font-size:13px;font-weight:400;line-height:1.5;color:var(--ink-3)}
+.micro{font-size:12px;font-weight:500;line-height:1.4}
+.ink{color:var(--ink);font-weight:600}
+.sfink{color:var(--sf-blue-ink);font-weight:600}
+.center{text-align:center}
+.lbl{font-size:15px;font-weight:600;color:var(--ink)}
+.lbl--on-accent{font-size:14px;color:var(--action-ink)}
+.ttl--sm{font-size:15px}
+.ttl--lg{font-size:19px}
+.body--sm{font-size:14px}
+.sub--on-accent{color:var(--action-ink);opacity:.72}
+.dim{color:var(--ink-3)}
+.figure{font-size:20px;font-weight:700;letter-spacing:-.03em;color:var(--ink)}
+.figure--gold{font-size:19px;color:var(--gold)}
+
+/* ══════════ webapp shell ══════════ */
 html,body{height:100%}
 .app{
   display:flex;flex-direction:column;
   width:100%;max-width:480px;margin:0 auto;
   height:100vh;height:100dvh;
-  background:var(--panel-2);
-  box-shadow:var(--shadow);
+  background:var(--bg);
   overflow:hidden;
 }
-@media (min-width:481px){body{background:var(--ground)}}
-.screens{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-bottom:14px}
-.screen[hidden]{display:none}
+@media (min-width:481px){
+  body{background:var(--bg-2)}
+  .app{box-shadow:0 0 0 1px rgba(25,31,40,.06),0 28px 64px -32px rgba(25,31,40,.4)}
+}
+.screens{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain}
 .screens::-webkit-scrollbar{width:0}
+.screen[hidden]{display:none}
+@keyframes enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.screen.enter{animation:enter .22s var(--ease) both}
+.tail{height:var(--s8)}
 
-/* ---------- in-app primitives ---------- */
+/* ══════════ layout primitives ══════════ */
 .appbar{
-  position:sticky;top:0;z-index:5;background:var(--panel-2);
-  padding:6px 18px 12px;display:flex;align-items:center;gap:10px;
-  border-bottom:1px solid var(--line-2);
+  position:sticky;top:0;z-index:5;background:var(--bg);
+  display:flex;align-items:center;gap:var(--s2);
+  min-height:48px;padding:var(--s2) var(--s5);
 }
-.appbar h2{font-size:17.5px;font-weight:700;letter-spacing:-.01em;flex:1}
 .back{
-  all:unset;cursor:pointer;width:28px;height:28px;display:grid;place-items:center;
-  color:var(--ink-2);border-radius:8px;flex:0 0 auto;
+  all:unset;cursor:pointer;flex:0 0 auto;
+  width:40px;height:40px;margin-left:-10px;
+  display:grid;place-items:center;color:var(--ink);border-radius:var(--r-pill);
+  transition:background-color .12s linear,transform .12s var(--ease);
 }
-.back:hover{background:var(--line-2)}
-.pad{padding:14px 18px 0}
-.sect-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:22px 0 10px}
-.sect-h h3{font-size:14px;font-weight:700;letter-spacing:-.01em}
-.sect-h span{font-size:11.5px;color:var(--ink-3)}
-.link{all:unset;cursor:pointer;font-size:11.5px;color:var(--brand);font-weight:500}
-.link:hover{text-decoration:underline}
-
-.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px}
-.tight{padding:12px 14px}
-.flat{background:none;border:none;border-top:1px solid var(--line-2);border-radius:0;padding:13px 0}
-.row{display:flex;gap:12px;align-items:center}
-.col{display:flex;flex-direction:column;gap:10px}
+.back svg{width:22px;height:22px}
+.back:hover{background:var(--line-soft)}
+.back:active{transform:scale(.9)}
+.phead{padding:var(--s2) var(--s5) var(--s5)}
+.phead .body{margin-top:var(--s3)}
+.phead--top{padding-top:var(--s6)}
+.pad{padding:0 var(--s5)}
+.stack{padding:0 var(--s5);display:flex;flex-direction:column;gap:var(--s3)}
+.row{display:flex;gap:var(--s3);align-items:center}
+.rowtop{align-items:flex-start}
+.col{display:flex;flex-direction:column;gap:var(--s3)}
 .grow{flex:1;min-width:0}
+.mt1{margin-top:var(--s1)}
+.mt2{margin-top:var(--s2)}
+.mt3{margin-top:var(--s3)}
+.mt4{margin-top:var(--s4)}
+.mt5{margin-top:var(--s5)}
+.rule{margin-top:var(--s4);padding-top:var(--s4);border-top:1px solid var(--line-soft)}
+
+.sect-h{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);margin:var(--s8) 0 var(--s3)}
+.sect-h h3{font-size:17px;font-weight:700;letter-spacing:-.02em}
+.sect-h span{font-size:13px;font-weight:400;color:var(--ink-3)}
+.link{all:unset;cursor:pointer;font-size:13px;font-weight:600;color:var(--action);padding:6px 2px}
+.link:hover{text-decoration:underline}
+.appbar .link{margin-left:auto}
+
+/* ══════════ surfaces ══════════ */
+.card{background:var(--surface);border:0;border-radius:var(--r);padding:var(--s5);box-shadow:var(--sh)}
+.card.tight{padding:var(--s4)}
+.card--accent{box-shadow:inset 0 0 0 1.5px var(--action),var(--sh)}
+.card--gold{box-shadow:inset 0 0 0 1.5px var(--gold),var(--sh)}
+.card--quiet{background:var(--surface-2);box-shadow:none}
+.card--accent-fill{background:var(--action-soft);box-shadow:none}
+.card--btn{
+  display:block;width:100%;text-align:left;cursor:pointer;
+  font:inherit;letter-spacing:inherit;color:inherit;
+  transition:transform .12s var(--ease);
+}
+.card--btn:active{transform:scale(.99)}
+.flat{border-top:1px solid var(--line-soft);padding:var(--s4) 0}
+
+/* ══════════ tag ══════════ */
 .tag{
-  display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:500;
-  padding:3px 8px;border-radius:6px;background:var(--panel-2);color:var(--ink-2);
-  border:1px solid var(--line);white-space:nowrap;
+  display:inline-flex;align-items:center;gap:4px;
+  height:24px;padding:0 10px;border:0;border-radius:var(--r-pill);
+  font-size:12px;font-weight:600;letter-spacing:-.01em;line-height:1;
+  background:var(--line-soft);color:var(--ink-2);white-space:nowrap;
 }
-.tag.brand{background:var(--brand-soft);color:var(--brand-ink);border-color:transparent}
-.tag.gold{background:var(--gold-soft);color:var(--gold);border-color:transparent}
-.tag.ok{background:var(--ok-soft);color:var(--ok);border-color:transparent}
-.tag.warn{background:var(--warn-soft);color:var(--warn);border-color:transparent}
-.tags{display:flex;flex-wrap:wrap;gap:5px}
-.ttl{font-size:14.5px;font-weight:700;font-family:"Gothic A1",sans-serif;letter-spacing:-.01em}
-.sub{font-size:11.5px;color:var(--ink-3);line-height:1.55}
-.body{font-size:12.8px;color:var(--ink-2);line-height:1.68}
+button.tag{cursor:pointer}
+.tag.brand{background:var(--action-soft);color:var(--action-ink)}
+.tag.sf{background:var(--sf-blue-soft);color:var(--sf-blue)}
+.tag.gold{background:var(--gold-soft);color:var(--gold)}
+.tag.ok{background:var(--ok-soft);color:var(--ok)}
+.tag.warn{background:var(--warn-soft);color:var(--warn)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+
+/* ══════════ avatar ══════════ */
 .avatar{
-  width:38px;height:38px;border-radius:12px;flex:0 0 auto;display:grid;place-items:center;
-  font-family:"Gothic A1",sans-serif;font-weight:700;font-size:13px;
-  background:var(--brand-soft);color:var(--brand-ink);
+  width:44px;height:44px;border-radius:14px;flex:0 0 auto;
+  display:grid;place-items:center;line-height:1;
+  font-size:15px;font-weight:700;letter-spacing:-.02em;
+  background:var(--action-soft);color:var(--action-ink);
 }
+.avatar.emoji{font-size:21px}
 .avatar.g{background:var(--gold-soft);color:var(--gold)}
 .avatar.o{background:var(--ok-soft);color:var(--ok)}
-.avatar.sm{width:28px;height:28px;border-radius:9px;font-size:11px}
+.avatar.sf{background:var(--sf-blue-soft);color:var(--sf-blue)}
+.avatar.n{background:var(--surface-2);color:var(--ink-2)}
+.avatar.sm{width:32px;height:32px;border-radius:10px;font-size:13px}
+.avatar.sm.emoji{font-size:16px}
+.avatar.lg{width:52px;height:52px;border-radius:16px;font-size:18px}
+.avatar svg{width:20px;height:20px}
+.avatar.sm svg{width:16px;height:16px}
+.datechip{
+  width:48px;height:44px;border-radius:14px;flex:0 0 auto;
+  display:grid;place-items:center;line-height:1;
+  font-size:13px;font-weight:700;letter-spacing:-.02em;
+  background:var(--gold-soft);color:var(--gold);
+}
+
+/* ══════════ button ══════════ */
 .btn{
-  all:unset;box-sizing:border-box;cursor:pointer;display:block;width:100%;text-align:center;
-  background:var(--brand);color:#fff;font-size:14px;font-weight:600;padding:14px;border-radius:12px;
-  font-family:"Gothic A1",sans-serif;transition:filter .15s;
+  all:unset;box-sizing:border-box;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  width:100%;min-height:56px;padding:0 var(--s5);
+  background:var(--action);color:var(--on-brand);
+  font-size:16px;font-weight:600;letter-spacing:-.02em;text-align:center;
+  border-radius:var(--r-sm);
+  transition:transform .12s var(--ease),background-color .12s linear;
 }
-:root[data-theme="dark"] .btn,:root:not([data-theme="light"]) .btn{color:#0A0D14}
-@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .btn{color:#fff}}
-.btn:hover{filter:brightness(1.08)}
-.btn.ghost{background:none;border:1px solid var(--line);color:var(--ink)}
-.btn.ghost:hover{background:var(--panel-2);filter:none}
-.btn.sm{padding:9px 14px;font-size:12.5px;border-radius:9px;width:auto;display:inline-block}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:var(--surface);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.btn.quiet{background:var(--action-soft);color:var(--action-ink)}
+.btn.sm{width:auto;display:inline-flex;min-height:40px;padding:0 var(--s4);font-size:14px;border-radius:10px}
 .btn.done{background:var(--ok-soft);color:var(--ok);pointer-events:none}
-.stack{padding:16px 18px 8px;display:flex;flex-direction:column;gap:9px}
-
-/* visa strip */
-.visa{
-  display:flex;align-items:center;gap:11px;margin:0 18px;padding:11px 13px;
-  border-radius:12px;background:var(--panel);border:1px solid var(--line);
-  cursor:pointer;text-align:left;font-family:inherit;width:calc(100% - 36px);
+.cta{
+  position:sticky;bottom:0;z-index:4;margin-top:var(--s5);
+  padding:var(--s4) var(--s5) calc(var(--s5) + env(safe-area-inset-bottom));
+  background:linear-gradient(to bottom,rgba(242,244,246,0) 0,var(--bg) 24%);
+  display:flex;flex-direction:column;gap:var(--s3);
 }
-.visa:hover{border-color:var(--brand)}
-.visa-d{font-family:"IBM Plex Mono",monospace;font-size:19px;font-weight:600;letter-spacing:-.03em;color:var(--ink-2)}
-.visa-d.gold{color:var(--gold)}
-.visa-d.warn{color:var(--warn)}
-.visa .sub{font-size:11px}
-.chev{color:var(--ink-3);flex:0 0 auto}
 
-.split{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line-2)}
-.split>div{font-size:11.5px;line-height:1.6;color:var(--ink-2)}
-.split .hd{display:block;font-size:10.5px;font-weight:700;letter-spacing:.03em;color:var(--ink-3);margin-bottom:4px}
+/* ══════════ chevron ══════════ */
+.chev{width:18px;height:18px;flex:0 0 auto;color:var(--ink-3)}
+
+/* ══════════ visa hero ══════════ */
+.visa{
+  all:unset;box-sizing:border-box;cursor:pointer;display:block;text-align:left;
+  width:calc(100% - var(--s5) * 2);margin:0 var(--s5);
+  padding:var(--s5);border-radius:var(--r-lg);
+  background:var(--surface);box-shadow:var(--sh);
+  transition:transform .12s var(--ease);
+}
+.visa:active{transform:scale(.99)}
+.visa-d{font-size:32px;font-weight:700;line-height:1.1;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:var(--ink)}
+.visa-d.gold{color:var(--gold)}
+.visa-d--sm{font-size:26px}
+.visa-meta{font-size:15px;font-weight:600;color:var(--ink)}
+
+/* ══════════ split ══════════ */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);margin-top:var(--s4);padding-top:var(--s4);border-top:1px solid var(--line-soft)}
+.split>div{font-size:13px;line-height:1.6;color:var(--ink-2)}
+.split .hd{display:block;font-size:12px;font-weight:700;color:var(--ink-3);margin-bottom:var(--s1)}
 .split .hd.ok{color:var(--ok)}
 
-/* progress */
-.bar{height:6px;border-radius:99px;background:var(--line-2);overflow:hidden}
-.bar>i{display:block;height:100%;background:var(--brand);border-radius:99px;transition:width .35s cubic-bezier(.4,0,.2,1)}
+/* ══════════ progress ══════════ */
+.bar{height:8px;border-radius:var(--r-pill);background:var(--line-soft);overflow:hidden}
+.bar>i{display:block;height:100%;border-radius:var(--r-pill);background:var(--action);transition:width .45s var(--ease)}
 .bar.g>i{background:var(--gold)}
 
-/* mission list */
-.mission{display:flex;gap:12px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--line-2);cursor:pointer;width:100%;text-align:left;background:none;border-left:0;border-right:0;border-bottom:0;font-family:inherit;color:inherit}
-.check{
-  width:21px;height:21px;border-radius:7px;border:1.5px solid var(--line);flex:0 0 auto;margin-top:1px;
-  display:grid;place-items:center;color:transparent;background:var(--panel);
+/* ══════════ mission ══════════ */
+.mission{
+  display:flex;gap:var(--s3);align-items:flex-start;width:100%;text-align:left;cursor:pointer;
+  padding:var(--s4) 0;border:0;border-top:1px solid var(--line-soft);
+  background:none;font:inherit;letter-spacing:inherit;color:inherit;
 }
-.mission[data-done="1"] .check{background:var(--ok);border-color:var(--ok);color:var(--panel)}
-.mission[data-done="1"] .ttl{color:var(--ink-3);text-decoration:line-through}
-.pt{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;color:var(--gold);flex:0 0 auto;margin-top:2px}
+.mission .ttl{display:block}
+.check{
+  width:24px;height:24px;border-radius:var(--r-pill);flex:0 0 auto;margin-top:2px;
+  display:grid;place-items:center;background:var(--line-soft);color:var(--surface);
+  transition:background-color .18s linear,transform .18s var(--ease);
+}
+.check svg{width:13px;height:13px;opacity:0;transition:opacity .15s linear}
+.mission[data-done="1"] .check{background:var(--ok);transform:scale(1.06)}
+.mission[data-done="1"] .check svg{opacity:1}
+.mission[data-done="1"] .ttl{color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--line)}
+.pt{font-size:13px;font-weight:700;color:var(--gold);flex:0 0 auto;margin-top:4px;font-variant-numeric:tabular-nums}
 
-/* tabbar */
+/* ══════════ tabbar ══════════ */
 .tabbar{
   flex:0 0 auto;display:grid;grid-template-columns:repeat(5,1fr);
-  background:var(--panel);border-top:1px solid var(--line);padding:7px 4px 9px;
+  background:var(--surface);border-top:1px solid var(--line-soft);
+  padding:var(--s2) var(--s1) calc(var(--s2) + env(safe-area-inset-bottom));
 }
 .tab{
-  all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;
-  font-size:10px;color:var(--ink-3);padding:2px 0;
+  all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:5px;min-height:48px;font-size:12px;font-weight:500;color:var(--ink-3);
 }
-.tab[aria-current="true"]{color:var(--brand);font-weight:600}
-.tab svg{width:21px;height:21px}
+.tab svg{width:24px;height:24px;stroke-width:1.8}
+.tab[aria-current="true"]{color:var(--action);font-weight:700}
+.tab[aria-current="true"] svg{stroke-width:2.4}
 .tabbar[hidden]{display:none}
 
-/* onboarding */
+/* ══════════ onboarding ══════════ */
 .pick{
   all:unset;box-sizing:border-box;cursor:pointer;display:block;width:100%;text-align:left;
-  background:var(--panel);border:1.5px solid var(--line);border-radius:var(--r);padding:15px;
+  background:var(--surface);border-radius:var(--r);padding:var(--s5);box-shadow:var(--sh);
+  transition:transform .12s var(--ease),background-color .12s linear,box-shadow .12s linear;
 }
-.pick:hover{border-color:var(--brand)}
-.pick[aria-pressed="true"]{border-color:var(--brand);background:var(--brand-soft)}
-.pick[aria-pressed="true"] .sub{color:var(--brand-ink)}
-.hero{padding:30px 20px 8px}
-.hero .logo{font-family:"Gothic A1",sans-serif;font-weight:800;font-size:22px;letter-spacing:-.03em}
-.hero .logo em{font-style:normal;color:var(--brand)}
-.notice{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:15px;font-size:12.5px;line-height:1.75;color:var(--ink-2)}
+.pick:active{transform:scale(.99)}
+.pick[aria-pressed="true"]{background:var(--action-soft);box-shadow:inset 0 0 0 1.5px var(--action)}
+.pick[aria-pressed="true"] .ttl{color:var(--action-ink)}
+.pick[aria-pressed="true"] .sub{color:var(--action-ink);opacity:.72}
+.hero{padding:var(--s8) var(--s5) var(--s5)}
+.logo{font-size:27px;font-weight:800;letter-spacing:-.045em;line-height:1.1}
+.logo em{font-style:normal;color:var(--action)}
+.sig{display:inline-flex;align-items:center;gap:6px;margin-top:var(--s3);font-size:12px;font-weight:600;letter-spacing:-.01em;color:var(--sf-blue)}
+.sig::before{content:"";width:3px;height:13px;border-radius:2px;background:var(--sf-blue)}
+.notice{background:var(--surface);border-radius:var(--r);padding:var(--s5);box-shadow:var(--sh);font-size:14px;line-height:1.7;color:var(--ink-2)}
 .notice b{color:var(--ink);font-weight:600}
-.agree{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--ink-2);line-height:1.6;cursor:pointer;padding:2px 0}
-.agree input{margin:2px 0 0;accent-color:var(--brand);width:16px;height:16px;flex:0 0 auto}
+.notice--sf{background:var(--sf-blue-soft);box-shadow:none;border-left:3px solid var(--sf-blue);border-radius:var(--s1) var(--r) var(--r) var(--s1)}
+.notice--sf b{color:var(--sf-blue-ink)}
+.agree{display:flex;gap:var(--s3);align-items:flex-start;padding:var(--s2) 0;cursor:pointer;font-size:14px;line-height:1.55;color:var(--ink-2)}
+.agree input{position:absolute;opacity:0;width:0;height:0}
+.agree .box{
+  width:22px;height:22px;flex:0 0 auto;margin-top:1px;border-radius:var(--r-pill);
+  display:grid;place-items:center;background:var(--line-soft);color:var(--surface);
+  transition:background-color .15s linear,transform .15s var(--ease);
+}
+.agree .box svg{width:12px;height:12px;opacity:0;transition:opacity .15s linear}
+.agree input:checked + .box{background:var(--action);transform:scale(1.05)}
+.agree input:checked + .box svg{opacity:1}
+.agree input:focus-visible + .box{outline:2px solid var(--action);outline-offset:2px}
 
-/* agenda / roundtable */
-.agenda{display:grid;grid-template-columns:auto 1fr;gap:0 14px}
-.agenda .part{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;color:var(--ink-3);padding:11px 0 0}
-.agenda .desc{padding:10px 0 11px;border-bottom:1px solid var(--line-2)}
+/* ══════════ agenda / roundtable ══════════ */
+.agenda{display:grid;grid-template-columns:auto 1fr;gap:0 var(--s4)}
+.agenda .part{padding:var(--s4) 0 0;font-size:13px;font-weight:700;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.agenda .part.sf{color:var(--sf-blue)}
+.agenda .desc{padding:var(--s3) 0 var(--s4);border-bottom:1px solid var(--line-soft)}
 .agenda .desc:last-child{border-bottom:0}
-.opt{background:var(--brand-soft);border-radius:10px;padding:11px 12px;font-size:11.5px;line-height:1.65;color:var(--brand-ink)}
+.agenda .hd{font-size:15px;font-weight:600;color:var(--ink)}
+.opt{background:var(--sf-blue-soft);border-radius:var(--r-sm);padding:var(--s4);font-size:13px;line-height:1.65;color:var(--sf-blue-ink)}
+.opt b{font-weight:700}
 
-/* info hub */
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.kv{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;padding:8px 0;border-top:1px solid var(--line-2)}
+/* ══════════ info hub ══════════ */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+.kv{display:flex;justify-content:space-between;gap:var(--s3);padding:var(--s3) 0;border-top:1px solid var(--line-soft);font-size:14px}
 .kv:first-child{border-top:0}
-.kv b{font-weight:500;color:var(--ink-3)}
-.kv span{color:var(--ink);font-weight:500}
+.kv b{font-weight:400;color:var(--ink-3);white-space:nowrap}
+.kv span{color:var(--ink);font-weight:600;text-align:right}
+.kv span.sf{color:var(--sf-blue)}
 .steps{counter-reset:s;display:flex;flex-direction:column}
-.steps li{list-style:none;display:grid;grid-template-columns:auto 1fr;gap:11px;padding:9px 0;border-top:1px solid var(--line-2);font-size:12.5px;color:var(--ink-2);line-height:1.55}
+.steps li{
+  list-style:none;display:grid;grid-template-columns:auto 1fr;gap:var(--s3);
+  padding:var(--s3) 0;border-top:1px solid var(--line-soft);
+  font-size:14px;line-height:1.55;color:var(--ink-2);
+}
 .steps li:first-child{border-top:0}
 .steps li::before{
   counter-increment:s;content:counter(s);
-  font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;
-  width:18px;height:18px;border-radius:50%;background:var(--brand-soft);color:var(--brand-ink);
-  display:grid;place-items:center;margin-top:1px;
+  width:22px;height:22px;border-radius:var(--r-pill);
+  background:var(--action-soft);color:var(--action-ink);
+  font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;
+  display:grid;place-items:center;
 }
-.map{
-  height:140px;border-radius:12px;border:1px solid var(--line);position:relative;overflow:hidden;
-  background:
-    radial-gradient(circle at 24% 34%, var(--brand-soft) 0 12px, transparent 13px),
-    radial-gradient(circle at 62% 22%, var(--brand-soft) 0 12px, transparent 13px),
-    radial-gradient(circle at 46% 72%, var(--brand-soft) 0 12px, transparent 13px),
-    repeating-linear-gradient(0deg, var(--line-2) 0 1px, transparent 1px 28px),
-    repeating-linear-gradient(90deg, var(--line-2) 0 1px, transparent 1px 28px),
-    var(--panel);
+.map{height:152px;border-radius:var(--r);background:var(--surface-2);position:relative;overflow:hidden}
+.pin{
+  position:absolute;transform:translate(-50%,-50%);
+  display:flex;align-items:center;gap:5px;
+  padding:5px 11px 5px 8px;border-radius:var(--r-pill);
+  background:var(--surface);box-shadow:var(--sh-pop);
+  font-size:12px;font-weight:600;color:var(--ink);white-space:nowrap;
 }
-.map span{position:absolute;font-size:10px;font-weight:600;color:var(--brand-ink)}
+.pin svg{width:13px;height:13px;flex:0 0 auto;color:var(--action)}
 
+/* ══════════ me ══════════ */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2);margin-top:var(--s5)}
+.stat{background:var(--surface-2);border-radius:var(--r-sm);padding:var(--s3) var(--s2);text-align:center}
+.stat b{display:block;font-size:19px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat span{display:block;font-size:12px;color:var(--ink-3);margin-top:2px}
+.sf-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--sf-blue);margin-right:7px;vertical-align:1px}
+
+/* ══════════ a11y ══════════ */
+:focus-visible{outline:2px solid var(--action);outline-offset:2px;border-radius:8px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:6px}
 </style>
+</head>
+<body>
 
 <div class="app">
 <main class="screens">
@@ -284,115 +403,168 @@ html,body{height:100%}
 <!-- ══════════ 1. 동의 ══════════ -->
       <section class="screen" id="s-consent">
         <div class="hero">
-          <div class="row" style="align-items:flex-start">
-            <div class="logo grow">My<em>Connect</em></div>
-            <button class="tag" style="cursor:pointer" aria-label="언어 선택">🇻🇳 Tiếng Việt ▾</button>
+          <div class="row rowtop">
+            <div class="grow">
+              <div class="logo">My<em>Connect</em></div>
+              <div class="sig">삼성화재가 운영합니다</div>
+            </div>
+            <button class="tag" type="button" aria-label="언어 선택">🇻🇳 Tiếng Việt ▾</button>
           </div>
-          <p class="body" style="margin:10px 0 0">한국에 사는 외국인들의 소모임.<br>같은 동네, 같은 언어, 같은 취미로 모입니다.</p>
+          <p class="body mt5">한국에 사는 외국인들의 소모임.<br>같은 동네, 같은 언어, 같은 취미로 모입니다.</p>
         </div>
         <div class="pad">
-          <div class="notice">
+          <div class="notice notice--sf">
             마이커넥트는 <b>삼성화재가 운영하는 커뮤니티</b>입니다.<br>
             활동 중 보험·커리어 정보를 안내받을 수 있고, <b>원하지 않으면 언제든 거절해도 활동에 아무 영향이 없습니다.</b>
           </div>
         </div>
-        <div class="stack">
-          <label class="agree"><input type="checkbox" checked> <span>(필수) 서비스 이용약관 · 커뮤니티 활동 규칙</span></label>
-          <label class="agree"><input type="checkbox" checked> <span>(필수) 개인정보 수집·이용 — 수집 항목: 이름·연락처·거주지역·사용 언어 / 목적: 소모임 매칭 / 보유: 탈퇴 시 즉시 삭제</span></label>
-          <label class="agree"><input type="checkbox"> <span>(선택) 보험·커리어 정보 안내 수신 — 미동의해도 모든 소모임에 참여할 수 있습니다</span></label>
+        <div class="stack mt5">
+          <label class="agree">
+            <input type="checkbox" checked>
+            <span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.5 5.5L20 6.5"/></svg></span>
+            <span>(필수) 서비스 이용약관 · 커뮤니티 활동 규칙</span>
+          </label>
+          <label class="agree">
+            <input type="checkbox" checked>
+            <span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.5 5.5L20 6.5"/></svg></span>
+            <span>(필수) 개인정보 수집·이용 — 수집 항목: 이름·연락처·거주지역·사용 언어 / 목적: 소모임 매칭 / 보유: 탈퇴 시 즉시 삭제</span>
+          </label>
+          <label class="agree">
+            <input type="checkbox">
+            <span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.5 5.5L20 6.5"/></svg></span>
+            <span>(선택) 보험·커리어 정보 안내 수신 — 미동의해도 모든 소모임에 참여할 수 있습니다</span>
+          </label>
+        </div>
+        <div class="cta">
           <button class="btn" data-go="s-purpose">동의하고 시작하기</button>
-          <p class="sub" style="text-align:center">🇻🇳 Tiếng Việt · 🇰🇷 한국어 · 🇬🇧 English · 🇺🇿 O'zbek</p>
+          <p class="sub center">🇻🇳 Tiếng Việt · 🇰🇷 한국어 · 🇬🇧 English · 🇺🇿 O'zbek</p>
         </div>
       </section>
 
       <!-- ══════════ 2. 목적 선택 ══════════ -->
       <section class="screen" id="s-purpose" hidden>
-        <div class="appbar"><h2>무엇 때문에 오셨어요?</h2></div>
-        <div class="pad"><p class="body">고른 것에 따라 첫 화면이 달라집니다. 나중에 바꿀 수 있어요.</p></div>
+        <div class="phead phead--top">
+          <h2 class="t-display">무엇 때문에<br>오셨어요?</h2>
+          <p class="body">고른 것에 따라 첫 화면이 달라집니다. 나중에 바꿀 수 있어요.</p>
+        </div>
         <div class="stack">
           <button class="pick" data-pick="사람" aria-pressed="true">
-            <div class="row"><div class="avatar">모임</div><div class="grow">
-              <div class="ttl">같이 할 사람을 찾고 있어요</div>
-              <div class="sub">취미·운동·공부 소모임에 들어가기</div>
-            </div></div>
+            <div class="row">
+              <div class="avatar emoji" aria-hidden="true">👥</div>
+              <div class="grow">
+                <div class="ttl">같이 할 사람을 찾고 있어요</div>
+                <div class="sub">취미·운동·공부 소모임에 들어가기</div>
+              </div>
+            </div>
           </button>
           <button class="pick" data-pick="도움">
-            <div class="row"><div class="avatar g">도움</div><div class="grow">
-              <div class="ttl">막히는 일이 있어요</div>
-              <div class="sub">병원 예약, 비자 서류 — 도움 창구로 바로 연결</div>
-            </div></div>
+            <div class="row">
+              <div class="avatar g emoji" aria-hidden="true">🙋</div>
+              <div class="grow">
+                <div class="ttl">막히는 일이 있어요</div>
+                <div class="sub">병원 예약, 비자 서류 — 도움 창구로 바로 연결</div>
+              </div>
+            </div>
           </button>
           <button class="pick" data-pick="정보">
-            <div class="row"><div class="avatar o">정보</div><div class="grow">
-              <div class="ttl">비자·병원 정보만 볼게요</div>
-              <div class="sub">D-day 알림, 외국어 진료 병원, 동네 정보</div>
-            </div></div>
+            <div class="row">
+              <div class="avatar o emoji" aria-hidden="true">📋</div>
+              <div class="grow">
+                <div class="ttl">비자·병원 정보만 볼게요</div>
+                <div class="sub">D-day 알림, 외국어 진료 병원, 동네 정보</div>
+              </div>
+            </div>
           </button>
-          <div style="height:6px"></div>
-          <div class="card tight">
-            <div class="sub" style="margin-bottom:8px">내 정보 (소모임 추천에만 사용)</div>
-            <div class="kv"><b>사는 곳</b><span>경기 안산시 단원구</span></div>
-            <div class="kv"><b>쓰는 언어</b><span>베트남어 · 한국어(초급)</span></div>
-            <div class="kv"><b>관심</b><span>기타 · 자전거 · 한국어 공부</span></div>
+          <div class="card card--quiet mt2">
+            <div class="sub">내 정보 (소모임 추천에만 사용)</div>
+            <div class="mt3">
+              <div class="kv"><b>사는 곳</b><span>경기 안산시 단원구</span></div>
+              <div class="kv"><b>쓰는 언어</b><span>베트남어 · 한국어(초급)</span></div>
+              <div class="kv"><b>관심</b><span>기타 · 자전거 · 한국어 공부</span></div>
+            </div>
           </div>
+        </div>
+        <div class="cta">
           <button class="btn" data-go="s-recommend">내 근처 소모임 보기</button>
         </div>
       </section>
 
       <!-- ══════════ 3. 추천 결과 ══════════ -->
       <section class="screen" id="s-recommend" hidden>
-        <div class="appbar"><button class="back" data-go="s-purpose" aria-label="뒤로">←</button><h2>안산에서 열리는 모임</h2></div>
-        <div class="pad">
-          <p class="body"><b style="color:var(--ink)">베트남어가 통하는 모임</b>을 위로 올렸습니다.</p>
-          <div class="tags" style="margin-top:12px">
+        <div class="appbar">
+          <button class="back" data-go="s-purpose" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+        </div>
+        <div class="phead">
+          <h2 class="t-display">안산에서 열리는 모임</h2>
+          <p class="body"><b class="ink">베트남어가 통하는 모임</b>을 위로 올렸습니다.</p>
+          <div class="tags mt4">
             <span class="tag brand">베트남어 ✓</span><span class="tag">안산 5km</span><span class="tag">주말 저녁</span><span class="tag">+ 필터</span>
           </div>
         </div>
         <div class="stack">
-          <div class="card" style="border-color:var(--brand)">
+          <div class="card card--accent">
             <div class="row">
-              <div class="avatar">기타</div>
+              <div class="avatar emoji" aria-hidden="true">🎸</div>
               <div class="grow">
                 <div class="ttl">기타 한 곡 완주반</div>
                 <div class="sub">토 19:00 · 안산 원곡동 · 6/8명</div>
               </div>
               <span class="tag brand">98% 맞음</span>
             </div>
-            <p class="body" style="margin:11px 0 10px">3개월 안에 한 곡을 끝까지 칩니다. 기타는 모임에서 빌려드려요.</p>
-            <div class="row" style="border-top:1px solid var(--line-2);padding-top:11px">
+            <p class="body mt4">3개월 안에 한 곡을 끝까지 칩니다. 기타는 모임에서 빌려드려요.</p>
+            <div class="row rule">
               <div class="avatar sm g">H</div>
-              <div class="grow"><div style="font-size:12.5px;font-weight:600">호스트 Tran Thi Hoa</div><div class="sub">한국 9년차 · 베트남어/한국어</div></div>
+              <div class="grow">
+                <div class="lbl">호스트 Tran Thi Hoa</div>
+                <div class="sub">한국 9년차 · 베트남어/한국어</div>
+              </div>
               <button class="btn sm" data-go="s-group">보기</button>
             </div>
           </div>
           <div class="card">
-            <div class="row"><div class="avatar o">집</div><div class="grow">
-              <div class="ttl">집 구하기 품앗이</div>
-              <div class="sub">격주 일 14:00 · 안산 · 7/8명 · 호스트 Jamila K.</div>
-            </div><span class="chev">›</span></div>
+            <div class="row">
+              <div class="avatar o emoji" aria-hidden="true">🏠</div>
+              <div class="grow">
+                <div class="ttl">집 구하기 품앗이</div>
+                <div class="sub">격주 일 14:00 · 안산 · 7/8명 · 호스트 Jamila K.</div>
+              </div>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+            </div>
           </div>
           <div class="card">
-            <div class="row"><div class="avatar">한글</div><div class="grow">
-              <div class="ttl">한국어 스터디 — TOPIK 3급반</div>
-              <div class="sub">수·토 20:00 · 안산 · 8/10명 · 호스트 Le Van Thanh</div>
-            </div><span class="chev">›</span></div>
+            <div class="row">
+              <div class="avatar emoji" aria-hidden="true">📖</div>
+              <div class="grow">
+                <div class="ttl">한국어 스터디 — TOPIK 3급반</div>
+                <div class="sub">수·토 20:00 · 안산 · 8/10명 · 호스트 Le Van Thanh</div>
+              </div>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+            </div>
           </div>
           <div class="card">
-            <div class="row"><div class="avatar g">자전</div><div class="grow">
-              <div class="ttl">주말 자전거 라이딩</div>
-              <div class="sub">일 08:00 · 시화호 · 5/8명 · 호스트 Bakhtiyor R.</div>
-            </div><span class="chev">›</span></div>
+            <div class="row">
+              <div class="avatar g emoji" aria-hidden="true">🚲</div>
+              <div class="grow">
+                <div class="ttl">주말 자전거 라이딩</div>
+                <div class="sub">일 08:00 · 시화호 · 5/8명 · 호스트 Bakhtiyor R.</div>
+              </div>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+            </div>
           </div>
-          <p class="sub" style="text-align:center;padding:6px 0">모임을 직접 열고 싶다면 <button class="link" data-go="s-me">내 모임 열기</button></p>
+          <p class="sub center mt2">모임을 직접 열고 싶다면 <button class="link" data-go="s-me">내 모임 열기</button></p>
         </div>
+        <div class="tail"></div>
       </section>
 
       <!-- ══════════ 4. 소모임 상세 ══════════ -->
       <section class="screen" id="s-group" hidden>
-        <div class="appbar"><button class="back" data-go="s-recommend" aria-label="뒤로">←</button><h2>기타 한 곡 완주반</h2></div>
-        <div class="pad">
-          <div class="tags"><span class="tag brand">베트남어 · 한국어</span><span class="tag">안산 원곡동</span><span class="tag">토 19:00</span><span class="tag ok">6/8명</span></div>
-          <p class="body" style="margin:13px 0 0">기초 코드부터 시작해서 3개월 뒤 수료식에서 한 곡을 함께 연주합니다. 악기 없어도 됩니다.</p>
+        <div class="appbar">
+          <button class="back" data-go="s-recommend" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+        </div>
+        <div class="phead">
+          <h2 class="t-display">기타 한 곡 완주반</h2>
+          <div class="tags mt4"><span class="tag brand">베트남어 · 한국어</span><span class="tag">안산 원곡동</span><span class="tag">토 19:00</span><span class="tag ok">6/8명</span></div>
+          <p class="body">기초 코드부터 시작해서 3개월 뒤 수료식에서 한 곡을 함께 연주합니다. 악기 없어도 됩니다.</p>
         </div>
         <div class="pad">
           <div class="sect-h"><h3>호스트</h3><span>모임을 여는 사람</span></div>
@@ -404,198 +576,245 @@ html,body{height:100%}
                 <div class="sub">한국 9년차 · 안산 거주 · 베트남어/한국어</div>
               </div>
             </div>
-            <div class="tags" style="margin:11px 0 0"><span class="tag">일반 호스트</span><span class="tag">모임 운영 2기</span><span class="tag ok">출석률 92%</span></div>
-            <p class="body" style="margin:11px 0 0">기타를 8년 쳤고, 안산에서 같이 칠 사람을 모으려고 모임을 열었습니다.</p>
+            <div class="tags mt4"><span class="tag">일반 호스트</span><span class="tag">모임 운영 2기</span><span class="tag ok">출석률 92%</span></div>
+            <p class="body mt4">기타를 8년 쳤고, 안산에서 같이 칠 사람을 모으려고 모임을 열었습니다.</p>
             <div class="split">
               <div><span class="hd ok">호스트가 하는 일</span>모임 날짜 정하기 · 장소 예약 · 연습 진행 · 단톡방 관리</div>
               <div><span class="hd">호스트가 하지 않는 일</span>병원 동행 · 계약서 검토 · 서류 대행 · 보험 상담</div>
             </div>
           </div>
-          <div class="card tight" style="margin-top:9px;background:var(--panel-2)">
-            <div class="row"><div class="avatar sm o">?</div><div class="grow body" style="font-size:12px">병원·서류처럼 막히는 일은 호스트가 아니라 <b style="color:var(--ink)">앱 도움 창구</b>가 받습니다. <button class="link" data-go="s-info">도움 창구 보기</button></div></div>
+          <div class="card tight card--quiet mt3">
+            <div class="row">
+              <div class="avatar sm o emoji" aria-hidden="true">💬</div>
+              <div class="grow body body--sm">병원·서류처럼 막히는 일은 호스트가 아니라 <b class="ink">앱 도움 창구</b>가 받습니다. <button class="link" data-go="s-info">도움 창구 보기</button></div>
+            </div>
           </div>
-          <div class="sect-h"><h3>앞으로 3개월</h3><span>수료 시 직접 호스트 지원 가능</span></div>
+          <div class="sect-h"><h3>앞으로 3개월</h3><span>수료 시 호스트 지원 가능</span></div>
           <ol class="steps">
             <li>매주 토요일 저녁 90분 연습 (안산 다문화센터)</li>
             <li>정착 체크리스트 6개 — 앱이 제공, 혼자 또는 모임에서 함께</li>
             <li>3개월차 한국살이 라운드테이블에서 수료 연주</li>
           </ol>
         </div>
-        <div class="stack">
+        <div class="cta">
           <button class="btn" id="joinBtn">이 모임 가입하기</button>
-          <p class="sub" style="text-align:center">가입하면 호스트와 멤버에게 <b>이름·사용 언어</b>만 공개됩니다.</p>
+          <p class="sub center">가입하면 호스트와 멤버에게 <b class="ink">이름·사용 언어</b>만 공개됩니다.</p>
         </div>
       </section>
 
       <!-- ══════════ 5. 커뮤니티 홈 ══════════ -->
       <section class="screen" id="s-home" hidden>
-        <div class="appbar">
-          <div class="grow"><div class="sub" style="font-size:11px">Xin chào,</div><h2>Minh</h2></div>
-          <div class="avatar sm">M</div>
+        <div class="phead phead--top">
+          <div class="row">
+            <div class="grow">
+              <div class="sub">Xin chào,</div>
+              <h2 class="t-display">Minh</h2>
+            </div>
+            <div class="avatar">M</div>
+          </div>
         </div>
         <button class="visa" data-go="s-info">
-          <div class="visa-d">D-186</div>
-          <div class="grow"><div style="font-size:12.5px;font-weight:600">E-9 비자 만료 2027.03.14</div><div class="sub">갱신 신청은 만료 4개월 전부터</div></div>
-          <span class="chev">›</span>
+          <div class="row rowtop">
+            <div class="grow">
+              <span class="tag gold">E-9 비전문취업</span>
+              <div class="visa-d gold mt3">D-186</div>
+              <div class="visa-meta mt1">비자 만료 2027.03.14</div>
+              <div class="sub">갱신 신청은 만료 4개월 전부터</div>
+            </div>
+            <svg class="chev mt1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+          </div>
         </button>
         <div class="pad">
           <div class="sect-h"><h3>내 소모임</h3><button class="link" data-go="s-groups">더 찾기</button></div>
           <div class="col">
-            <div class="card" style="border-color:var(--brand);box-shadow:inset 0 3px 0 var(--brand)">
+            <div class="card card--accent">
               <div class="row">
-                <div class="avatar">기타</div>
+                <div class="avatar emoji" aria-hidden="true">🎸</div>
                 <div class="grow"><div class="ttl">기타 한 곡 완주반</div><div class="sub">호스트 Hoa · 멤버 7명</div></div>
                 <span class="tag brand">D-2</span>
               </div>
-              <div class="card tight" style="background:var(--brand-soft);border:none;margin-top:12px">
+              <div class="card tight card--accent-fill mt4">
                 <div class="row">
                   <div class="grow">
-                    <div style="font-size:12.5px;font-weight:600;color:var(--brand-ink)">이번 주 토요일 19:00</div>
-                    <div class="sub" style="color:var(--brand-ink);opacity:.8">안산 다문화센터 3층 · 5명 참석</div>
+                    <div class="lbl lbl--on-accent">이번 주 토요일 19:00</div>
+                    <div class="sub sub--on-accent">안산 다문화센터 3층 · 5명 참석</div>
                   </div>
                   <button class="btn sm" id="rsvpBtn">참석</button>
                 </div>
               </div>
-              <div class="row" style="margin-top:11px">
+              <div class="row rowtop mt4">
                 <div class="avatar sm g">H</div>
-                <div class="grow body" style="font-size:12px">Hoa 호스트 · <span style="color:var(--ink-3)">2시간 전</span><br>“Minh, 지난주 코드 잘 잡았어요. 이번엔 F 갈게요 💪”</div>
+                <div class="grow body body--sm">Hoa 호스트 · <span class="dim">2시간 전</span><br>“Minh, 지난주 코드 잘 잡았어요. 이번엔 F 갈게요 💪”</div>
               </div>
             </div>
             <div class="card">
-              <div class="row"><div class="avatar o">집</div><div class="grow">
-                <div class="ttl">집 구하기 품앗이</div><div class="sub">호스트 Jamila K. · 다음 모임 10/12(일)</div>
-              </div><span class="tag">새 글 3</span></div>
+              <div class="row">
+                <div class="avatar o emoji" aria-hidden="true">🏠</div>
+                <div class="grow">
+                  <div class="ttl">집 구하기 품앗이</div><div class="sub">호스트 Jamila K. · 다음 모임 10/12(일)</div>
+                </div>
+                <span class="tag">새 글 3</span>
+              </div>
             </div>
           </div>
 
           <div class="sect-h"><h3>정착 체크리스트</h3><span>4 / 6 완료</span></div>
-          <button class="card" style="width:100%;text-align:left;font-family:inherit;color:inherit;cursor:pointer" data-go="s-mission">
-            <div class="row" style="margin-bottom:11px">
+          <button class="card card--btn" data-go="s-mission">
+            <div class="row">
               <div class="grow"><div class="ttl">이번 달 체크리스트</div><div class="sub">다 하면 라운드테이블 초대 + 3,000P</div></div>
-              <div class="mono" style="font-size:15px;font-weight:600;color:var(--gold)">2,400P</div>
+              <div class="figure figure--gold">2,400P</div>
             </div>
-            <div class="bar g"><i style="width:67%"></i></div>
+            <div class="bar g mt4"><i style="width:67%"></i></div>
           </button>
 
           <div class="sect-h"><h3>막히는 일 있어요?</h3><span>호스트 말고 여기로</span></div>
-          <button class="card" style="width:100%;text-align:left;font-family:inherit;color:inherit;cursor:pointer" data-go="s-info">
+          <button class="card card--btn" data-go="s-info">
             <div class="row">
-              <div class="avatar o">?</div>
+              <div class="avatar o emoji" aria-hidden="true">💬</div>
               <div class="grow"><div class="ttl">도움 창구</div><div class="sub">병원 예약 요청 · 비자 절차 · 통역 전화 연결</div></div>
-              <span class="chev">›</span>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
             </div>
-            <p class="sub" style="margin:10px 0 0">평일 09–18시 접수 · 베트남어 응대 가능</p>
+            <p class="sub mt3">평일 09–18시 접수 · 베트남어 응대 가능</p>
           </button>
 
           <div class="sect-h"><h3>초대장</h3></div>
-          <button class="card" style="width:100%;text-align:left;font-family:inherit;color:inherit;cursor:pointer;border-color:var(--gold)" data-go="s-round">
+          <button class="card card--btn card--gold" data-go="s-round">
             <div class="row">
-              <div class="avatar g">10/18</div>
+              <div class="datechip">10/18</div>
               <div class="grow"><div class="ttl">한국살이 라운드테이블</div><div class="sub">안산 문화센터 · 토 12:00 · 점심 제공</div></div>
-              <span class="chev">›</span>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
             </div>
-            <p class="sub" style="margin:10px 0 0">3개월차 멘티 수료 축하 자리입니다. 2부 삼성화재 Q&amp;A는 <b>선택 참여</b>입니다.</p>
+            <p class="sub mt3">3개월차 멘티 수료 축하 자리입니다. 2부 <b class="sfink">삼성화재 Q&amp;A</b>는 <b class="ink">선택 참여</b>입니다.</p>
           </button>
 
           <div class="sect-h"><h3>동네 소식</h3><span>안산 원곡동</span></div>
           <div>
-            <div class="flat"><div class="row"><div class="grow"><div style="font-size:13px;font-weight:600">원곡동 무료 건강검진 (10/25)</div><div class="sub">베트남어 통역 상주 · 예약 없이 방문</div></div></div></div>
-            <div class="flat"><div class="row"><div class="grow"><div style="font-size:13px;font-weight:600">사업장 변경 상담 창구 운영</div><div class="sub">안산 외국인주민지원본부 · 매주 수요일</div></div></div></div>
+            <div class="flat"><div class="lbl">원곡동 무료 건강검진 (10/25)</div><div class="sub">베트남어 통역 상주 · 예약 없이 방문</div></div>
+            <div class="flat"><div class="lbl">사업장 변경 상담 창구 운영</div><div class="sub">안산 외국인주민지원본부 · 매주 수요일</div></div>
           </div>
         </div>
+        <div class="tail"></div>
       </section>
 
       <!-- ══════════ 6. 소모임 탐색 ══════════ -->
       <section class="screen" id="s-groups" hidden>
-        <div class="appbar"><h2>소모임</h2><button class="link">지도</button></div>
-        <div class="pad">
-          <div class="tags">
+        <div class="phead phead--top">
+          <div class="row">
+            <h2 class="t-display grow">소모임</h2>
+            <button class="link">지도</button>
+          </div>
+          <div class="tags mt4">
             <span class="tag brand">안산</span><span class="tag">베트남어</span><span class="tag">주말</span><span class="tag">모집중</span>
           </div>
         </div>
         <div class="stack">
           <div class="grid2">
-            <div class="card tight"><div class="avatar" style="margin-bottom:9px">기타</div><div class="ttl" style="font-size:13px">기타 한 곡 완주반</div><div class="sub">6/8 · 토 19:00</div><div class="tag ok" style="margin-top:8px">가입중</div></div>
-            <div class="card tight"><div class="avatar o" style="margin-bottom:9px">집</div><div class="ttl" style="font-size:13px">집 구하기 품앗이</div><div class="sub">7/8 · 격주 일</div><div class="tag ok" style="margin-top:8px">가입중</div></div>
-            <div class="card tight"><div class="avatar g" style="margin-bottom:9px">밥</div><div class="ttl" style="font-size:13px">고향 음식 나눔</div><div class="sub">4/8 · 금 20:00</div><div class="tag" style="margin-top:8px">모집중</div></div>
-            <div class="card tight"><div class="avatar" style="margin-bottom:9px">사진</div><div class="ttl" style="font-size:13px">사진 산책</div><div class="sub">3/8 · 일 10:00</div><div class="tag" style="margin-top:8px">모집중</div></div>
-            <div class="card tight"><div class="avatar g" style="margin-bottom:9px">자전</div><div class="ttl" style="font-size:13px">주말 라이딩</div><div class="sub">5/8 · 일 08:00</div><div class="tag" style="margin-top:8px">모집중</div></div>
-            <div class="card tight"><div class="avatar o" style="margin-bottom:9px">한글</div><div class="ttl" style="font-size:13px">TOPIK 3급반</div><div class="sub">8/10 · 수·토</div><div class="tag warn" style="margin-top:8px">대기 2명</div></div>
+            <div class="card tight"><div class="avatar emoji" aria-hidden="true">🎸</div><div class="ttl ttl--sm mt3">기타 한 곡 완주반</div><div class="sub">6/8 · 토 19:00</div><div class="tag ok mt3">가입중</div></div>
+            <div class="card tight"><div class="avatar o emoji" aria-hidden="true">🏠</div><div class="ttl ttl--sm mt3">집 구하기 품앗이</div><div class="sub">7/8 · 격주 일</div><div class="tag ok mt3">가입중</div></div>
+            <div class="card tight"><div class="avatar g emoji" aria-hidden="true">🍲</div><div class="ttl ttl--sm mt3">고향 음식 나눔</div><div class="sub">4/8 · 금 20:00</div><div class="tag mt3">모집중</div></div>
+            <div class="card tight"><div class="avatar emoji" aria-hidden="true">📷</div><div class="ttl ttl--sm mt3">사진 산책</div><div class="sub">3/8 · 일 10:00</div><div class="tag mt3">모집중</div></div>
+            <div class="card tight"><div class="avatar g emoji" aria-hidden="true">🚲</div><div class="ttl ttl--sm mt3">주말 라이딩</div><div class="sub">5/8 · 일 08:00</div><div class="tag mt3">모집중</div></div>
+            <div class="card tight"><div class="avatar o emoji" aria-hidden="true">📖</div><div class="ttl ttl--sm mt3">TOPIK 3급반</div><div class="sub">8/10 · 수·토</div><div class="tag warn mt3">대기 2명</div></div>
           </div>
-          <div class="card" style="background:var(--panel-2)">
+          <div class="card card--quiet mt2">
             <div class="ttl">내가 잘하는 걸 가르쳐볼까요?</div>
-            <p class="body" style="margin:8px 0 12px">수료한 멤버는 직접 모임을 열 수 있습니다. 지금 안산에는 <b style="color:var(--ink)">베트남 요리</b>와 <b style="color:var(--ink)">운전면허 필기</b> 모임을 찾는 사람이 많아요.</p>
-            <button class="btn ghost sm" data-go="s-me">모임 열기 신청</button>
+            <p class="body mt2">수료한 멤버는 직접 모임을 열 수 있습니다. 지금 안산에는 <b class="ink">베트남 요리</b>와 <b class="ink">운전면허 필기</b> 모임을 찾는 사람이 많아요.</p>
+            <button class="btn ghost sm mt4" data-go="s-me">모임 열기 신청</button>
           </div>
         </div>
+        <div class="tail"></div>
       </section>
 
       <!-- ══════════ 7. 미션 ══════════ -->
       <section class="screen" id="s-mission" hidden>
-        <div class="appbar"><h2>정착 체크리스트</h2><span class="tag gold mono" id="ptTag">2,400P</span></div>
+        <div class="phead phead--top">
+          <div class="row">
+            <h2 class="t-display grow">정착 체크리스트</h2>
+            <span class="tag gold" id="ptTag">2,400P</span>
+          </div>
+        </div>
         <div class="pad">
           <div class="card">
-            <div class="row" style="margin-bottom:10px">
-              <div class="grow"><div class="ttl" id="mCount">4 / 6 완료</div><div class="sub">6개를 다 하면 라운드테이블 초대장이 열립니다</div></div>
-            </div>
-            <div class="bar g"><i id="mBar" style="width:67%"></i></div>
+            <div class="ttl" id="mCount">4 / 6 완료</div>
+            <div class="sub">6개를 다 하면 라운드테이블 초대장이 열립니다</div>
+            <div class="bar g mt4"><i id="mBar" style="width:67%"></i></div>
           </div>
-          <p class="sub" style="margin:12px 0 0">앱이 제공하는 목록입니다. 혼자 해도 되고, ⟡ 표시된 항목은 모임에서 같이 하면 편합니다. 입력한 내용은 <b>마이 &gt; 내 정보</b>에서 언제든 지울 수 있어요.</p>
+          <p class="sub mt4">앱이 제공하는 목록입니다. 혼자 해도 되고, ⟡ 표시된 항목은 모임에서 같이 하면 편합니다. 입력한 내용은 <b class="ink">마이 &gt; 내 정보</b>에서 언제든 지울 수 있어요.</p>
           <div class="sect-h"><h3>이번 달</h3><span>마이커넥트 운영팀 제공</span></div>
           <div id="missionList">
-            <button class="mission" data-done="1" data-pt="300"><span class="check">✓</span><span class="grow"><span class="ttl" style="display:block">내 비자 등록하고 D-day 켜기</span><span class="sub">만료 3개월 전 알림을 받습니다</span></span><span class="pt">+300P</span></button>
-            <button class="mission" data-done="1" data-pt="400"><span class="check">✓</span><span class="grow"><span class="ttl" style="display:block">우리 동네 병원 3곳 저장하기</span><span class="sub">아플 때 통역 되는 곳을 바로 찾습니다</span></span><span class="pt">+400P</span></button>
-            <button class="mission" data-done="1" data-pt="500"><span class="check">✓</span><span class="grow"><span class="ttl" style="display:block">직장 안전 체크리스트 풀기 <span class="tag brand">⟡ 모임</span></span><span class="sub">산재 처리 절차를 미리 알아둡니다</span></span><span class="pt">+500P</span></button>
-            <button class="mission" data-done="1" data-pt="400"><span class="check">✓</span><span class="grow"><span class="ttl" style="display:block">나의 한국 생활 목표 카드 쓰기</span><span class="sub">앱이 목표에 맞는 정보만 골라 보여줍니다</span></span><span class="pt">+400P</span></button>
-            <button class="mission" data-done="0" data-pt="600"><span class="check">✓</span><span class="grow"><span class="ttl" style="display:block">가족 초대 계획 세우기</span><span class="sub">초청 비자 절차와 필요 서류를 정리해드립니다</span></span><span class="pt">+600P</span></button>
-            <button class="mission" data-done="0" data-pt="800"><span class="check">✓</span><span class="grow"><span class="ttl" style="display:block">3개월 뒤의 나에게 편지 쓰기 <span class="tag brand">⟡ 모임</span></span><span class="sub">수료식에서 직접 개봉합니다</span></span><span class="pt">+800P</span></button>
+            <button class="mission" data-done="1" data-pt="300"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.5 5.5L20 6.5"/></svg></span><span class="grow"><span class="ttl">내 비자 등록하고 D-day 켜기</span><span class="sub">만료 3개월 전 알림을 받습니다</span></span><span class="pt">+300P</span></button>
+            <button class="mission" data-done="1" data-pt="400"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.5 5.5L20 6.5"/></svg></span><span class="grow"><span class="ttl">우리 동네 병원 3곳 저장하기</span><span class="sub">아플 때 통역 되는 곳을 바로 찾습니다</span></span><span class="pt">+400P</span></button>
+            <button class="mission" data-done="1" data-pt="500"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.5 5.5L20 6.5"/></svg></span><span class="grow"><span class="ttl">직장 안전 체크리스트 풀기 <span class="tag brand">⟡ 모임</span></span><span class="sub">산재 처리 절차를 미리 알아둡니다</span></span><span class="pt">+500P</span></button>
+            <button class="mission" data-done="1" data-pt="400"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.5 5.5L20 6.5"/></svg></span><span class="grow"><span class="ttl">나의 한국 생활 목표 카드 쓰기</span><span class="sub">앱이 목표에 맞는 정보만 골라 보여줍니다</span></span><span class="pt">+400P</span></button>
+            <button class="mission" data-done="0" data-pt="600"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.5 5.5L20 6.5"/></svg></span><span class="grow"><span class="ttl">가족 초대 계획 세우기</span><span class="sub">초청 비자 절차와 필요 서류를 정리해드립니다</span></span><span class="pt">+600P</span></button>
+            <button class="mission" data-done="0" data-pt="800"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.5 5.5L20 6.5"/></svg></span><span class="grow"><span class="ttl">3개월 뒤의 나에게 편지 쓰기 <span class="tag brand">⟡ 모임</span></span><span class="sub">수료식에서 직접 개봉합니다</span></span><span class="pt">+800P</span></button>
           </div>
           <div class="sect-h"><h3>포인트 쓰기</h3></div>
           <div class="grid2">
-            <div class="card tight"><div class="ttl" style="font-size:13px">카페 쿠폰</div><div class="sub mono">1,000P</div></div>
-            <div class="card tight"><div class="ttl" style="font-size:13px">교통카드 충전</div><div class="sub mono">2,000P</div></div>
-            <div class="card tight"><div class="ttl" style="font-size:13px">의료통역 연결 1회</div><div class="sub mono">3,000P</div></div>
-            <div class="card tight"><div class="ttl" style="font-size:13px">모임 회식비</div><div class="sub mono">5,000P</div></div>
+            <div class="card tight"><div class="ttl ttl--sm">카페 쿠폰</div><div class="sub">1,000P</div></div>
+            <div class="card tight"><div class="ttl ttl--sm">교통카드 충전</div><div class="sub">2,000P</div></div>
+            <div class="card tight"><div class="ttl ttl--sm">의료통역 연결 1회</div><div class="sub">3,000P</div></div>
+            <div class="card tight"><div class="ttl ttl--sm">모임 회식비</div><div class="sub">5,000P</div></div>
           </div>
-          <div style="height:12px"></div>
         </div>
+        <div class="tail"></div>
       </section>
 
       <!-- ══════════ 8. 라운드테이블 ══════════ -->
       <section class="screen" id="s-round" hidden>
-        <div class="appbar"><button class="back" data-go="s-home" aria-label="뒤로">←</button><h2>초대장</h2></div>
+        <div class="appbar">
+          <button class="back" data-go="s-home" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+        </div>
+        <div class="phead">
+          <h2 class="t-display">초대장</h2>
+        </div>
         <div class="pad">
           <div class="card">
             <div class="sub">마이커넥트 3개월차</div>
-            <h3 style="font-size:19px;margin:5px 0 9px">한국살이 라운드테이블</h3>
-            <div class="tags"><span class="tag">안산 문화센터</span><span class="tag">10/18(토) 12:00</span><span class="tag gold">점심 제공</span></div>
-            <div class="agenda" style="margin-top:15px">
-              <div class="part">1부</div><div class="desc"><div style="font-size:13px;font-weight:600">수료 축하 &amp; 소모임 발표</div><div class="sub">60분 · 기타반 한 곡 연주</div></div>
-              <div class="part">2부</div><div class="desc"><div style="font-size:13px;font-weight:600">삼성화재 상담사와의 Q&amp;A</div><div class="sub">40분 · 외국인이 자주 놓치는 보장 3가지 / 산재·실손 처리 절차 / 외국인 RC 커리어 안내</div></div>
-              <div class="part">3부</div><div class="desc"><div style="font-size:13px;font-weight:600">자유 네트워킹</div><div class="sub">40분</div></div>
+            <h3 class="t-title mt1">한국살이 라운드테이블</h3>
+            <div class="tags mt3"><span class="tag">안산 문화센터</span><span class="tag">10/18(토) 12:00</span><span class="tag gold">점심 제공</span></div>
+            <div class="agenda mt4">
+              <div class="part">1부</div><div class="desc"><div class="hd">수료 축하 &amp; 소모임 발표</div><div class="sub">60분 · 기타반 한 곡 연주</div></div>
+              <div class="part sf">2부</div><div class="desc"><div class="hd sfink">삼성화재 상담사와의 Q&amp;A</div><div class="sub">40분 · 외국인이 자주 놓치는 보장 3가지 / 산재·실손 처리 절차 / 외국인 RC 커리어 안내</div></div>
+              <div class="part">3부</div><div class="desc"><div class="hd">자유 네트워킹</div><div class="sub">40분</div></div>
             </div>
-            <div class="opt" style="margin-top:13px">2부는 삼성화재 소속 상담사가 진행합니다. <b>참여는 선택</b>이며 1부만 참석하고 가셔도 됩니다. 모임 호스트는 2부에 관여하지 않습니다.</div>
+            <div class="opt mt4">2부는 삼성화재 소속 상담사가 진행합니다. <b>참여는 선택</b>이며 1부만 참석하고 가셔도 됩니다. 모임 호스트는 2부에 관여하지 않습니다.</div>
           </div>
         </div>
-        <div class="stack">
-          <label class="agree" style="padding:4px 0"><input type="checkbox" checked> <span>1부 · 3부 참석</span></label>
-          <label class="agree" style="padding:4px 0"><input type="checkbox"> <span>2부 삼성화재 Q&amp;A도 듣겠습니다 (선택)</span></label>
+        <div class="stack mt4">
+          <label class="agree">
+            <input type="checkbox" checked>
+            <span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.5 5.5L20 6.5"/></svg></span>
+            <span>1부 · 3부 참석</span>
+          </label>
+          <label class="agree">
+            <input type="checkbox">
+            <span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.5 5.5L20 6.5"/></svg></span>
+            <span>2부 <b class="sfink">삼성화재 Q&amp;A</b>도 듣겠습니다 (선택)</span>
+          </label>
+        </div>
+        <div class="cta">
           <button class="btn" data-go="s-home">참석 신청</button>
-          <p class="sub" style="text-align:center">참석 여부는 포인트·수료에 영향을 주지 않습니다.</p>
+          <p class="sub center">참석 여부는 포인트·수료에 영향을 주지 않습니다.</p>
         </div>
       </section>
 
       <!-- ══════════ 9. 정보 ══════════ -->
       <section class="screen" id="s-info" hidden>
-        <div class="appbar"><h2>생활 정보</h2></div>
+        <div class="phead phead--top">
+          <h2 class="t-display">생활 정보</h2>
+        </div>
         <div class="pad">
-          <div class="card" style="border-color:var(--gold)">
-            <div class="row">
-              <div class="grow"><div class="sub">E-9 비전문취업</div><div class="ttl" style="font-size:16px">2027.03.14 만료</div></div>
-              <div class="visa-d gold">D-186</div>
+          <div class="card card--gold">
+            <div class="row rowtop">
+              <div class="grow">
+                <div class="sub">E-9 비전문취업</div>
+                <div class="ttl ttl--lg">2027.03.14 만료</div>
+              </div>
+              <div class="visa-d visa-d--sm gold">D-186</div>
             </div>
-            <div class="bar" style="margin:13px 0 8px"><i style="width:79%;background:var(--gold)"></i></div>
-            <div class="sub">신청 가능 시작 2026.11.14 · <b style="color:var(--ink)">그때 알림을 보냅니다</b></div>
+            <div class="bar mt4"><i style="width:79%;background:var(--gold)"></i></div>
+            <div class="sub mt3">신청 가능 시작 2026.11.14 · <b class="ink">그때 알림을 보냅니다</b></div>
           </div>
           <div class="sect-h"><h3>갱신 절차</h3><span>출처: 하이코리아</span></div>
           <ol class="steps">
@@ -604,91 +823,105 @@ html,body{height:100%}
             <li>여권 · 외국인등록증 · 표준근로계약서 · 수수료 6만원 준비</li>
             <li>방문일에 접수 — 서류가 헷갈리면 도움 창구로 사진 보내기</li>
           </ol>
-          <p class="sub" style="margin:11px 0 0">공공기관 정보를 그대로 옮긴 안내입니다. 개별 상황 판단은 <b>1345 외국인종합안내센터</b>(20개 언어, 무료)로 연결해드립니다.</p>
+          <p class="sub mt4">공공기관 정보를 그대로 옮긴 안내입니다. 개별 상황 판단은 <b class="ink">1345 외국인종합안내센터</b>(20개 언어, 무료)로 연결해드립니다.</p>
 
           <div class="sect-h"><h3>외국어 진료 병원</h3><span>안산 · 베트남어</span></div>
           <div class="map">
-            <span style="left:20%;top:52%">한사랑병원</span>
-            <span style="left:58%;top:40%">원곡보건지소</span>
-            <span style="left:42%;top:88%">고대안산병원</span>
+            <span class="pin" style="left:30%;top:46%"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.3"/></svg>한사랑병원</span>
+            <span class="pin" style="left:68%;top:26%"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.3"/></svg>원곡보건지소</span>
+            <span class="pin" style="left:44%;top:78%"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.3"/></svg>고대안산병원</span>
           </div>
-          <div style="margin-top:4px">
-            <div class="flat"><div class="row"><div class="grow"><div style="font-size:13px;font-weight:600">한사랑병원 <span class="tag brand">베트남어</span></div><div class="sub">정형외과·외과 · 산재 지정 · 도보 12분</div></div><button class="btn sm">예약 요청</button></div></div>
-            <div class="flat"><div class="row"><div class="grow"><div style="font-size:13px;font-weight:600">고대안산병원 <span class="tag">영어·중국어</span></div><div class="sub">응급실 24시간 · 외국인 진료 코디네이터</div></div><button class="btn sm">예약 요청</button></div></div>
-            <div class="flat"><div class="row"><div class="grow"><div style="font-size:13px;font-weight:600">원곡동 보건지소</div><div class="sub">무료 건강검진 10/25 · 통역 상주 · 예약 불필요</div></div><span class="chev">›</span></div></div>
+          <div class="mt1">
+            <div class="flat"><div class="row"><div class="grow"><div class="lbl">한사랑병원 <span class="tag brand">베트남어</span></div><div class="sub">정형외과·외과 · 산재 지정 · 도보 12분</div></div><button class="btn sm ghost">예약 요청</button></div></div>
+            <div class="flat"><div class="row"><div class="grow"><div class="lbl">고대안산병원 <span class="tag">영어·중국어</span></div><div class="sub">응급실 24시간 · 외국인 진료 코디네이터</div></div><button class="btn sm ghost">예약 요청</button></div></div>
+            <div class="flat"><div class="row"><div class="grow"><div class="lbl">원곡동 보건지소</div><div class="sub">무료 건강검진 10/25 · 통역 상주 · 예약 불필요</div></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></div></div>
           </div>
-          <div class="card" style="margin-top:12px">
-            <div class="ttl" style="font-size:13.5px">예약이 어려우면</div>
-            <p class="body" style="margin:7px 0 11px">진료과와 원하는 시간만 고르면 <b style="color:var(--ink)">운영팀이 전화로 대신 예약</b>하고 결과를 알려드립니다. 전화 통역이 필요하면 같이 연결합니다.</p>
-            <div class="kv"><b>예약 요청</b><span>앱에서 3단계 · 평일 09–18시</span></div>
-            <div class="kv"><b>의료 통역</b><span>1345 · BBB 전화통역 연결</span></div>
-            <div class="kv"><b>보험금 청구가 막힐 때</b><span>삼성화재 서포터 도움 신청</span></div>
+          <div class="card mt4">
+            <div class="ttl">예약이 어려우면</div>
+            <p class="body mt2">진료과와 원하는 시간만 고르면 <b class="ink">운영팀이 전화로 대신 예약</b>하고 결과를 알려드립니다. 전화 통역이 필요하면 같이 연결합니다.</p>
+            <div class="mt4">
+              <div class="kv"><b>예약 요청</b><span>앱에서 3단계 · 평일 09–18시</span></div>
+              <div class="kv"><b>의료 통역</b><span>1345 · BBB 전화통역 연결</span></div>
+              <div class="kv"><b>보험금 청구가 막힐 때</b><span class="sf">삼성화재 서포터 도움 신청</span></div>
+            </div>
           </div>
-          <div class="card tight" style="margin-top:9px;background:var(--panel-2)">
-            <div class="row"><div class="avatar sm g">S</div><div class="grow body" style="font-size:12px"><b style="color:var(--ink)">삼성화재 서포터</b>는 보험금 청구·산재 절차처럼 회사가 잘 아는 것만 도와드립니다. 신청하지 않으면 연락하지 않습니다.</div></div>
+          <div class="card tight card--quiet mt3">
+            <div class="row rowtop">
+              <div class="avatar sm sf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5.4c0 4.3-2.9 8.3-7 9.6-4.1-1.3-7-5.3-7-9.6V6z"/><path d="M9.2 12.2l2 2 3.6-3.9"/></svg></div>
+              <div class="grow body body--sm"><b class="sfink">삼성화재 서포터</b>는 보험금 청구·산재 절차처럼 회사가 잘 아는 것만 도와드립니다. 신청하지 않으면 연락하지 않습니다.</div>
+            </div>
           </div>
 
           <div class="sect-h"><h3>우리 동네</h3><span>공공데이터 기준</span></div>
           <div class="grid2">
-            <div class="card tight"><div class="sub">원곡동 원룸 평균</div><div class="mono" style="font-size:16px;font-weight:600;margin-top:3px">월 38만원</div><div class="sub">보증금 300만</div></div>
-            <div class="card tight"><div class="sub">공단까지</div><div class="mono" style="font-size:16px;font-weight:600;margin-top:3px">버스 18분</div><div class="sub">환승 없음</div></div>
+            <div class="card tight"><div class="sub">원곡동 원룸 평균</div><div class="figure mt1">월 38만원</div><div class="sub">보증금 300만</div></div>
+            <div class="card tight"><div class="sub">공단까지</div><div class="figure mt1">버스 18분</div><div class="sub">환승 없음</div></div>
           </div>
-          <p class="sub" style="margin:11px 0 14px">지역 안내는 통계청·지자체 공개 데이터만 사용합니다. 안전 지표는 해석이 갈릴 수 있어 <b>순위를 매기지 않고 항목별 수치로만</b> 보여줍니다.</p>
+          <p class="sub mt4">지역 안내는 통계청·지자체 공개 데이터만 사용합니다. 안전 지표는 해석이 갈릴 수 있어 <b class="ink">순위를 매기지 않고 항목별 수치로만</b> 보여줍니다.</p>
         </div>
+        <div class="tail"></div>
       </section>
 
       <!-- ══════════ 10. 마이 ══════════ -->
       <section class="screen" id="s-me" hidden>
-        <div class="appbar"><h2>마이</h2></div>
+        <div class="phead phead--top">
+          <h2 class="t-display">마이</h2>
+        </div>
         <div class="pad">
           <div class="card">
             <div class="row">
-              <div class="avatar" style="width:46px;height:46px;font-size:15px">M</div>
-              <div class="grow"><div class="ttl" style="font-size:16px">Nguyen Van Minh</div><div class="sub">안산 원곡동 · 한국 1년 4개월</div></div>
+              <div class="avatar lg">M</div>
+              <div class="grow"><div class="ttl ttl--lg">Nguyen Van Minh</div><div class="sub">안산 원곡동 · 한국 1년 4개월</div></div>
             </div>
-            <div class="row" style="margin-top:14px;gap:8px">
-              <div class="card tight grow" style="text-align:center;background:var(--panel-2);border:none"><div class="mono" style="font-size:16px;font-weight:600">2,400</div><div class="sub">포인트</div></div>
-              <div class="card tight grow" style="text-align:center;background:var(--panel-2);border:none"><div class="mono" style="font-size:16px;font-weight:600">11</div><div class="sub">모임 참석</div></div>
-              <div class="card tight grow" style="text-align:center;background:var(--panel-2);border:none"><div class="mono" style="font-size:16px;font-weight:600">2</div><div class="sub">내 소모임</div></div>
+            <div class="stats">
+              <div class="stat"><b>2,400</b><span>포인트</span></div>
+              <div class="stat"><b>11</b><span>모임 참석</span></div>
+              <div class="stat"><b>2</b><span>내 소모임</span></div>
             </div>
           </div>
 
           <div class="sect-h"><h3>수료까지</h3><span>3개월 과정</span></div>
           <div class="card">
-            <div class="row" style="margin-bottom:10px"><div class="grow"><div class="ttl">기타 한 곡 완주반</div><div class="sub">출석 8/11회 · 미션 4/6</div></div><span class="tag ok">2개월차</span></div>
-            <div class="bar"><i style="width:70%"></i></div>
-            <p class="body" style="margin:12px 0 0">수료하면 <b style="color:var(--ink)">직접 모임을 여는 호스트</b>로 지원할 수 있습니다. 호스트는 모임 운영만 하고, 보험 상담은 하지 않습니다. RC 커리어는 별개의 선택 안내입니다.</p>
+            <div class="row">
+              <div class="grow"><div class="ttl">기타 한 곡 완주반</div><div class="sub">출석 8/11회 · 미션 4/6</div></div>
+              <span class="tag ok">2개월차</span>
+            </div>
+            <div class="bar mt4"><i style="width:70%"></i></div>
+            <p class="body mt4">수료하면 <b class="ink">직접 모임을 여는 호스트</b>로 지원할 수 있습니다. 호스트는 모임 운영만 하고, 보험 상담은 하지 않습니다. RC 커리어는 별개의 선택 안내입니다.</p>
           </div>
 
           <div class="sect-h"><h3>내 정보</h3></div>
           <div>
-            <div class="flat"><div class="row"><div class="grow"><div style="font-size:13px;font-weight:600">호스트·멤버에게 공개하는 항목</div><div class="sub">이름 · 사용 언어 · 사는 구 (직장·소득은 비공개)</div></div><span class="tag">변경</span></div></div>
-            <div class="flat"><div class="row"><div class="grow"><div style="font-size:13px;font-weight:600">삼성화재 서포터 연결</div><div class="sub">연결 안 됨 — 도움을 신청하면 그때 배정됩니다</div></div><span class="tag">off</span></div></div>
-            <div class="flat"><div class="row"><div class="grow"><div style="font-size:13px;font-weight:600">보험·커리어 안내 수신</div><div class="sub">현재 꺼져 있음 — 켜지 않아도 활동에 영향 없음</div></div><span class="tag">off</span></div></div>
-            <div class="flat"><div class="row"><div class="grow"><div style="font-size:13px;font-weight:600">체크리스트에 입력한 내용 관리</div><div class="sub">항목별로 삭제 가능 · 삭제해도 포인트는 유지</div></div><span class="tag warn">삭제</span></div></div>
-            <div class="flat"><div class="row"><div class="grow"><div style="font-size:13px;font-weight:600">언어</div><div class="sub">Tiếng Việt</div></div><span class="chev">›</span></div></div>
+            <div class="flat"><div class="row"><div class="grow"><div class="lbl">호스트·멤버에게 공개하는 항목</div><div class="sub">이름 · 사용 언어 · 사는 구 (직장·소득은 비공개)</div></div><span class="tag">변경</span></div></div>
+            <div class="flat"><div class="row"><div class="grow"><div class="lbl"><span class="sf-dot"></span>삼성화재 서포터 연결</div><div class="sub">연결 안 됨 — 도움을 신청하면 그때 배정됩니다</div></div><span class="tag">off</span></div></div>
+            <div class="flat"><div class="row"><div class="grow"><div class="lbl"><span class="sf-dot"></span>보험·커리어 안내 수신</div><div class="sub">현재 꺼져 있음 — 켜지 않아도 활동에 영향 없음</div></div><span class="tag">off</span></div></div>
+            <div class="flat"><div class="row"><div class="grow"><div class="lbl">체크리스트에 입력한 내용 관리</div><div class="sub">항목별로 삭제 가능 · 삭제해도 포인트는 유지</div></div><span class="tag warn">삭제</span></div></div>
+            <div class="flat"><div class="row"><div class="grow"><div class="lbl">언어</div><div class="sub">Tiếng Việt</div></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></div></div>
           </div>
-          <div style="height:14px"></div>
         </div>
+        <div class="tail"></div>
       </section>
 
 </main>
 
 <nav class="tabbar" id="tabbar" hidden>
-  <button class="tab" data-tab="s-home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M9 20a3 3 0 1 1 6 0M8 9a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5m8 0a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5M4 16a4 4 0 0 1 8 0m0 0a4 4 0 0 1 8 0"/></svg>커뮤니티</button>
-  <button class="tab" data-tab="s-groups"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg>소모임</button>
-  <button class="tab" data-tab="s-mission"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M9 11.5l2.5 2.5L19 6.5"/><path d="M20.5 12a8.5 8.5 0 1 1-4-7.2"/></svg>체크리스트</button>
-  <button class="tab" data-tab="s-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.8v.2"/></svg>정보·도움</button>
-  <button class="tab" data-tab="s-me"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>마이</button>
+  <button class="tab" data-tab="s-home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M9 20a3 3 0 1 1 6 0M8 9a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5m8 0a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5M4 16a4 4 0 0 1 8 0m0 0a4 4 0 0 1 8 0"/></svg>커뮤니티</button>
+  <button class="tab" data-tab="s-groups"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg>소모임</button>
+  <button class="tab" data-tab="s-mission"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M9 11.5l2.5 2.5L19 6.5"/><path d="M20.5 12a8.5 8.5 0 1 1-4-7.2"/></svg>체크리스트</button>
+  <button class="tab" data-tab="s-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.8v.2"/></svg>정보·도움</button>
+  <button class="tab" data-tab="s-me"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>마이</button>
 </nav>
 </div>
 
 <script>
 const TABS = ["s-home","s-groups","s-mission","s-info","s-me"];
 const TAB_FALLBACK = {"s-group":"s-groups","s-round":"s-home","s-recommend":"s-groups"};
+const REDUCE = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
 
 function show(id){
   document.querySelectorAll(".screen").forEach(s=>{s.hidden = s.id!==id;});
+  const el = document.getElementById(id);
+  if(el && !REDUCE){ el.classList.remove("enter"); void el.offsetWidth; el.classList.add("enter"); }
   const screens = document.querySelector(".screens"); if(screens) screens.scrollTop = 0;
   document.getElementById("tabbar").hidden = (id==="s-consent"||id==="s-purpose");
   const activeTab = TABS.includes(id) ? id : (TAB_FALLBACK[id] || "");
@@ -709,13 +942,25 @@ document.getElementById("joinBtn").addEventListener("click",function(){
 document.getElementById("rsvpBtn").addEventListener("click",function(){
   this.textContent="참석 완료"; this.classList.add("done");
 });
+
+function countUp(el,to,suffix){
+  const from = Number(el.dataset.v || 0);
+  el.dataset.v = to;
+  if(REDUCE || from===to){ el.textContent = to.toLocaleString()+suffix; return; }
+  const t0 = performance.now(), dur = 320;
+  (function step(t){
+    const k = Math.min(1,(t-t0)/dur), e = 1-Math.pow(1-k,3);
+    el.textContent = Math.round(from+(to-from)*e).toLocaleString()+suffix;
+    if(k<1) requestAnimationFrame(step);
+  })(t0);
+}
 function syncMissions(){
   const all=[...document.querySelectorAll(".mission")];
   const done=all.filter(m=>m.dataset.done==="1");
   const pts=done.reduce((s,m)=>s+Number(m.dataset.pt),0);
   document.getElementById("mCount").textContent=done.length+" / "+all.length+" 완료";
   document.getElementById("mBar").style.width=Math.round(done.length/all.length*100)+"%";
-  document.getElementById("ptTag").textContent=pts.toLocaleString()+"P";
+  countUp(document.getElementById("ptTag"),pts,"P");
 }
 syncMissions();
 show("s-consent");
