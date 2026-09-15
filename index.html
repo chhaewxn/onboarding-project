@@ -32,16 +32,21 @@ img{max-width:100%}
 
 /* ══════════ design tokens ══════════ */
 :root{
-  /* 삼성화재 아이덴티티 — 삼성화재 관여 요소 전용 */
-  --sf-blue:#1428A0;
-  --sf-blue-ink:#0E1C6E;
-  --sf-blue-soft:#EAEDFA;
+  /* SFMI 아이덴티티 — SFN Blue(주) + Spring Blue(액센트) */
+  --sf-blue:#003CDC;      /* SFN Blue — 삼성화재 브랜드 */
+  --sf-blue-ink:#002FA8;
+  --sf-blue-soft:#E6ECFB;
 
-  /* 액션 — UI 인터랙션 전용 */
-  --action:#2B65F0;
-  --action-ink:#1A4FD6;
-  --action-soft:#EBF1FE;
+  /* 액션 — SFN Blue와 통일 (UI 인터랙션) */
+  --action:#003CDC;
+  --action-ink:#002FA8;
+  --action-soft:#E6ECFB;
   --on-brand:#FFFFFF;
+
+  /* Spring Blue — 액센트 */
+  --sky:#5BC2E7;
+  --sky-ink:#2A9CC5;
+  --sky-soft:#E8F6FC;
 
   /* 뉴트럴 */
   --bg:#F2F4F6;
@@ -324,8 +329,8 @@ button.tag{cursor:pointer}
 .hero{padding:var(--s8) var(--s5) var(--s5)}
 .logo{font-size:27px;font-weight:800;letter-spacing:-.045em;line-height:1.1}
 .logo em{font-style:normal;color:var(--action)}
-.sig{display:inline-flex;align-items:center;gap:6px;margin-top:var(--s3);font-size:12px;font-weight:600;letter-spacing:-.01em;color:var(--sf-blue)}
-.sig::before{content:"";width:3px;height:13px;border-radius:2px;background:var(--sf-blue)}
+.sig{display:inline-flex;align-items:center;gap:6px;margin-top:var(--s4);color:var(--sf-blue)}
+.sig img{display:block;height:18px;width:auto}
 .notice{background:var(--surface);border-radius:var(--r);padding:var(--s5);box-shadow:var(--sh);font-size:14px;line-height:1.7;color:var(--ink-2)}
 .notice b{color:var(--ink);font-weight:600}
 .notice--sf{background:var(--sf-blue-soft);box-shadow:none;border-left:3px solid var(--sf-blue);border-radius:var(--s1) var(--r) var(--r) var(--s1)}
@@ -406,7 +411,7 @@ button.tag{cursor:pointer}
           <div class="row rowtop">
             <div class="grow">
               <div class="logo">My<em>Connect</em></div>
-              <div class="sig">삼성화재가 운영합니다</div>
+              <div class="sig"><img src="data/header-logo.svg" alt="삼성화재" width="82" height="24"></div>
             </div>
             <button class="tag" type="button" aria-label="언어 선택">🇻🇳 Tiếng Việt ▾</button>
           </div>

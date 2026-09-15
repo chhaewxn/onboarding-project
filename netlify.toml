@@ -4,5 +4,5 @@
 # 리다이렉트로 가리는 방식이 아니라 물리적 제외입니다.
 
 [build]
-  command = "mkdir -p dist && cp index.html robots.txt dist/"
+  command = "mkdir -p dist/data && cp index.html robots.txt dist/ && cp data/header-logo.svg dist/data/"
   publish = "dist"
