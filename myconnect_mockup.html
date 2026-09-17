@@ -697,7 +697,7 @@ button.tag{cursor:pointer}
           <ol class="steps">
             <li>매주 토요일 저녁 90분 연습 (안산 다문화센터)</li>
             <li>정착 체크리스트 6개 — 앱이 제공, 혼자 또는 모임에서 함께</li>
-            <li>3개월차 한국살이 라운드테이블에서 수료 연주</li>
+            <li>3개월차 한국살이 간담회에서 수료 연주</li>
           </ol>
         </div>
         <div class="cta">
@@ -765,7 +765,7 @@ button.tag{cursor:pointer}
           <div class="sect-h"><h3>정착 체크리스트</h3><span>4 / 6 완료</span></div>
           <button class="card card--btn" data-go="s-mission">
             <div class="row">
-              <div class="grow"><div class="ttl">이번 달 체크리스트</div><div class="sub">다 하면 라운드테이블 초대 + 3,000P</div></div>
+              <div class="grow"><div class="ttl">이번 달 체크리스트</div><div class="sub">다 하면 간담회 초대 + 3,000P</div></div>
               <div class="figure figure--gold">2,400P</div>
             </div>
             <div class="bar g mt4"><i style="width:67%"></i></div>
@@ -785,7 +785,7 @@ button.tag{cursor:pointer}
           <button class="card card--btn card--gold" data-go="s-round">
             <div class="row">
               <div class="datechip">10/18</div>
-              <div class="grow"><div class="ttl">한국살이 라운드테이블</div><div class="sub">안산 문화센터 · 토 12:00 · 점심 제공</div></div>
+              <div class="grow"><div class="ttl">한국살이 간담회</div><div class="sub">안산 문화센터 · 토 12:00 · 점심 제공</div></div>
               <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
             </div>
             <p class="sub mt3">3개월차 멘티 수료 축하 자리입니다. 2부 <b class="sfink">삼성화재 Q&amp;A</b>는 <b class="ink">선택 참여</b>입니다.</p>
@@ -840,7 +840,7 @@ button.tag{cursor:pointer}
         <div class="pad">
           <div class="card">
             <div class="ttl" id="mCount">4 / 6 완료</div>
-            <div class="sub">6개를 다 하면 라운드테이블 초대장이 열립니다</div>
+            <div class="sub">6개를 다 하면 간담회 초대장이 열립니다</div>
             <div class="bar g mt4"><i id="mBar" style="width:67%"></i></div>
           </div>
           <p class="sub mt4">앱이 제공하는 목록입니다. 혼자 해도 되고, ⟡ 표시된 항목은 모임에서 같이 하면 편합니다. 입력한 내용은 <b class="ink">마이 &gt; 내 정보</b>에서 언제든 지울 수 있어요.</p>
@@ -864,7 +864,7 @@ button.tag{cursor:pointer}
         <div class="tail"></div>
       </section>
 
-      <!-- ══════════ 8. 라운드테이블 ══════════ -->
+      <!-- ══════════ 8. 간담회 ══════════ -->
       <section class="screen" id="s-round" hidden>
         <div class="appbar">
           <button class="back" data-go="s-home" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -875,7 +875,7 @@ button.tag{cursor:pointer}
         <div class="pad">
           <div class="card">
             <div class="sub">마이커넥트 3개월차</div>
-            <h3 class="t-title mt1">한국살이 라운드테이블</h3>
+            <h3 class="t-title mt1">한국살이 간담회</h3>
             <div class="tags mt3"><span class="tag">안산 문화센터</span><span class="tag">10/18(토) 12:00</span><span class="tag gold">점심 제공</span></div>
             <div class="agenda mt4">
               <div class="part">1부</div><div class="desc"><div class="hd">수료 축하 &amp; 소모임 발표</div><div class="sub">60분 · 기타반 한 곡 연주</div></div>
@@ -1075,7 +1075,7 @@ const RAIL = {
       "⟡ 표시 항목만 <b>모임에서 함께</b> 하는 것으로 두고, 나머지는 혼자 해도 됩니다. 호스트는 진도를 관리하지 않습니다.",
       "리워드 사용처를 실물(카페·교통카드·의료통역·회식비)로 고정해 “나중에 준다”가 되지 않게 했습니다."],
     guard:"<p><b>개인정보보호법 제15조</b> — “미션으로 자연스럽게 DB 수집”은 목적 고지 없는 수집이라 그대로는 불가합니다. 화면에서 항목별 삭제를 제공하고, 삭제해도 포인트를 회수하지 않습니다.</p><p>포인트는 <code>출석률 × 완료율</code>로만 계산합니다. 보험 가입 여부와 연결하는 순간 대가성 문제가 됩니다.</p>"},
-  "s-round":{n:8,tag:"운영",title:"라운드테이블",
+  "s-round":{n:8,tag:"운영",title:"간담회",
     note:"“다 같이 밥 먹으면서 자연스럽게”를 <b>공개된 3부 구성</b>으로 바꿨습니다. 이름을 바꾸고 미리 알리는 것만으로 참석률은 거의 줄지 않고, 위법 소지는 사라집니다.",
     why:["2부 주제를 초대장에 그대로 적습니다 — 놓치는 보장 3가지 / 산재·실손 절차 / RC 커리어 안내.",
       "2부 참여를 <b>별도 체크박스</b>로 분리하고, 1부만 듣고 가도 된다고 씁니다.",
@@ -1097,7 +1097,7 @@ const RAIL = {
 const ORDER = ["s-consent","s-purpose","s-recommend","s-group","s-home","s-groups","s-mission","s-round","s-info","s-me"];
 const TABS = ["s-home","s-groups","s-mission","s-info","s-me"];
 const TAB_FALLBACK = {"s-group":"s-groups","s-round":"s-home","s-recommend":"s-groups"};
-const LABEL = {"s-consent":"동의","s-purpose":"목적","s-recommend":"추천","s-group":"모임 상세","s-home":"커뮤니티 홈","s-groups":"소모임","s-mission":"체크리스트","s-round":"라운드테이블","s-info":"정보·도움창구","s-me":"마이"};
+const LABEL = {"s-consent":"동의","s-purpose":"목적","s-recommend":"추천","s-group":"모임 상세","s-home":"커뮤니티 홈","s-groups":"소모임","s-mission":"체크리스트","s-round":"간담회","s-info":"정보·도움창구","s-me":"마이"};
 
 const REDUCE = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
 const flow = document.getElementById("flow");

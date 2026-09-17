@@ -179,6 +179,9 @@ html,body{height:100%}
 .sect-h{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);margin:var(--s8) 0 var(--s3)}
 .sect-h h3{font-size:17px;font-weight:700;letter-spacing:-.02em}
 .sect-h span{font-size:13px;font-weight:400;color:var(--ink-3)}
+.sect-h--rule{margin-top:var(--s6);padding-top:var(--s6);border-top:1px solid var(--line)}
+.ralign{text-align:right;flex:0 0 auto}
+[data-todo]{cursor:pointer}
 .link{all:unset;cursor:pointer;font-size:13px;font-weight:600;color:var(--action);padding:6px 2px}
 .link:hover{text-decoration:underline}
 .appbar .link{margin-left:auto}
@@ -399,6 +402,18 @@ button.tag{cursor:pointer}
 .stat span{display:block;font-size:12px;color:var(--ink-3);margin-top:2px}
 .sf-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--sf-blue);margin-right:7px;vertical-align:1px}
 
+/* ══════════ toast ══════════ */
+.toast{
+  position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));
+  transform:translate(-50%,8px);max-width:calc(100% - 48px);
+  padding:11px 18px;border-radius:var(--r-pill);
+  background:var(--nav-ink);color:var(--nav-on);
+  font-size:13px;font-weight:600;line-height:1.4;text-align:center;
+  box-shadow:var(--sh-pop);opacity:0;pointer-events:none;z-index:50;
+  transition:opacity .18s linear,transform .18s var(--ease);
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
 /* ══════════ a11y ══════════ */
 :focus-visible{outline:2px solid var(--action);outline-offset:2px;border-radius:8px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
@@ -417,7 +432,7 @@ button.tag{cursor:pointer}
               <div class="logo">My<em>Connect</em></div>
               <div class="sig"><img src="data/header-logo.svg" alt="삼성화재" width="82" height="24"></div>
             </div>
-            <button class="tag" type="button" aria-label="언어 선택">🇻🇳 Tiếng Việt ▾</button>
+            <button class="tag" type="button" aria-label="언어 선택" data-todo="다국어 전환은 아직 목업에 없어요">🇻🇳 Tiếng Việt ▾</button>
           </div>
           <p class="body mt5">한국에 사는 외국인들의 소모임.<br>같은 동네, 같은 언어, 같은 취미로 모입니다.</p>
         </div>
@@ -491,6 +506,7 @@ button.tag{cursor:pointer}
               <div class="kv"><b>쓰는 언어</b><span>베트남어 · 한국어(초급)</span></div>
               <div class="kv"><b>관심</b><span>기타 · 자전거 · 한국어 공부</span></div>
             </div>
+            <p class="sub mt3">가입할 때 입력한 내용이에요. <b class="ink">마이 &gt; 내 정보</b>에서 언제든 바꿀 수 있어요.</p>
           </div>
         </div>
         <div class="cta">
@@ -507,7 +523,7 @@ button.tag{cursor:pointer}
           <h2 class="t-display">안산에서 열리는 모임</h2>
           <p class="body"><b class="ink">베트남어가 통하는 모임</b>을 위로 올렸습니다.</p>
           <div class="tags mt4">
-            <span class="tag brand">베트남어 ✓</span><span class="tag">안산 5km</span><span class="tag">주말 저녁</span><span class="tag">+ 필터</span>
+            <span class="tag brand">베트남어 ✓</span><span class="tag">안산 5km</span><span class="tag">주말 저녁</span><span class="tag" data-todo="필터는 목업에서 동작하지 않아요">+ 필터</span>
           </div>
         </div>
         <div class="stack">
@@ -524,7 +540,7 @@ button.tag{cursor:pointer}
             <div class="row rule">
               <div class="avatar sm g">H</div>
               <div class="grow">
-                <div class="lbl">버디 Tran Thi Hoa</div>
+                <div class="lbl">커뮤니티 버디 Tran Thi Hoa</div>
                 <div class="sub">한국 9년차 · 베트남어/한국어</div>
               </div>
               <button class="btn sm" data-go="s-group">보기</button>
@@ -535,7 +551,7 @@ button.tag{cursor:pointer}
               <div class="avatar o emoji" aria-hidden="true">🏠</div>
               <div class="grow">
                 <div class="ttl">집 구하기 품앗이</div>
-                <div class="sub">격주 일 14:00 · 안산 · 7/8명 · 버디 Jamila K.</div>
+                <div class="sub">격주 일 14:00 · 안산 · 7/8명 · 커뮤니티 버디 Jamila K.</div>
               </div>
               <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
             </div>
@@ -545,7 +561,7 @@ button.tag{cursor:pointer}
               <div class="avatar emoji" aria-hidden="true">📖</div>
               <div class="grow">
                 <div class="ttl">한국어 스터디 — TOPIK 3급반</div>
-                <div class="sub">수·토 20:00 · 안산 · 8/10명 · 버디 Le Van Thanh</div>
+                <div class="sub">수·토 20:00 · 안산 · 8/10명 · 커뮤니티 버디 Le Van Thanh</div>
               </div>
               <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
             </div>
@@ -555,7 +571,7 @@ button.tag{cursor:pointer}
               <div class="avatar g emoji" aria-hidden="true">🚲</div>
               <div class="grow">
                 <div class="ttl">주말 자전거 라이딩</div>
-                <div class="sub">일 08:00 · 시화호 · 5/8명 · 버디 Bakhtiyor R.</div>
+                <div class="sub">일 08:00 · 시화호 · 5/8명 · 커뮤니티 버디 Bakhtiyor R.</div>
               </div>
               <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
             </div>
@@ -576,7 +592,7 @@ button.tag{cursor:pointer}
           <p class="body">기초 코드부터 시작해서 3개월 뒤 수료식에서 한 곡을 함께 연주합니다. 악기 없어도 됩니다.</p>
         </div>
         <div class="pad">
-          <div class="sect-h"><h3>버디</h3><span>모임을 여는 사람</span></div>
+          <div class="sect-h"><h3>커뮤니티 버디</h3><span>모임을 여는 사람</span></div>
           <div class="card">
             <div class="row">
               <div class="avatar g">H</div>
@@ -588,8 +604,8 @@ button.tag{cursor:pointer}
             <div class="tags mt4"><span class="tag">커뮤니티 버디</span><span class="tag">모임 운영 2기</span><span class="tag ok">출석률 92%</span></div>
             <p class="body mt4">기타를 8년 쳤고, 안산에서 같이 칠 사람을 모으려고 모임을 열었습니다.</p>
             <div class="split">
-              <div><span class="hd ok">버디가 하는 일</span>모임 날짜 정하기 · 장소 예약 · 연습 진행 · 단톡방 관리</div>
-              <div><span class="hd">버디가 하지 않는 일</span>병원 동행 · 계약서 검토 · 서류 대행 · 보험 상담</div>
+              <div><span class="hd ok">커뮤니티 버디가 하는 일</span>모임 날짜 정하기 · 장소 예약 · 연습 진행 · 단톡방 관리</div>
+              <div><span class="hd">커뮤니티 버디가 하지 않는 일</span>병원 동행 · 계약서 검토 · 서류 대행 · 보험 상담</div>
             </div>
           </div>
           <div class="card tight card--quiet mt3">
@@ -598,11 +614,11 @@ button.tag{cursor:pointer}
               <div class="grow body body--sm">병원·서류처럼 막히는 일은 커뮤니티 버디가 아니라 <b class="ink">앱 도움 창구</b>가 받습니다. <button class="link" data-go="s-info">도움 창구 보기</button></div>
             </div>
           </div>
-          <div class="sect-h"><h3>앞으로 3개월</h3><span>수료 시 버디 지원 가능</span></div>
+          <div class="sect-h"><h3>앞으로 3개월</h3><span>수료 시 커뮤니티 버디 지원 가능</span></div>
           <ol class="steps">
             <li>매주 토요일 저녁 90분 연습 (안산 다문화센터)</li>
             <li>정착 체크리스트 6개 — 앱이 제공, 혼자 또는 모임에서 함께</li>
-            <li>3개월차 한국살이 라운드테이블에서 수료 연주</li>
+            <li>3개월차 한국살이 간담회에서 수료 연주</li>
           </ol>
         </div>
         <div class="cta">
@@ -639,7 +655,7 @@ button.tag{cursor:pointer}
             <div class="card card--accent">
               <div class="row">
                 <div class="avatar emoji" aria-hidden="true">🎸</div>
-                <div class="grow"><div class="ttl">기타 한 곡 완주반</div><div class="sub">버디 Hoa · 멤버 7명</div></div>
+                <div class="grow"><div class="ttl">기타 한 곡 완주반</div><div class="sub">커뮤니티 버디 Hoa · 멤버 7명</div></div>
                 <span class="tag brand">D-2</span>
               </div>
               <div class="card tight card--accent-fill mt4">
@@ -653,14 +669,14 @@ button.tag{cursor:pointer}
               </div>
               <div class="row rowtop mt4">
                 <div class="avatar sm g">H</div>
-                <div class="grow body body--sm">버디 Hoa · <span class="dim">2시간 전</span><br>“Minh, 지난주 코드 잘 잡았어요. 이번엔 F 갈게요 💪”</div>
+                <div class="grow body body--sm">커뮤니티 버디 Hoa · <span class="dim">2시간 전</span><br>“Minh, 지난주 코드 잘 잡았어요. 이번엔 F 갈게요 💪”</div>
               </div>
             </div>
             <div class="card">
               <div class="row">
                 <div class="avatar o emoji" aria-hidden="true">🏠</div>
                 <div class="grow">
-                  <div class="ttl">집 구하기 품앗이</div><div class="sub">버디 Jamila K. · 다음 모임 10/12(일)</div>
+                  <div class="ttl">집 구하기 품앗이</div><div class="sub">커뮤니티 버디 Jamila K. · 다음 모임 10/12(일)</div>
                 </div>
                 <span class="tag">새 글 3</span>
               </div>
@@ -670,8 +686,8 @@ button.tag{cursor:pointer}
           <div class="sect-h"><h3>정착 체크리스트</h3><span>4 / 6 완료</span></div>
           <button class="card card--btn" data-go="s-mission">
             <div class="row">
-              <div class="grow"><div class="ttl">이번 달 체크리스트</div><div class="sub">다 하면 라운드테이블 초대 + 3,000P</div></div>
-              <div class="figure figure--gold">2,400P</div>
+              <div class="grow"><div class="ttl">이번 달 체크리스트</div><div class="sub">다 하면 간담회 초대 + 3,000P</div></div>
+              <div class="ralign"><div class="figure figure--gold">2,400P</div><div class="sub">누적</div></div>
             </div>
             <div class="bar g mt4"><i style="width:67%"></i></div>
           </button>
@@ -690,7 +706,7 @@ button.tag{cursor:pointer}
           <button class="card card--btn card--gold" data-go="s-round">
             <div class="row">
               <div class="datechip">10/18</div>
-              <div class="grow"><div class="ttl">한국살이 라운드테이블</div><div class="sub">안산 문화센터 · 토 12:00 · 점심 제공</div></div>
+              <div class="grow"><div class="ttl">한국살이 간담회</div><div class="sub">안산 문화센터 · 토 12:00 · 점심 제공</div></div>
               <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
             </div>
             <p class="sub mt3">3개월차 멘티 수료 축하 자리입니다. 2부 <b class="sfink">삼성화재 Q&amp;A</b>는 <b class="ink">선택 참여</b>입니다.</p>
@@ -710,7 +726,7 @@ button.tag{cursor:pointer}
         <div class="phead phead--top">
           <div class="row">
             <h2 class="t-display grow">소모임</h2>
-            <button class="link">지도</button>
+            <button class="link" data-todo="지도 보기는 목업에서 동작하지 않아요">지도</button>
           </div>
           <div class="tags mt4">
             <span class="tag brand">안산</span><span class="tag">베트남어</span><span class="tag">주말</span><span class="tag">모집중</span>
@@ -739,13 +755,13 @@ button.tag{cursor:pointer}
         <div class="phead phead--top">
           <div class="row">
             <h2 class="t-display grow">정착 체크리스트</h2>
-            <span class="tag gold" id="ptTag">2,400P</span>
+            <span class="tag gold">이번 달 <b id="ptTag" data-v="1600">1,600P</b></span>
           </div>
         </div>
         <div class="pad">
           <div class="card">
             <div class="ttl" id="mCount">4 / 6 완료</div>
-            <div class="sub">6개를 다 하면 라운드테이블 초대장이 열립니다</div>
+            <div class="sub">6개를 다 하면 간담회 초대장이 열립니다</div>
             <div class="bar g mt4"><i id="mBar" style="width:67%"></i></div>
           </div>
           <p class="sub mt4">앱이 제공하는 목록입니다. 혼자 해도 되고, ⟡ 표시된 항목은 모임에서 같이 하면 편합니다. 입력한 내용은 <b class="ink">마이 &gt; 내 정보</b>에서 언제든 지울 수 있어요.</p>
@@ -760,16 +776,16 @@ button.tag{cursor:pointer}
           </div>
           <div class="sect-h"><h3>포인트 쓰기</h3></div>
           <div class="grid2">
-            <div class="card tight"><div class="ttl ttl--sm">카페 쿠폰</div><div class="sub">1,000P</div></div>
-            <div class="card tight"><div class="ttl ttl--sm">교통카드 충전</div><div class="sub">2,000P</div></div>
-            <div class="card tight"><div class="ttl ttl--sm">의료통역 연결 1회</div><div class="sub">3,000P</div></div>
-            <div class="card tight"><div class="ttl ttl--sm">모임 회식비</div><div class="sub">5,000P</div></div>
+            <div class="card tight" data-todo="포인트 사용은 목업에서 동작하지 않아요"><div class="ttl ttl--sm">카페 쿠폰</div><div class="sub">1,000P</div></div>
+            <div class="card tight" data-todo="포인트 사용은 목업에서 동작하지 않아요"><div class="ttl ttl--sm">교통카드 충전</div><div class="sub">2,000P</div></div>
+            <div class="card tight" data-todo="포인트 사용은 목업에서 동작하지 않아요"><div class="ttl ttl--sm">의료통역 연결 1회</div><div class="sub">3,000P</div></div>
+            <div class="card tight" data-todo="포인트 사용은 목업에서 동작하지 않아요"><div class="ttl ttl--sm">모임 회식비</div><div class="sub">5,000P</div></div>
           </div>
         </div>
         <div class="tail"></div>
       </section>
 
-      <!-- ══════════ 8. 라운드테이블 ══════════ -->
+      <!-- ══════════ 8. 간담회 ══════════ -->
       <section class="screen" id="s-round" hidden>
         <div class="appbar">
           <button class="back" data-go="s-home" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -780,7 +796,7 @@ button.tag{cursor:pointer}
         <div class="pad">
           <div class="card">
             <div class="sub">마이커넥트 3개월차</div>
-            <h3 class="t-title mt1">한국살이 라운드테이블</h3>
+            <h3 class="t-title mt1">한국살이 간담회</h3>
             <div class="tags mt3"><span class="tag">안산 문화센터</span><span class="tag">10/18(토) 12:00</span><span class="tag gold">점심 제공</span></div>
             <div class="agenda mt4">
               <div class="part">1부</div><div class="desc"><div class="hd">수료 축하 &amp; 소모임 발표</div><div class="sub">60분 · 기타반 한 곡 연주</div></div>
@@ -811,7 +827,8 @@ button.tag{cursor:pointer}
       <!-- ══════════ 9. 정보 ══════════ -->
       <section class="screen" id="s-info" hidden>
         <div class="phead phead--top">
-          <h2 class="t-display">생활 정보</h2>
+          <h2 class="t-display">정보·도움</h2>
+          <p class="body">비자·의료·생활 정보를 모아두고, 직접 하기 어려운 일은 <b class="ink">도움 받기</b>에서 대신 처리해드립니다.</p>
         </div>
         <div class="pad">
           <div class="card card--gold">
@@ -834,18 +851,19 @@ button.tag{cursor:pointer}
           </ol>
           <p class="sub mt4">공공기관 정보를 그대로 옮긴 안내입니다. 개별 상황 판단은 <b class="ink">1345 외국인종합안내센터</b>(20개 언어, 무료)로 연결해드립니다.</p>
 
-          <div class="sect-h"><h3>외국어 진료 병원</h3><span>안산 · 베트남어</span></div>
+          <div class="sect-h sect-h--rule"><h3>외국어 진료 병원</h3><span>안산 · 베트남어</span></div>
           <div class="map">
             <span class="pin" style="left:30%;top:46%"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.3"/></svg>한사랑병원</span>
             <span class="pin" style="left:68%;top:26%"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.3"/></svg>상록수보건소</span>
             <span class="pin" style="left:44%;top:78%"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.3"/></svg>고대안산병원</span>
           </div>
           <div class="mt1">
-            <div class="flat"><div class="row"><div class="grow"><div class="lbl">한사랑병원 <span class="tag brand">베트남어</span></div><div class="sub">정형외과·외과 · 산재 지정 · 도보 12분</div></div><button class="btn sm ghost">예약 요청</button></div></div>
-            <div class="flat"><div class="row"><div class="grow"><div class="lbl">고대안산병원 <span class="tag">영어·중국어</span></div><div class="sub">응급실 24시간 · 외국인 진료 코디네이터</div></div><button class="btn sm ghost">예약 요청</button></div></div>
+            <div class="flat"><div class="row"><div class="grow"><div class="lbl">한사랑병원 <span class="tag brand">베트남어</span></div><div class="sub">정형외과·외과 · 산재 지정 · 도보 12분</div></div><button class="btn sm ghost" data-todo="예약 요청은 목업에서 동작하지 않아요">예약 요청</button></div></div>
+            <div class="flat"><div class="row"><div class="grow"><div class="lbl">고대안산병원 <span class="tag">영어·중국어</span></div><div class="sub">응급실 24시간 · 외국인 진료 코디네이터</div></div><button class="btn sm ghost" data-todo="예약 요청은 목업에서 동작하지 않아요">예약 요청</button></div></div>
             <div class="flat"><div class="row"><div class="grow"><div class="lbl">상록수보건소</div><div class="sub">무료 건강검진 10/25 · 통역 상주 · 예약 불필요</div></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></div></div>
           </div>
-          <div class="card mt4">
+          <div class="sect-h sect-h--rule"><h3>도움 받기</h3><span>평일 09–18시</span></div>
+          <div class="card">
             <div class="ttl">예약이 어려우면</div>
             <p class="body mt2">진료과와 원하는 시간만 고르면 <b class="ink">운영팀이 전화로 대신 예약</b>하고 결과를 알려드립니다. 전화 통역이 필요하면 같이 연결합니다.</p>
             <div class="mt4">
@@ -861,7 +879,7 @@ button.tag{cursor:pointer}
             </div>
           </div>
 
-          <div class="sect-h"><h3>우리 동네</h3><span>공공데이터 기준</span></div>
+          <div class="sect-h sect-h--rule"><h3>우리 동네</h3><span>공공데이터 기준</span></div>
           <div class="grid2">
             <div class="card tight"><div class="sub">안산 상록구 원룸 평균</div><div class="figure mt1">월 38만원</div><div class="sub">보증금 300만</div></div>
             <div class="card tight"><div class="sub">공단까지</div><div class="figure mt1">버스 18분</div><div class="sub">환승 없음</div></div>
@@ -883,7 +901,7 @@ button.tag{cursor:pointer}
               <div class="grow"><div class="ttl ttl--lg">Nguyen Van Minh</div><div class="sub">안산 상록구 · 한국 1년 4개월</div></div>
             </div>
             <div class="stats">
-              <div class="stat"><b>2,400</b><span>포인트</span></div>
+              <div class="stat"><b>2,400</b><span>누적 포인트</span></div>
               <div class="stat"><b>11</b><span>모임 참석</span></div>
               <div class="stat"><b>2</b><span>내 소모임</span></div>
             </div>
@@ -896,16 +914,23 @@ button.tag{cursor:pointer}
               <span class="tag ok">2개월차</span>
             </div>
             <div class="bar mt4"><i style="width:70%"></i></div>
-            <p class="body mt4">수료하면 <b class="ink">직접 모임을 여는 버디</b>로 지원할 수 있습니다. 버디는 모임 운영만 하고, 보험 상담은 하지 않습니다. RC 커리어는 별개의 선택 안내입니다.</p>
+            <p class="body mt4">수료하면 <b class="ink">직접 모임을 여는 커뮤니티 버디</b>로 지원할 수 있습니다. 커뮤니티 버디는 모임 운영만 하고, 보험 상담은 하지 않습니다. RC 커리어는 별개의 선택 안내입니다.</p>
           </div>
 
           <div class="sect-h"><h3>내 정보</h3></div>
+          <div class="card tight card--quiet">
+            <div class="kv"><b>이름</b><span>Nguyen Van Minh</span></div>
+            <div class="kv"><b>사는 곳</b><span>경기 안산시 상록구</span></div>
+            <div class="kv"><b>쓰는 언어</b><span>베트남어 · 한국어(초급)</span></div>
+            <div class="kv"><b>관심</b><span>기타 · 자전거 · 한국어 공부</span></div>
+          </div>
+          <p class="sub mt3">위 네 가지는 언제든 바꿀 수 있어요.</p>
           <div>
-            <div class="flat"><div class="row"><div class="grow"><div class="lbl">커뮤니티 버디·멤버에게 공개하는 항목</div><div class="sub">이름 · 사용 언어 · 사는 구 (직장·소득은 비공개)</div></div><span class="tag">변경</span></div></div>
-            <div class="flat"><div class="row"><div class="grow"><div class="lbl"><span class="sf-dot"></span>삼성화재 버디 연결</div><div class="sub">연결 안 됨 — 도움을 신청하면 그때 배정됩니다</div></div><span class="tag">off</span></div></div>
-            <div class="flat"><div class="row"><div class="grow"><div class="lbl"><span class="sf-dot"></span>보험·커리어 안내 수신</div><div class="sub">현재 꺼져 있음 — 켜지 않아도 활동에 영향 없음</div></div><span class="tag">off</span></div></div>
-            <div class="flat"><div class="row"><div class="grow"><div class="lbl">체크리스트에 입력한 내용 관리</div><div class="sub">항목별로 삭제 가능 · 삭제해도 포인트는 유지</div></div><span class="tag warn">삭제</span></div></div>
-            <div class="flat"><div class="row"><div class="grow"><div class="lbl">언어</div><div class="sub">Tiếng Việt</div></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></div></div>
+            <div class="flat"><div class="row"><div class="grow"><div class="lbl">커뮤니티 버디·멤버에게 공개하는 항목</div><div class="sub">이름 · 사용 언어 · 사는 구 (직장·소득은 비공개)</div></div><span class="tag" data-todo="공개 항목 변경은 목업에서 동작하지 않아요">변경</span></div></div>
+            <div class="flat"><div class="row"><div class="grow"><div class="lbl"><span class="sf-dot"></span>삼성화재 버디 연결</div><div class="sub">연결 안 됨 — 도움을 신청하면 그때 배정됩니다</div></div><span class="tag" data-todo="설정 변경은 목업에서 동작하지 않아요">off</span></div></div>
+            <div class="flat"><div class="row"><div class="grow"><div class="lbl"><span class="sf-dot"></span>보험·커리어 안내 수신</div><div class="sub">현재 꺼져 있음 — 켜지 않아도 활동에 영향 없음</div></div><span class="tag" data-todo="설정 변경은 목업에서 동작하지 않아요">off</span></div></div>
+            <div class="flat"><div class="row"><div class="grow"><div class="lbl">체크리스트에 입력한 내용 관리</div><div class="sub">항목별로 삭제 가능 · 삭제해도 포인트는 유지</div></div><span class="tag warn" data-todo="삭제는 목업에서 동작하지 않아요">삭제</span></div></div>
+            <div class="flat" data-todo="다국어 전환은 아직 목업에 없어요"><div class="row"><div class="grow"><div class="lbl">언어</div><div class="sub">Tiếng Việt</div></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></div></div>
           </div>
         </div>
         <div class="tail"></div>
@@ -927,7 +952,8 @@ const TABS = ["s-home","s-groups","s-mission","s-info","s-me"];
 const TAB_FALLBACK = {"s-group":"s-groups","s-round":"s-home","s-recommend":"s-groups"};
 const REDUCE = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
 
-function show(id){
+let currentId = null;
+function show(id, fromHash){
   document.querySelectorAll(".screen").forEach(s=>{s.hidden = s.id!==id;});
   const el = document.getElementById(id);
   if(el && !REDUCE){ el.classList.remove("enter"); void el.offsetWidth; el.classList.add("enter"); }
@@ -935,8 +961,29 @@ function show(id){
   document.getElementById("tabbar").hidden = (id==="s-consent"||id==="s-purpose");
   const activeTab = TABS.includes(id) ? id : (TAB_FALLBACK[id] || "");
   document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-current", String(t.dataset.tab===activeTab)));
+  currentId = id;
+  if(!fromHash && location.hash.slice(1)!==id){ location.hash = id; }
+}
+window.addEventListener("hashchange",()=>{
+  const id = location.hash.slice(1) || "s-consent";
+  if(id===currentId || !document.getElementById(id)) return;
+  show(id,true);
+});
+let toastT;
+function toast(msg){
+  let el = document.getElementById("toast");
+  if(!el){
+    el = document.createElement("div"); el.id="toast"; el.className="toast";
+    el.setAttribute("role","status"); document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.classList.add("on");
+  clearTimeout(toastT);
+  toastT = setTimeout(()=>el.classList.remove("on"),1900);
 }
 document.addEventListener("click",e=>{
+  const todo = e.target.closest("[data-todo]");
+  if(todo){ toast(todo.dataset.todo); return; }
   const go = e.target.closest("[data-go]"); if(go){ show(go.dataset.go); return; }
   const tab = e.target.closest("[data-tab]"); if(tab){ show(tab.dataset.tab); return; }
   const pick = e.target.closest(".pick");
@@ -972,7 +1019,10 @@ function syncMissions(){
   countUp(document.getElementById("ptTag"),pts,"P");
 }
 syncMissions();
-show("s-consent");
+(function(){
+  const h = location.hash.slice(1);
+  show(h && document.getElementById(h) ? h : "s-consent", true);
+})();
 </script>
 
 </body>
