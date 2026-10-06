@@ -1,0 +1,7 @@
+{
+  "buildCommand": "mkdir -p dist && cp index.html robots.txt dist/",
+  "outputDirectory": "dist",
+  "framework": null,
+  "cleanUrls": false,
+  "trailingSlash": false
+}
