@@ -5,3 +5,6 @@ dist/
 # data/에서 index.html이 실제로 참조하는 파일만 커밋
 data/*
 !data/header-logo.svg
+
+# 로컬 전용 작업 문서
+HANDOFF.md
