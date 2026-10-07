@@ -257,7 +257,7 @@ document.addEventListener('click', e=>{
     toast(vi?'Đăng ký hội thảo hoàn thành · +500P':'세미나 신청 완료 · +500P 적립');
   }
 });
-document.getElementById("joinBtn").addEventListener("click",function(){
+const _join = document.getElementById("joinBtn"); if(_join) _join.addEventListener("click",function(){
   const vi=(document.documentElement.lang||"ko")==="vi";
   this.textContent = vi?"Hoàn thành · +300P":"가입 완료 · +300P";
   this.classList.add("done");
@@ -265,7 +265,7 @@ document.getElementById("joinBtn").addEventListener("click",function(){
   try{const c=Number(localStorage.getItem("mc_points")||0);localStorage.setItem("mc_points",String(c+300));}catch(_){}
   setTimeout(()=>show("s-home"),850);
 });
-document.getElementById("rsvpBtn").addEventListener("click",function(){
+const _rsvp = document.getElementById("rsvpBtn"); if(_rsvp) _rsvp.addEventListener("click",function(){
   this.textContent="참석 완료"; this.classList.add("done");
 });
 
@@ -280,14 +280,13 @@ function countUp(el,to,suffix){
     if(k<1) requestAnimationFrame(step);
   })(t0);
 }
-function syncMissions(){
+function syncMissions(){ try{ 
   const all=[...document.querySelectorAll(".mission")];
   const done=all.filter(m=>m.dataset.done==="1");
   const pts=done.reduce((s,m)=>s+Number(m.dataset.pt),0);
   document.getElementById("mCount").textContent=done.length+" / "+all.length+" 완료";
   document.getElementById("mBar").style.width=Math.round(done.length/all.length*100)+"%";
-  countUp(document.getElementById("ptTag"),pts,"P");
-}
+  countUp(document.getElementById("ptTag"),pts,"P"); }catch(_){} }
 syncMissions();
 try{ setLang(localStorage.getItem('mc_lang')||'ko'); }catch(_){ setLang('ko'); }
 syncConsent();
