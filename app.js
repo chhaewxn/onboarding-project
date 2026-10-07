@@ -1,9 +1,29 @@
+// MyConnect app.js — runtime script (loaded with defer)
+// ─────────────────────────────────────────────────────────────
+// Global error overlay: visible banner on any uncaught error.
+// Toggle off: localStorage.setItem('mc_debug','0')
+// ─────────────────────────────────────────────────────────────
+window.addEventListener('error', (ev) => {
+  try {
+    if (localStorage.getItem('mc_debug') === '0') return;
+    const b = document.createElement('div');
+    b.style.cssText = 'position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;background:#D14343;color:#fff;padding:10px 14px;border-radius:12px;font:600 12px/1.4 -apple-system,sans-serif;box-shadow:0 10px 24px -8px rgba(209,67,67,.5);max-height:40vh;overflow:auto';
+    b.innerHTML = '<b>⚠ JS error (dev only)</b><br>' + (ev.message || '') + '<br>' + (ev.filename || '') + ':' + (ev.lineno || '');
+    document.body.appendChild(b);
+    setTimeout(() => b.remove(), 8000);
+  } catch(_) {}
+});
+
+
+// ═══════════════════════ ROUTING ═══════════════════════
 const TABS = ["s-home","s-seminar","s-groups","s-info","s-me"];
 const TAB_FALLBACK = {"s-group":"s-groups","s-round":"s-home","s-recommend":"s-groups","s-create":"s-groups","s-consult":"s-seminar","s-mission":"s-info"};
 const REDUCE = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
 
 let currentId = null;
 
+
+// ═══════════════════════ i18n ═══════════════════════
 // ───── i18n ─────
 function setLang(lang){
   if(lang!=='ko' && lang!=='vi') lang='ko';
@@ -28,6 +48,8 @@ function setLang(lang){
   });
 }
 
+
+// ═══════════════════════ CONTENT DATA ═══════════════════════
 const GROUPS = {
   guitar: {name:'기타 한 곡 완주반', nameVi:'Lớp hoàn thành 1 bài guitar', leader:'Tran Thi Hoa'},
   house: {name:'집 구하기 품앗이', nameVi:'Giúp nhau tìm nhà', leader:'Jamila K.'},
@@ -59,6 +81,8 @@ function renderMyGroups(){
   host.innerHTML = arr.map(k=>{ const g=GROUPS[k]; if(!g) return ''; const d=vi?dmv[k]:dmap[k]; const n=vi?g.nameVi:g.name; const L=vi?'Lần tới':'다음'; return '<button class="card card--btn" data-group="'+k+'" data-seminar="tax"><div class="row"><div class="grow"><div class="ttl">'+n+'</div><div class="sub mt1">'+L+': '+d+'</div></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></div></button>'; }).join('');
 }
 
+
+// ─── Seminars dict ───
 const SEMINARS = {
   tax: {date:'10/15', tag:'접수중', tagVi:'Đang nhận', title:'연말정산, 뭐가 다를까?', titleVi:'Quyết toán thuế cuối năm', meta:'수 19:00 · 안산 지점 · 세무사 초청 · 30명', metaVi:'T4 19:00 · Chi nhánh Ansan · Chuyên gia thuế', speaker:'회계사 박지혜', speakerBio:'외국인 노동자 세무 전문', program:'1부 50분 — 연말정산 기본<br>2부 30분 — 외국인 공제 항목<br>3부 20분 — Q&A'},
   rent: {date:'10/22', tag:'접수중', tagVi:'Đang nhận', title:'전·월세 계약 피해 예방', titleVi:'Phòng chống rủi ro hợp đồng thuê nhà', meta:'수 19:30 · 안산 지점 · Samsung MyConnect Space · 50명', metaVi:'T4 19:30 · Chi nhánh Ansan · 50 người', speaker:'안산 지점장 김민수', speakerBio:'전세 사기 예방 전문', program:'1부 50분 — 사기 유형<br>2부 30분 — 체크리스트<br>3부 20분 — Q&A'},
@@ -80,6 +104,8 @@ function renderSeminar(key){
   if(sb){ sb.textContent = vi?'Đăng ký · +500P':'신청하기 · +500P'; sb.classList.remove('done'); sb.disabled=false; }
 }
 
+
+// ═══════════════════════ SCREEN RENDER ═══════════════════════
 function show(id, fromHash){
   try{
     const el = document.getElementById(id);
@@ -113,6 +139,8 @@ window.addEventListener("hashchange",()=>{
   show(id,true);
 });
 let toastT;
+
+// ═══════════════════════ TOAST ═══════════════════════
 function toast(msg){
   let el = document.getElementById("toast");
   if(!el){
@@ -124,6 +152,8 @@ function toast(msg){
   clearTimeout(toastT);
   toastT = setTimeout(()=>el.classList.remove("on"),1900);
 }
+
+// ─── Consult submit (+10,000P) ───
 document.addEventListener('click', e=>{
   const cc = e.target.closest('#consultCTA');
   if(cc && !cc.classList.contains('is-disabled') && !cc.classList.contains('done')){
@@ -138,7 +168,9 @@ document.addEventListener('click', e=>{
     toast(vi?'상담 신청 완료 · +10,000P 적립':'상담 신청 완료 · +10,000P 적립');
   }
 });
-document.addEventListener("click",e=>{
+
+// ═══════════════════════ GLOBAL CLICK HANDLER ═══════════════════════
+document.addEventListener("click", e => { try {
   const todo = e.target.closest("[data-todo]");
   if(todo){ toast(todo.dataset.todo); return; }
   const go = e.target.closest("[data-go]"); if(go){ show(go.dataset.go); return; }
@@ -170,7 +202,7 @@ document.addEventListener("click",e=>{
   }
   const m = e.target.closest(".mission");
   if(m){ m.dataset.done = m.dataset.done==="1"?"0":"1"; syncMissions(); return; }
-});
+} catch(err){ console.warn("[click handler]", err); } });
 
 // ───── lang & step wizard handlers ─────
 document.addEventListener('click', e=>{
@@ -247,6 +279,8 @@ document.addEventListener('change', e=>{
     if(cta2) cta2.classList.toggle('is-disabled', !ok);
   }
 });
+
+// ─── Seminar apply ───
 document.addEventListener('click', e=>{
   const sb = e.target.closest('#seminarApplyBtn');
   if(sb && !sb.classList.contains('done')){
@@ -269,6 +303,8 @@ const _rsvp = document.getElementById("rsvpBtn"); if(_rsvp) _rsvp.addEventListen
   this.textContent="참석 완료"; this.classList.add("done");
 });
 
+
+// ═══════════════════════ UTILITIES ═══════════════════════
 function countUp(el,to,suffix){
   const from = Number(el.dataset.v || 0);
   el.dataset.v = to;
@@ -280,6 +316,8 @@ function countUp(el,to,suffix){
     if(k<1) requestAnimationFrame(step);
   })(t0);
 }
+
+// ─── Mission checklist sync ───
 function syncMissions(){ try{ 
   const all=[...document.querySelectorAll(".mission")];
   const done=all.filter(m=>m.dataset.done==="1");
@@ -287,6 +325,8 @@ function syncMissions(){ try{
   document.getElementById("mCount").textContent=done.length+" / "+all.length+" 완료";
   document.getElementById("mBar").style.width=Math.round(done.length/all.length*100)+"%";
   countUp(document.getElementById("ptTag"),pts,"P"); }catch(_){} }
+
+// ═══════════════════════ INIT ═══════════════════════
 syncMissions();
 try{ setLang(localStorage.getItem('mc_lang')||'ko'); }catch(_){ setLang('ko'); }
 syncConsent();
