@@ -1,8 +1,8 @@
-# 배포 대상은 index.html(self-contained, 이미지 base64 임베드) 한 개뿐입니다.
-# myconnect_mockup.html(발표/리뷰용 셸 — 사내 기획·법률 리스크 검토 내용 포함),
-# README.md, 백업·참고 HTML들은 dist/로 복사하지 않으므로 배포물에 아예 존재하지 않습니다.
-# 리다이렉트로 가리는 방식이 아니라 물리적 제외입니다.
+# 배포 대상은 index.html + styles.css + app.js + data/의 공개 허용 파일만.
+# myconnect_mockup.html(발표/리뷰용 셸), README.md, 백업·참고 HTML,
+# data/의 원본(1MB PNG)과 발표 전용 자산은 dist/로 복사하지 않으므로 배포물에
+# 아예 존재하지 않습니다. 리다이렉트가 아니라 물리적 제외입니다.
 
 [build]
-  command = "mkdir -p dist && cp index.html robots.txt dist/"
+  command = "mkdir -p dist/data && cp index.html robots.txt styles.css app.js dist/ && cp data/header-logo.svg data/myconnect-logo-1-sm.png data/newlogo-*-sm.png data/legacy-*.png data/veitnam-man-v2-sm.png dist/data/"
   publish = "dist"

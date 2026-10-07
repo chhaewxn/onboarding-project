@@ -1,10 +1,18 @@
-# Netlify 빌드 산출물 (빌드 명령을 로컬에서 돌렸을 때 생김)
+# Netlify/Vercel 빌드 산출물
 dist/
 .netlify/
 
-# data/에서 index.html이 실제로 참조하는 파일만 커밋
+# data/에서 배포에 쓰이는 파일만 커밋
+# (원본 1MB PNG, 발표용 자산 등은 로컬 전용)
 data/*
 !data/header-logo.svg
+!data/myconnect-logo-1-sm.png
+!data/newlogo-*-sm.png
+!data/legacy-*.png
+!data/veitnam-man-v2-sm.png
 
 # 로컬 전용 작업 문서
 HANDOFF.md
+
+# 로컬 임시 파일
+.DS_Store

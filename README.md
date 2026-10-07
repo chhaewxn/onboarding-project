@@ -1,43 +1,115 @@
 # 마이커넥트 목업
 
-'26 下 신입사원 온보딩 · 4팀 인터랙티브 목업. 삼성화재가 운영하는 외국인 근로자 커뮤니티 앱 "마이커넥트"의 사용자 화면 10종.
+'26 下 신입사원 온보딩 · 4팀 인터랙티브 목업. 삼성화재가 운영하는 외국인 근로자 커뮤니티 앱 "마이커넥트"의 사용자 화면.
 
-## 파일
+## 아키텍처 (2026-10-07 리팩토링)
 
-- **`index.html`** — 웹앱 프로토타입 (배포용). 폰 베젤/설명 셸 없이 앱 자체가 브라우저 뷰포트를 차지. 모바일 우선, 데스크톱에서는 max-width 480px 센터링.
-- `myconnect_mockup.html` — 발표/리뷰용 셸 버전. 마스트헤드·플로우·설계 근거 레일·리스크 가드가 함께 표시. 팀 내부 리뷰 시 활용. **배포 대상 아님** (아래 배포 섹션 참고).
-- `DEPLOY.md` — 배포 가이드. 절차 · 검증 체크리스트 · 문제 해결.
-- `netlify.toml` — 배포 설정. `index.html`만 `dist/`로 추려 올립니다.
-- `robots.txt` — 검색 색인 차단.
+**이전**: 단일 3.2MB HTML (이미지 base64 임베드, CSS·JS 인라인)
+**현재**: HTML 110KB + CSS 32KB + JS 15KB + data/ 외부 참조 → **유지보수 가능**
 
-두 HTML 파일은 같은 스크린 컴포넌트를 공유하지만 감싸는 셸이 다릅니다. 웹앱 개선은 `index.html`에, 근거/리스크 문서 갱신은 `myconnect_mockup.html`에 반영합니다.
+| 파일 | 역할 |
+|---|---|
+| `index.html` | 마크업·구조. 10개 `<section class="screen">` + 하단 `<nav class="tabbar">`. 이미지는 `data/*.png` 외부 참조 |
+| `styles.css` | 디자인 토큰(:root CSS vars) + 글래스 톤 + 레이아웃. 3개 `/* block boundary */` 로 나뉨 — 상단 리셋 / 메인 디자인 시스템 / 브랜드 리프레시 오버라이드 |
+| `app.js` | 데이터 사전(GROUPS, SEMINARS) + 핸들러(show, renderGroup, renderSeminar, syncMissions, setLang, applyProfile, applyPoints 등). 모든 상태는 `localStorage.mc_*` 로 지속화 |
+| `data/` | PNG 아이콘·사진. **`-sm.png` 접미사**만 배포 대상 (리사이즈본). 원본(1MB)은 로컬 전용 |
+| `netlify.toml` / `vercel.json` | 배포 설정. **물리적 제외** 원칙 (mockup/legacy/백업 HTML은 dist/에 복사 안 됨) |
 
-## 사용 방법
+## 핵심 데이터 모델
 
-- 상단 스텝 10개를 클릭해서 화면 흐름 따라가기
-- 우측 레일에서 각 화면의 설계 근거·리스크 가드 확인
-- 하단 탭바로도 이동 가능 (커뮤니티 / 소모임 / 체크리스트 / 정보·도움 / 마이)
-- 미션 카드 클릭 → 체크 토글 + 진행률/포인트 갱신
-- "이 모임 가입하기" · "참석" 버튼 실제 동작
+```js
+// app.js 안
+GROUPS = { guitar, house, topik, food, photo, bike }  // 6개 소모임
+SEMINARS = { tax, rent, insurance, basic }            // 4개 세미나
+TABS = ["s-home","s-seminar","s-groups","s-info","s-me"]
+TAB_FALLBACK = { s-group→s-groups, s-consult→s-seminar, ... }
 
-데이터는 발표용 예시값. 새로고침 시 인터랙션 상태는 초기화됩니다.
+// localStorage keys
+mc_lang      // 'ko' | 'vi'
+mc_profile   // { name, nat, bday }
+mc_joined    // ["guitar", "house"] — 가입된 소모임 키 배열
+mc_points    // 누적 포인트 (상담 신청 +10000, 세미나 +500, 모임 가입 +300)
+```
+
+## 화면 라우팅
+
+클릭 핸들러 체인 (`app.js` 안 `document.addEventListener('click', ...)`):
+1. `[data-todo]` → 토스트 (목업에서 미동작 안내)
+2. `[data-group]` → `renderGroup()` + `show('s-group')`
+3. `[data-seminar]` → `renderSeminar()` + `show('s-seminar-detail')`
+4. `[data-go]` → `show(dataset.go)`
+5. `[data-tab]` → `show(dataset.tab)`
+6. `.pick` → aria-pressed 토글 (멀티선택은 `data-pick-multi` 분기)
+7. `.mission` → `data-done` 토글 + `syncMissions()`
+8. `.day` → 주간 출석 체크 토글
+9. `[data-lang-set]` → `setLang()`
+10. `[data-step-go]` → wizard 단계 전환
+11. `#consultCTA` / `#seminarApplyBtn` / `#joinBtn` → 각자 포인트 적립 로직
+
+## i18n
+
+- `data-ko="..."` / `data-vi="..."` 쌍이 있는 요소의 **textContent**를 `setLang()`이 교체
+- 인라인 태그(`<b>`)가 포함된 경우 `data-ko-html="..."` / `data-vi-html="..."` 로 **innerHTML** 교체
+- `document.documentElement.lang` 이 `ko`↔`vi` 토글, `localStorage.mc_lang`에 저장
+
+## 로컬 개발
+
+```bash
+# 서버
+python3 -m http.server 8765
+# 브라우저
+open http://localhost:8765/index.html
+```
+
+CSS/JS/HTML 수정 → 브라우저 하드 리프레시(Cmd+Shift+R).
 
 ## 배포
 
-Netlify + GitHub 연동. `main`에 push하면 자동 재배포됩니다.
-**절차·검증 체크리스트·문제 해결은 [DEPLOY.md](DEPLOY.md)를 보세요.**
+Vercel + GitHub 연동. `main`에 push하면 자동 재배포.
 
-배포되는 파일은 **`index.html` 하나뿐입니다.** `netlify.toml`의 빌드 명령이
-`index.html`과 `robots.txt`만 `dist/`로 복사하므로, `myconnect_mockup.html`은
-리다이렉트로 가려지는 것이 아니라 **배포물에 아예 포함되지 않습니다.**
-발표용 셸에는 부가 목표(RC 도입·보험 가입 전환), 보험업법·개인정보보호법 리스크 분석,
-미결정 사항(커뮤니티 버디 활동비 재원 등) 같은 사내 기획 내용이 들어 있기 때문입니다.
+**배포되는 파일**: `index.html`, `styles.css`, `app.js`, `robots.txt`, `data/` 중 아래만:
+- `header-logo.svg`
+- `myconnect-logo-1-sm.png`
+- `newlogo-*-sm.png`
+- `legacy-*.png`
+- `veitnam-man-v2-sm.png`
 
-> 배포 후 `https://<site>.netlify.app/myconnect_mockup.html`이 **404인지 반드시 확인**하세요.
+`myconnect_mockup.html`, `myconnect_soft_glass_ui.html`, `index.hand-tuned.html`,
+`index.legacy.html`, `index_myconnect_unified.html`, 원본 1MB PNG들은 모두
+배포물에 **아예 포함되지 않습니다** (리다이렉트가 아니라 cp 제외).
 
-참고로 로컬에서 그냥 열어보는 것만이라면 배포가 필요 없습니다 — `index.html`을 더블클릭하면
-`file://`로 그대로 동작합니다 (CSS·JS 전부 인라인).
+> 배포 후 `https://<site>.vercel.app/myconnect_mockup.html` 가 **404 반드시 확인**.
+
+## 유지보수 가이드
+
+### 소모임 추가
+1. `app.js` 의 `GROUPS = { ... }` 에 새 키 추가 (name, nameVi, time, leader 등)
+2. 그 모임 아이콘 PNG를 `data/newlogo-group-{key}-sm.png` 로 저장
+3. HTML의 어딘가 모임 카드를 추가하고 `data-group="{key}"` 속성 부여
+
+### 세미나 추가
+1. `app.js` 의 `SEMINARS = { ... }` 에 새 키 추가
+2. HTML의 세미나 리스트에 카드 추가하고 `data-seminar="{key}"` 속성
+
+### 번역 추가
+- 짧은 문자열: `<span data-ko="한국어" data-vi="Vietnamese">한국어</span>`
+- 인라인 태그 포함: `<p data-ko-html="..." data-vi-html="...">`
+
+### 화면 추가
+1. HTML에 `<section class="screen" id="s-newscreen" hidden>...</section>` 추가
+2. `app.js` 의 `TABS` 또는 `TAB_FALLBACK` 에 등록
+3. (탭에 노출할 경우) `<nav class="tabbar">` 에 `<button class="tab" data-tab="s-newscreen">` 추가
+
+### 포인트 로직 변경
+- `app.js` 안 `#consultCTA` / `#seminarApplyBtn` / `#joinBtn` 핸들러의 `+300`/`+500`/`+10000` 숫자 수정
+- `applyPoints()` 가 `base = 7500` 기준으로 누적 포인트 합산
+
+## 알려진 제약
+
+- 데모용이라 **새로고침 시 상태 유지 X** (localStorage는 저장되나 UI 초기 렌더에 반영 로직은 부분적)
+- 베트남어 번역은 네이티브 리뷰 전 임시
+- 각 모임 상세 (s-group)는 이름/리더만 데이터 주입, 설명·시간·장소는 하드코딩 (demo 수준)
 
 ## 목업 범위
 
-사용자(멤버) 화면 10종. 커뮤니티 버디용 모임 관리 화면과 삼성화재 버디(RC)용 도움 요청 처리 화면은 미포함.
+사용자(멤버) 화면만. 모임 리더용 운영 화면, 삼성화재 담당자용 상담 처리 화면은 미포함.

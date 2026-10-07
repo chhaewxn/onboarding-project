@@ -1,5 +1,5 @@
 {
-  "buildCommand": "mkdir -p dist && cp index.html robots.txt dist/",
+  "buildCommand": "mkdir -p dist/data && cp index.html robots.txt styles.css app.js dist/ && cp data/header-logo.svg data/myconnect-logo-1-sm.png data/newlogo-*-sm.png data/legacy-*.png data/veitnam-man-v2-sm.png dist/data/",
   "outputDirectory": "dist",
   "framework": null,
   "cleanUrls": false,
