@@ -91,6 +91,7 @@ img{max-width:100%}
 *{box-sizing:border-box}
 body{
   margin:0;
+  background:#F1F7FF;
   background:var(--bg);
   color:var(--ink);
   font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,system-ui,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
@@ -129,7 +130,7 @@ svg{display:block}
 .figure--gold{font-size:19px;color:var(--gold)}
 
 /* ══════════ webapp shell ══════════ */
-html,body{height:100%}
+html,body{height:100%;overscroll-behavior:none;overflow:hidden}
 .app{
   display:flex;flex-direction:column;
   width:100%;max-width:480px;margin:0 auto;
@@ -144,11 +145,12 @@ html,body{height:100%}
   body{background:var(--bg-2)}
   .app{box-shadow:0 0 0 1px rgba(20,23,27,.06),0 28px 64px -32px rgba(0,61,220,.25)}
 }
-.screens{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain}
+.screens{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 .screens::-webkit-scrollbar{width:0}
 .screen[hidden]{display:none}
-@keyframes enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.screen.enter{animation:enter .28s var(--ease) both}
+@keyframes enter{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.screen{animation-fill-mode:both;will-change:opacity,transform}
+.screen.enter{animation:enter .22s cubic-bezier(.4,0,.2,1) both}
 .tail{height:var(--s8)}
 
 /* ══════════ layout primitives ══════════ */
@@ -1591,9 +1593,12 @@ function setLang(lang){
 
 function show(id, fromHash){
   try{
-    document.querySelectorAll(".screen").forEach(s=>{s.hidden = s.id!==id;});
     const el = document.getElementById(id);
-    if(el && !REDUCE){ el.classList.remove("enter"); void el.offsetWidth; el.classList.add("enter"); }
+    if(el){
+      el.hidden = false;  // show target first
+      document.querySelectorAll(".screen").forEach(s=>{ if(s.id!==id) s.hidden = true; });  // then hide others
+      if(!REDUCE){ el.classList.remove("enter"); void el.offsetWidth; el.classList.add("enter"); }
+    }
     const screens = document.querySelector(".screens"); if(screens) screens.scrollTop = 0;
   }catch(e){ console.warn('[show] screen render error', e); }
   // Tabbar visibility — ALWAYS runs, even if above errored
