@@ -43,6 +43,7 @@ function setLang(lang){
     if(ph) el.placeholder = ph;
   });
   try{ localStorage.setItem('mc_lang', lang); }catch(_){}
+  if(typeof joinedGroups!=='undefined') {syncJoinButton();syncSeminarButton();}
   document.querySelectorAll('[data-lang-set]').forEach(b=>{
     b.setAttribute('aria-pressed', String(b.dataset.langSet===lang));
   });
@@ -58,27 +59,54 @@ const GROUPS = {
   photo: {name:'사진 산책', nameVi:'Dạo chụp ảnh', leader:'Jamila K.'},
   bike: {name:'주말 자전거 라이딩', nameVi:'Đạp xe cuối tuần', leader:'Bakhtiyor R.'},
 };
+const GROUP_JOIN_POINTS = 100;
 let CURRENT_GROUP = 'guitar';
+let CURRENT_SEMINAR = 'tax';
+function storedList(key, fallback=[]){
+  try { const a=JSON.parse(localStorage.getItem(key)||'null'); return Array.isArray(a)?a:fallback; } catch(_){return fallback;}
+}
+let joinedGroups = storedList('mc_joined', ['guitar','house']);
+let appliedSeminars = storedList('mc_seminars');
+function awardPoints(amount){
+  try{localStorage.setItem('mc_points',String(Number(localStorage.getItem('mc_points')||0)+amount));}catch(_){}
+  applyPoints();
+}
+function syncJoinButton(){
+  const b=document.getElementById('joinBtn'); if(!b)return;
+  const joined=joinedList().includes(CURRENT_GROUP),vi=document.documentElement.lang==='vi';
+  b.textContent=joined?(vi?'Đã tham gia ✓':'가입 완료 ✓'):(vi?'Tham gia nhóm này':'이 모임 가입하기');
+  b.disabled=joined;b.classList.toggle('done',joined);
+}
+function syncSeminarButton(){
+  const b=document.getElementById('seminarApplyBtn');if(!b)return;
+  const done=appliedSeminars.includes(CURRENT_SEMINAR),vi=document.documentElement.lang==='vi';
+  b.textContent=done?(vi?'Đã đăng ký ✓':'신청 완료 ✓'):(vi?'Đăng ký':'신청하기');
+  b.disabled=done;b.classList.toggle('done',done);
+}
 function renderGroup(key){
   const g = GROUPS[key]; if(!g) return;
   CURRENT_GROUP = key;
+  try{localStorage.setItem('mc_current_group',key);}catch(_){}
   const vi = (document.documentElement.lang||'ko')==='vi';
   const nameEl = document.querySelector('#s-group [data-slot="name"]');
   if(nameEl) nameEl.textContent = vi?g.nameVi:g.name;
   const leaderEl = document.querySelector('#s-group [data-slot="leaderName"]');
   if(leaderEl) leaderEl.textContent = g.leader;
-  const jb = document.getElementById('joinBtn');
-  if(jb){ jb.textContent = vi?'Tham gia nhóm này':'이 모임 가입하기'; jb.classList.remove('done'); }
+  syncJoinButton();
 }
-function joinedList(){ try{return JSON.parse(localStorage.getItem('mc_joined')||'["guitar","house"]');}catch(_){return ['guitar','house'];} }
-function addJoined(key){ const a=joinedList(); if(!a.includes(key))a.push(key); try{localStorage.setItem('mc_joined',JSON.stringify(a));}catch(_){} renderMyGroups(); }
+function joinedList(){ return joinedGroups; }
+function addJoined(key){
+  if(!joinedGroups.includes(key)) joinedGroups.push(key);
+  try{localStorage.setItem('mc_joined',JSON.stringify(joinedGroups));}catch(_){}
+  renderMyGroups();
+}
 function renderMyGroups(){
   const host = document.getElementById('my-groups-list'); if(!host) return;
   const vi = (document.documentElement.lang||'ko')==='vi';
   const arr = joinedList();
   const dmap = {guitar:'10/19 (토) 19:00', house:'10/20 (일) 14:00', topik:'10/22 (수) 20:00', food:'10/24 (금) 20:00', photo:'10/26 (일) 10:00', bike:'10/26 (일) 08:00'};
   const dmv = {guitar:'10/19 T7 19:00', house:'10/20 CN 14:00', topik:'10/22 T4 20:00', food:'10/24 T6 20:00', photo:'10/26 CN 10:00', bike:'10/26 CN 08:00'};
-  host.innerHTML = arr.map(k=>{ const g=GROUPS[k]; if(!g) return ''; const d=vi?dmv[k]:dmap[k]; const n=vi?g.nameVi:g.name; const L=vi?'Lần tới':'다음'; return '<button class="card card--btn" data-group="'+k+'" data-seminar="tax"><div class="row"><div class="grow"><div class="ttl">'+n+'</div><div class="sub mt1">'+L+': '+d+'</div></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></div></button>'; }).join('');
+  host.innerHTML = arr.map(k=>{ const g=GROUPS[k]; if(!g) return ''; const d=vi?dmv[k]:dmap[k]; const n=vi?g.nameVi:g.name; const L=vi?'Lần tới':'다음'; return '<button class="card card--btn" data-group="'+k+'"><div class="row"><div class="grow"><div class="ttl">'+n+'</div><div class="sub mt1">'+L+': '+d+'</div></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></div></button>'; }).join('');
 }
 
 
@@ -91,6 +119,8 @@ const SEMINARS = {
 };
 function renderSeminar(key){
   const s = SEMINARS[key]; if(!s) return;
+  CURRENT_SEMINAR=key;
+  try{localStorage.setItem('mc_current_seminar',key);}catch(_){}
   const vi = (document.documentElement.lang||'ko')==='vi';
   const set = (slot, v) => document.querySelectorAll('#s-seminar-detail [data-slot="'+slot+'"]').forEach(el=>{ el.innerHTML=v; });
   set('semDate', s.date);
@@ -100,8 +130,7 @@ function renderSeminar(key){
   set('semSpeaker', s.speaker);
   set('semSpeakerBio', s.speakerBio);
   set('semProgram', s.program);
-  const sb = document.getElementById('seminarApplyBtn');
-  if(sb){ sb.textContent = vi?'Đăng ký · +500P':'신청하기 · +500P'; sb.classList.remove('done'); sb.disabled=false; }
+  syncSeminarButton();
 }
 
 
@@ -129,7 +158,9 @@ function show(id, fromHash){
     document.body.dataset.screen = id;
     if(id==='s-me') applyPoints();
     currentId = id;
-    if(id==='s-home'){ applyProfile(); applyPoints(); if(typeof renderMyGroups==='function') renderMyGroups(); }
+    if(id==='s-group')syncJoinButton();
+    if(id==='s-seminar-detail')syncSeminarButton();
+    if(id==='s-home'){ syncQuizAttendance(); applyProfile(); applyPoints(); if(typeof renderMyGroups==='function') renderMyGroups(); }
     if(!fromHash && location.hash.slice(1)!==id){ location.hash = id; }
   }catch(e){ console.warn('[show] post-render error', e); }
 }
@@ -175,13 +206,14 @@ document.addEventListener("click", e => { try {
   if(todo){ toast(todo.dataset.todo); return; }
   if(e.target.closest("#consentCTA")?.disabled) return;
   const go = e.target.closest("[data-go]"); if(go){ show(go.dataset.go); return; }
+  const tab = e.target.closest("[data-tab]"); if(tab){ show(tab.dataset.tab); return; }
   const sem = e.target.closest("[data-seminar]");
   if(sem){ renderSeminar(sem.dataset.seminar); show("s-seminar-detail"); return; }
   const grp = e.target.closest("[data-group]");
   if(grp){ renderGroup(grp.dataset.group); show("s-group"); return; }
-  const tab = e.target.closest("[data-tab]"); if(tab){ show(tab.dataset.tab); return; }
   const d = e.target.closest(".day");
   if(d){
+    if(d.dataset.day==="3"){openAttendanceQuiz();return;}
     const cur = d.dataset.done==='1';
     d.dataset.done = cur ? '0' : '1';
     const dc = d.querySelector('.day-c'); if(dc) dc.textContent = cur ? '+' : '✓';
@@ -281,24 +313,20 @@ document.addEventListener('change', e=>{
   }
 });
 
-// ─── Seminar apply ───
-document.addEventListener('click', e=>{
-  const sb = e.target.closest('#seminarApplyBtn');
-  if(sb && !sb.classList.contains('done')){
-    const vi = (document.documentElement.lang||'ko')==='vi';
-    sb.textContent = vi?'Đã đăng ký · +500P':'신청 완료 · +500P';
-    sb.classList.add('done');
-    try{const c=Number(localStorage.getItem('mc_points')||0);localStorage.setItem('mc_points',String(c+500));}catch(_){}
-    toast(vi?'Đăng ký hội thảo hoàn thành · +500P':'세미나 신청 완료 · +500P 적립');
-  }
+// ─── Persisted registrations; reward only on the first group join ───
+document.getElementById('seminarApplyBtn').addEventListener('click',()=>{
+  if(appliedSeminars.includes(CURRENT_SEMINAR))return;
+  appliedSeminars.push(CURRENT_SEMINAR);
+  try{localStorage.setItem('mc_seminars',JSON.stringify(appliedSeminars));}catch(_){}
+  syncSeminarButton();
+  toast(document.documentElement.lang==='vi'?'Đã đăng ký hội thảo':'세미나 신청 완료');
 });
-const _join = document.getElementById("joinBtn"); if(_join) _join.addEventListener("click",function(){
-  const vi=(document.documentElement.lang||"ko")==="vi";
-  this.textContent = vi?"Hoàn thành · +300P":"가입 완료 · +300P";
-  this.classList.add("done");
-  if(typeof addJoined==="function") addJoined(CURRENT_GROUP);
-  try{const c=Number(localStorage.getItem("mc_points")||0);localStorage.setItem("mc_points",String(c+300));}catch(_){}
-  setTimeout(()=>show("s-home"),850);
+document.getElementById('joinBtn').addEventListener('click',()=>{
+  if(joinedList().includes(CURRENT_GROUP))return;
+  addJoined(CURRENT_GROUP);
+  awardPoints(GROUP_JOIN_POINTS);
+  syncJoinButton();
+  toast(document.documentElement.lang==='vi'?`Đã tham gia · +${GROUP_JOIN_POINTS}P`:`가입 완료 · +${GROUP_JOIN_POINTS}P`);
 });
 const _rsvp = document.getElementById("rsvpBtn"); if(_rsvp) _rsvp.addEventListener("click",function(){
   this.textContent="참석 완료"; this.classList.add("done");
@@ -327,6 +355,42 @@ function syncMissions(){ try{
   document.getElementById("mBar").style.width=Math.round(done.length/all.length*100)+"%";
   countUp(document.getElementById("ptTag"),pts,"P"); }catch(_){} }
 
+// Wednesday quiz: one reward per calendar week; closing without answering is allowed.
+function quizWeek(){
+  const d=new Date();d.setDate(d.getDate()-((d.getDay()+6)%7));
+  return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+}
+let quizRecords;
+try{quizRecords=JSON.parse(localStorage.getItem('mc_quiz')||'{}');if(!quizRecords||typeof quizRecords!=='object'||Array.isArray(quizRecords))quizRecords={};}catch(_){quizRecords={};}
+function syncQuizAttendance(){
+  const d=document.querySelector('.day[data-day="3"]');
+  if(d){d.dataset.done=quizRecords[quizWeek()]?'1':'0';d.querySelector('.day-c').textContent=quizRecords[quizWeek()]?'✓':'+';}
+  const n=document.getElementById('attendCount');if(n)n.textContent=document.querySelectorAll('.day[data-done="1"]').length;
+}
+function showQuizResult(points){
+  const vi=document.documentElement.lang==='vi';
+  const r=document.getElementById('quizResult');r.hidden=false;
+  r.textContent=(vi?(points===100?'Chính xác!':'Đáp án đúng là O.'):(points===100?'정답이에요!':'정답은 O예요.'))+` +${points}P `+(vi?'đã tích lũy. Hãy kiểm tra quyền lợi và các điều khoản loại trừ trong hợp đồng.':'적립 완료. 보장 내용과 제외 사항은 약관에서 확인할 수 있어요.');
+  document.querySelector('.quiz-answers').hidden=true;
+  document.getElementById('quizDone').hidden=false;
+}
+function openAttendanceQuiz(){
+  const dialog=document.getElementById('attendanceQuiz');
+  document.getElementById('quizResult').hidden=true;document.getElementById('quizDone').hidden=true;
+  document.querySelector('.quiz-answers').hidden=false;
+  const record=quizRecords[quizWeek()];if(record)showQuizResult(record.points);
+  if(!dialog.open)dialog.showModal();
+}
+document.querySelectorAll('[data-quiz-answer]').forEach(b=>b.addEventListener('click',()=>{
+  const week=quizWeek();if(quizRecords[week])return;
+  const points=b.dataset.quizAnswer==='true'?100:50;
+  quizRecords[week]={points};
+  try{localStorage.setItem('mc_quiz',JSON.stringify(quizRecords));}catch(_){}
+  awardPoints(points);syncQuizAttendance();showQuizResult(points);
+  document.getElementById('quizDone').focus();
+}));
+['quizClose','quizDone'].forEach(id=>document.getElementById(id).addEventListener('click',()=>document.getElementById('attendanceQuiz').close()));
+
 // Signup stores profile only after the user accepts the required terms.
 document.getElementById('signupForm').addEventListener('submit', e=>{
   e.preventDefault();
@@ -341,6 +405,8 @@ document.getElementById('signupForm').addEventListener('submit', e=>{
 document.getElementById('pf-name').addEventListener('input', e=>e.target.setCustomValidity(''));
 
 // ═══════════════════════ INIT ═══════════════════════
+try{renderGroup(localStorage.getItem('mc_current_group')||'guitar');renderSeminar(localStorage.getItem('mc_current_seminar')||'tax');}catch(_){renderGroup('guitar');renderSeminar('tax');}
+syncQuizAttendance();
 syncMissions();
 try{ setLang(localStorage.getItem('mc_lang')||'ko'); }catch(_){ setLang('ko'); }
 syncConsent();

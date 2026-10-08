@@ -983,12 +983,12 @@
             <div class="mt2" data-slot="semProgram">1부 50분 — 외국인 세입자가 자주 당하는 사기 유형<br>2부 30분 — 계약서 체크리스트 (베/영/우 번역본 배부)<br>3부 20분 — Q&amp;A</div>
           </div>
           <div class="card card--quiet mt3">
-            <div class="sub" data-ko="리워드" data-vi="Phần thưởng">리워드</div>
-            <div class="ttl mt1" data-ko="신청 완료 시 +500P" data-vi="Hoàn thành đăng ký · +500P">신청 완료 시 +500P</div>
+            <div class="sub" data-ko="참여 안내" data-vi="Thông tin tham gia">참여 안내</div>
+            <div class="ttl mt1" data-ko="신청 후 세미나에 참여할 수 있어요" data-vi="Tham gia hội thảo sau khi đăng ký">신청 후 세미나에 참여할 수 있어요</div>
           </div>
         </div>
         <div class="cta">
-          <button class="btn" id="seminarApplyBtn" data-ko="신청하기 · +500P" data-vi="Đăng ký · +500P">신청하기 · +500P</button>
+          <button class="btn" id="seminarApplyBtn">신청하기</button>
         </div>
         <div class="tail"></div>
       </section>
@@ -1000,12 +1000,20 @@
   <button class="tab" data-tab="s-seminar"><span class="tab-ico"><img src="data/newlogo-seminar-sm.png" alt=""></span><span data-ko="세미나" data-vi="Hội thảo"><span data-ko="세미나" data-vi="Hội thảo">세미나</span></span></button>
   <button class="tab" data-tab="s-groups"><span class="tab-ico"><img src="data/newlogo-groups-sm.png" alt=""></span><span data-ko="소모임" data-vi="Nhóm"><span data-ko="소모임" data-vi="Nhóm nhỏ"><span data-ko="소모임" data-vi="Nhóm nhỏ">소모임</span></span></span></button>
   <button class="tab" data-tab="s-info"><span class="tab-ico"><img src="data/newlogo-info hub-sm.png" alt=""></span><span data-ko="정보·도움" data-vi="Thông tin & Hỗ trợ"><span data-ko="정보·도움" data-vi="Thông tin & Hỗ trợ">정보·도움</span></span></button>
-  <button class="tab" data-tab="s-me" data-group="guitar"><span class="tab-ico"><img src="data/newlogo-myprofile-sm.png" alt=""></span><span data-ko="마이" data-vi="Tôi"><span data-ko="마이" data-vi="Tôi">마이</span></span></button>
+  <button class="tab" data-tab="s-me"><span class="tab-ico"><img src="data/newlogo-myprofile-sm.png" alt=""></span><span data-ko="마이" data-vi="Tôi"><span data-ko="마이" data-vi="Tôi">마이</span></span></button>
 </nav>
 </div>
 
 
 
+<dialog id="attendanceQuiz" class="quiz-dialog" aria-labelledby="quiz-title">
+  <div class="quiz-heading"><span class="tag brand" data-ko="수요일 출석 퀴즈" data-vi="Câu đố điểm danh thứ Tư">수요일 출석 퀴즈</span><button type="button" class="signup-back" id="quizClose" aria-label="닫기">✕</button></div>
+  <h2 class="t-title mt4" id="quiz-title" data-ko="보험 가입 전, 보장 내용과 제외 사항을 약관에서 확인해야 한다." data-vi="Trước khi mua bảo hiểm, cần đọc quyền lợi và các điều khoản loại trừ trong hợp đồng.">보험 가입 전, 보장 내용과 제외 사항을 약관에서 확인해야 한다.</h2>
+  <p class="body mt3" data-ko="정답이면 100P, 틀려도 50P! 이번 주에 한 번 참여할 수 있어요." data-vi="Đúng: 100P, sai: 50P! Mỗi tuần tham gia một lần.">정답이면 100P, 틀려도 50P! 이번 주에 한 번 참여할 수 있어요.</p>
+  <div class="quiz-answers mt4"><button type="button" class="btn" data-quiz-answer="true" data-ko="O · 맞아요" data-vi="O · Đúng">O · 맞아요</button><button type="button" class="btn ghost" data-quiz-answer="false" data-ko="X · 아니에요" data-vi="X · Sai">X · 아니에요</button></div>
+  <div id="quizResult" class="notice mt4" role="status" hidden></div>
+  <button type="button" class="btn mt4" id="quizDone" data-ko="확인" data-vi="Xác nhận" hidden>확인</button>
+</dialog>
 <script src="app.js" defer></script>
 </body>
 </html>
