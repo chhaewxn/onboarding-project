@@ -119,7 +119,7 @@ function show(id, fromHash){
   // Tabbar visibility — ALWAYS runs, even if above errored
   const tb = document.getElementById("tabbar");
   if(tb){
-    const shouldHide = (id==="s-consent" || id==="s-purpose");
+    const shouldHide = (id==="s-signup" || id==="s-consent" || id==="s-purpose");
     tb.hidden = shouldHide;
     if(!shouldHide) tb.style.display = 'grid'; else tb.style.display = '';
   }
@@ -134,7 +134,7 @@ function show(id, fromHash){
   }catch(e){ console.warn('[show] post-render error', e); }
 }
 window.addEventListener("hashchange",()=>{
-  const id = location.hash.slice(1) || "s-consent";
+  const id = location.hash.slice(1) || "s-signup";
   if(id===currentId || !document.getElementById(id)) return;
   show(id,true);
 });
@@ -173,6 +173,7 @@ document.addEventListener('click', e=>{
 document.addEventListener("click", e => { try {
   const todo = e.target.closest("[data-todo]");
   if(todo){ toast(todo.dataset.todo); return; }
+  if(e.target.closest("#consentCTA")?.disabled) return;
   const go = e.target.closest("[data-go]"); if(go){ show(go.dataset.go); return; }
   const sem = e.target.closest("[data-seminar]");
   if(sem){ renderSeminar(sem.dataset.seminar); show("s-seminar-detail"); return; }
@@ -268,7 +269,7 @@ function syncConsent(){
   const req = document.querySelectorAll('.agree[data-req="1"] input');
   const allOn = Array.from(req).every(c=>c.checked);
   const cta = document.getElementById('consentCTA');
-  if(cta){ cta.classList.toggle('is-disabled', !allOn); }
+  if(cta){ cta.classList.toggle('is-disabled', !allOn); cta.disabled = !allOn; }
 }
 document.addEventListener('change', e=>{
   if(e.target.closest('.agree')) syncConsent();
@@ -326,11 +327,24 @@ function syncMissions(){ try{
   document.getElementById("mBar").style.width=Math.round(done.length/all.length*100)+"%";
   countUp(document.getElementById("ptTag"),pts,"P"); }catch(_){} }
 
+// Signup stores profile only after the user accepts the required terms.
+document.getElementById('signupForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const name = document.getElementById('pf-name');
+  if(!name.value.trim()){
+    name.setCustomValidity(document.documentElement.lang==='vi' ? 'Vui lòng nhập họ tên.' : '이름을 입력해주세요.');
+    name.reportValidity();
+    return;
+  }
+  show('s-consent');
+});
+document.getElementById('pf-name').addEventListener('input', e=>e.target.setCustomValidity(''));
+
 // ═══════════════════════ INIT ═══════════════════════
 syncMissions();
 try{ setLang(localStorage.getItem('mc_lang')||'ko'); }catch(_){ setLang('ko'); }
 syncConsent();
 (function(){
   const h = location.hash.slice(1);
-  show(h && document.getElementById(h) ? h : "s-consent", true);
+  show(h && document.getElementById(h) ? h : "s-signup", true);
 })();

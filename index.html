@@ -21,16 +21,86 @@
 <div class="app">
 <main class="screens">
 
+      <!-- 회원가입 → 약관 동의 → 관심사 선택 -->
+      <section class="screen signup" id="s-signup" aria-labelledby="signup-title">
+        <div class="signup-top">
+          <span class="signup-step" data-ko="01 / 03 · 회원가입" data-vi="01 / 03 · Đăng ký">01 / 03 · 회원가입</span>
+          <div class="lang-switch" aria-label="언어 선택">
+            <button type="button" data-lang-set="ko" aria-pressed="true">한국어</button>
+            <button type="button" data-lang-set="vi" aria-pressed="false">Tiếng Việt</button>
+          </div>
+        </div>
+        <div class="signup-intro">
+          <img class="signup-logo" src="data/myconnect-logo-1-sm.png" alt="MyConnect" width="560" height="186">
+          <span class="signup-powered">powered by <img src="data/header-logo.svg" alt="삼성화재" width="68" height="20"></span>
+          <h1 class="t-display" id="signup-title" data-ko="한국에서의 일상, 함께 시작해요" data-vi="Cùng bắt đầu cuộc sống ở Hàn Quốc">한국에서의 일상, 함께 시작해요</h1>
+          <p class="body mt3" data-ko="내 언어로 만나는 친구와 생활 정보. 마이커넥트에 오신 것을 환영해요." data-vi="Bạn bè và thông tin đời sống bằng ngôn ngữ của bạn. Chào mừng đến với MyConnect.">내 언어로 만나는 친구와 생활 정보. 마이커넥트에 오신 것을 환영해요.</p>
+          <div class="signup-benefits" aria-label="커뮤니티 혜택">
+            <span data-ko="취미 소모임" data-vi="Nhóm sở thích">취미 소모임</span>
+            <span data-ko="한국생활 정보" data-vi="Thông tin đời sống">한국생활 정보</span>
+            <span data-ko="함께하는 세미나" data-vi="Hội thảo">함께하는 세미나</span>
+          </div>
+        </div>
+        <form id="signupForm">
+        <div class="pad mt4">
+          <div class="card card--quiet">
+            <div class="ttl" data-ko="내 프로필 만들기" data-vi="Tạo hồ sơ của bạn">내 프로필 만들기</div>
+            <div class="sub mt1" data-ko="매칭·추천에 사용 (언제든 변경 가능)" data-vi="Dùng để kết nối·gợi ý (có thể đổi bất cứ lúc nào)">매칭·추천에 사용 (언제든 변경 가능)</div>
+            <div class="mt3">
+              <div class="field">
+                <label for="pf-name" class="sub" data-ko="이름" data-vi="Họ tên">이름</label>
+                <input id="pf-name" type="text" class="input" placeholder="Nguyen Van Minh" autocomplete="name" required maxlength="60" data-ko-ph="이름을 입력하세요" data-vi-ph="Nhập họ tên của bạn">
+              </div>
+              <div class="field mt3">
+                <label for="pf-phone" class="sub" data-ko="휴대폰 번호" data-vi="Số điện thoại">휴대폰 번호</label>
+                <input id="pf-phone" type="tel" class="input" autocomplete="tel" inputmode="tel" required pattern="[0-9+() -]{8,20}" maxlength="20" placeholder="010-1234-5678" aria-describedby="signup-note">
+              </div>
+              <div class="field mt3">
+                <label for="pf-nat" class="sub" data-ko="국적" data-vi="Quốc tịch">국적</label>
+                <select id="pf-nat" class="input">
+                  <option value="vn">🇻🇳 베트남 · Việt Nam</option>
+                  <option value="uz">🇺🇿 우즈베키스탄 · Uzbekistan</option>
+                  <option value="ph">🇵🇭 필리핀 · Philippines</option>
+                  <option value="cn">🇨🇳 중국 · Trung Quốc</option>
+                  <option value="th">🇹🇭 태국 · Thái Lan</option>
+                  <option value="jp">🇯🇵 일본 · 日本</option>
+                  <option value="etc" data-ko="기타" data-vi="Khác">기타</option>
+                </select>
+              </div>
+              <div class="field mt3">
+                <label for="pf-bday" class="sub" data-ko="생일 (선택)" data-vi="Ngày sinh (tùy chọn)">생일 (선택)</label>
+                <input id="pf-bday" type="date" class="input" autocomplete="bday">
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <div class="cta">
+            <button class="btn" type="submit" data-ko="다음 · 약관 동의" data-vi="Tiếp theo · Điều khoản">다음 · 약관 동의</button>
+            <p class="sub center" id="signup-note" data-ko="체험용 회원가입입니다. 실제 계정 생성이나 문자 인증은 진행되지 않습니다." data-vi="Đăng ký dùng thử. Không tạo tài khoản thật hoặc gửi SMS xác minh.">체험용 회원가입입니다. 실제 계정 생성이나 문자 인증은 진행되지 않습니다.</p>
+          </div>
+        </form>
+        <div class="tail"></div>
+      </section>
+
+
 <!-- ══════════ 1. 동의 ══════════ -->
-      <section class="screen" id="s-consent">
+      <section class="screen" id="s-consent" hidden>
+        <div class="signup-top"><button class="signup-back" data-go="s-signup" data-ko="← 회원가입" data-vi="← Đăng ký">← 회원가입</button><span class="signup-step" data-ko="02 / 03 · 약관 동의" data-vi="02 / 03 · Điều khoản">02 / 03 · 약관 동의</span></div>
         <div class="hero hero--brand">
           <div class="brand-hero">
             <img class="brand-hero__logo" src="data/myconnect-logo-1-sm.png" alt="MyConnect" width="560" height="186" onerror="this.style.display='none'">
             <span class="brand-hero__poweredby">powered by <img src="data/header-logo.svg" alt="삼성화재" width="68" height="20" onerror="this.style.display='none'"></span>
           </div>
-          <div class="lang-switch mt4" aria-label="언어 선택" style="margin-left:auto;margin-right:auto;display:block;width:fit-content">
+          <div class="lang-switch consent-languages mt4" aria-label="언어 선택">
             <button data-lang-set="ko" aria-pressed="true"><span data-ko="🇰🇷 한국어" data-vi="🇰🇷 Tiếng Hàn">🇰🇷 한국어</span></button>
             <button data-lang-set="vi" aria-pressed="false">🇻🇳 Tiếng Việt</button>
+            <button type="button" data-language-preview="uz">🇺🇿 Oʻzbekcha</button>
+            <button type="button" data-language-preview="fil">🇵🇭 Filipino</button>
+            <button type="button" data-language-preview="zh">🇨🇳 中文</button>
+            <button type="button" data-language-preview="th">🇹🇭 ไทย</button>
+            <button type="button" data-language-preview="ja">🇯🇵 日本語</button>
+            <button type="button" data-language-preview="en">🌐 English</button>
           </div>
         </div>
         <div class="pad">
@@ -42,12 +112,12 @@
         </div>
         <div class="stack mt5">
           <label class="agree" data-req="1">
-            <input type="checkbox" checked>
+            <input type="checkbox">
             <span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.5 5.5L20 6.5"/></svg></span>
             <span data-ko="(필수) 서비스 이용약관 및 커뮤니티 운영정책에 동의합니다" data-vi="(Bắt buộc) Đồng ý điều khoản dịch vụ và chính sách vận hành cộng đồng">(필수) 서비스 이용약관 및 커뮤니티 운영정책에 동의합니다</span>
           </label>
           <label class="agree" data-req="1">
-            <input type="checkbox" checked>
+            <input type="checkbox">
             <span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.5 5.5L20 6.5"/></svg></span>
             <span data-ko="(필수) 개인정보 수집·이용에 동의합니다 — 수집: 이름·연락처·거주지역·사용 언어 / 목적: 소모임 매칭 / 보유: 탈퇴 시 즉시 삭제" data-vi="(Bắt buộc) Đồng ý thu thập·sử dụng thông tin cá nhân — Thu thập: tên, liên hệ, khu vực cư trú, ngôn ngữ sử dụng / Mục đích: kết nối nhóm / Lưu trữ: xóa ngay khi rút khỏi">(필수) 개인정보 수집·이용에 동의합니다 — 수집: 이름·연락처·거주지역·사용 언어 / 목적: 소모임 매칭 / 보유: 탈퇴 시 즉시 삭제</span>
           </label>
@@ -62,33 +132,6 @@
             <span data-ko="(선택) 마케팅·이벤트·세미나 알림을 받는 것에 동의합니다" data-vi="(Tùy chọn) Đồng ý nhận thông báo marketing·sự kiện·hội thảo">(선택) 마케팅·이벤트·세미나 알림을 받는 것에 동의합니다</span>
           </label>
         </div>
-        <div class="pad mt4">
-          <div class="card card--quiet">
-            <div class="ttl ttl--sm" data-ko="내 정보" data-vi="Thông tin của tôi">내 정보</div>
-            <div class="sub mt1" data-ko="매칭·추천에 사용 (언제든 변경 가능)" data-vi="Dùng để kết nối·gợi ý (có thể đổi bất cứ lúc nào)">매칭·추천에 사용 (언제든 변경 가능)</div>
-            <div class="mt3">
-              <div class="field">
-                <label for="pf-name" class="sub" data-ko="이름" data-vi="Họ tên">이름</label>
-                <input id="pf-name" type="text" class="input" placeholder="Nguyen Van Minh" value="Nguyen Van Minh" data-ko-ph="이름을 입력하세요" data-vi-ph="Nhập họ tên của bạn">
-              </div>
-              <div class="field mt3">
-                <label for="pf-nat" class="sub" data-ko="국적" data-vi="Quốc tịch">국적</label>
-                <select id="pf-nat" class="input">
-                  <option value="vn">🇻🇳 베트남 · Việt Nam</option>
-                  <option value="uz">🇺🇿 우즈베키스탄 · Uzbekistan</option>
-                  <option value="ph">🇵🇭 필리핀 · Philippines</option>
-                  <option value="cn">🇨🇳 중국 · Trung Quốc</option>
-                  <option value="th">🇹🇭 태국 · Thái Lan</option>
-                  <option value="etc" data-ko="기타" data-vi="Khác">기타</option>
-                </select>
-              </div>
-              <div class="field mt3">
-                <label for="pf-bday" class="sub" data-ko="생일" data-vi="Ngày sinh">생일</label>
-                <input id="pf-bday" type="date" class="input" value="1998-07-14">
-              </div>
-            </div>
-          </div>
-        </div>
 
         <div class="cta">
           <button class="btn" id="consentCTA" data-go="s-purpose" data-ko="동의하고 시작하기" data-vi="Đồng ý và bắt đầu">동의하고 시작하기</button>
@@ -98,6 +141,7 @@
 
       <!-- ══════════ 2. 목적 선택 ══════════ -->
       <section class="screen" id="s-purpose" hidden>
+        <div class="signup-top"><button class="signup-back" data-go="s-consent" data-ko="← 약관 동의" data-vi="← Điều khoản">← 약관 동의</button><span class="signup-step" data-ko="03 / 03 · 관심사 선택" data-vi="03 / 03 · Sở thích">03 / 03 · 관심사 선택</span></div>
         <div class="phead phead--top">
           <h2 class="t-display" data-ko="한국에서 어떤 연결을 찾고 있나요?" data-vi="Bạn tìm kiếm sự kết nối nào ở Hàn Quốc?">한국에서 어떤 연결을 찾고 있나요?</h2>
           <p class="body" data-ko="복수 선택 가능 · 선택에 따라 홈이 개인화됩니다." data-vi="Có thể chọn nhiều · Trang chủ sẽ được cá nhân hóa theo lựa chọn.">복수 선택 가능 · 선택에 따라 홈이 개인화됩니다.</p>

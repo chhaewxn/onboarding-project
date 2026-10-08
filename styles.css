@@ -696,3 +696,22 @@ body{
 .phead .mark{filter:drop-shadow(0 5px 10px rgba(23,107,255,.13))}
 .brand-hero__logo{filter:drop-shadow(0 10px 24px rgba(23,107,255,.16))}
 .emoji{font-size:0!important}
+/* Signup — shared brand tokens and glass surfaces */
+.signup-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 20px 0}
+.signup-step{font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--action)}
+.signup-intro{padding:28px 24px 0}
+.signup-logo{display:block;width:205px;height:auto;margin-bottom:4px}
+.signup-powered{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--ink-3);margin-bottom:28px}
+.signup-powered img{width:68px;height:20px;object-fit:contain}
+.signup-intro h1{max-width:340px;font-size:30px;word-break:keep-all}
+.signup-benefits{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.signup-benefits span{padding:6px 10px;border-radius:var(--r-pill);background:var(--sky-soft);color:var(--action-ink);font-size:11px;font-weight:600}
+.signup .card{background:var(--glass-bg-strong);border:1px solid var(--glass-border);box-shadow:var(--sh-glass)}
+.signup .input{font-size:16px;min-height:48px}
+.signup .cta{padding-bottom:16px}
+.signup-back{border:0;background:transparent;padding:8px 0;font:inherit;color:var(--action);cursor:pointer;font-size:13px;font-weight:600}
+.consent-languages{display:flex;flex-wrap:wrap;justify-content:center;max-width:100%;margin-inline:auto;border-radius:var(--r-sm);gap:4px}
+.consent-languages button{padding:8px 10px;min-height:28px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+:focus-visible{outline:2px solid var(--action);outline-offset:4px}
+@media(max-width:360px){.signup-top{padding-inline:16px}.signup-intro{padding-inline:20px}.signup-intro h1{font-size:27px}}
